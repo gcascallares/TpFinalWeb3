@@ -5,10 +5,11 @@
 
 <h2>Login</h2>
 
-<form action="/Login/Login" method="post">
+<form action="~/Login/Login" method="post">
     <input type="email" name="Email" /><br>
     <input type="password" name="Password" /><br>
-    <input type="checkbox" name="Profesor" value="">Soy Profesor<br>
-    <input type="button" name="Login" value="Login" />
+    <!--<input type="checkbox" name="Profesor" value="">Soy Profesor<br>!-->
+    <input type="submit" value="Login" />
 </form>
+@ViewBag.MensajeError
 

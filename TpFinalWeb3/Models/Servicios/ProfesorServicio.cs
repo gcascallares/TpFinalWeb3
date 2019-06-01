@@ -9,7 +9,14 @@ namespace TpFinalWeb3.Models.Servicios
     {
         public int VerificarProfesorLogin(Profesor buscado)
         {
-            return buscado.IdProfesor;
+            MyContext ctx = new MyContext();
+            Profesor profesorDb = ctx.Profesor.SingleOrDefault(x => x.Email == buscado.Email);
+            if (profesorDb.Email == buscado.Email && profesorDb.Password == buscado.Password)
+            {
+                return buscado.IdProfesor;
+            }
+            return 0;
+
         }
     }
 }

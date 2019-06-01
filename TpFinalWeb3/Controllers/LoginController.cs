@@ -19,18 +19,28 @@ namespace TpFinalWeb3.Controllers
         [HttpPost]
         public ActionResult Login(FormCollection usuario)
         {
-            string value = usuario["Profesor"];
-            if(value == "True"){
+            /*string value = usuario["Profesor"];
+            if (value == "True")
+            {
                 Profesor profesor = new Profesor();
                 profesor.Email = usuario["Email"];
                 profesor.Password = usuario["Password"];
-                profesorServicio.VerificarProfesorLogin(profesor);
-                return View();
+                if (profesorServicio.VerificarProfesorLogin(profesor) != 0)
+                {
+                 return RedirectToAction("HomeProfesor");
+                }
             }
-            Alumno alumno = new Alumno();
-            alumno.Email = usuario["Email"];
-            alumno.Password = usuario["Password"];
-            alumnoServicio.VerificarAlumnoLogin(alumno);
+            if (value == "False")
+            {*/
+                Alumno alumno = new Alumno();
+                alumno.Email = usuario["Email"];
+                alumno.Password = usuario["Password"];
+                if (alumnoServicio.VerificarAlumnoLogin(alumno) != 0)
+                {
+                    return RedirectToAction("HomeAlumno");
+                }
+            //}
+            ViewBag.MensajeError = "error usuario y/o contraseña";
             return View();
         }
     }
