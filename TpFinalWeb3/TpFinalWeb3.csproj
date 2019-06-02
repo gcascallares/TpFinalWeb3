@@ -229,11 +229,13 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Login\Login.cshtml" />
-    <Content Include="Views\Profesor\HomeProfesor.cshtml" />
-    <Content Include="Views\Alumno\HomeAlumno.cshtml" />
+    <Content Include="Views\Login\ProfesorIndex.cshtml" />
+    <Content Include="Views\Login\AlumnoIndex.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Alumno\" />
+    <Folder Include="Views\Profesor\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

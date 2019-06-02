@@ -9,9 +9,6 @@ namespace TpFinalWeb3.Controllers
     public class AlumnoController : Controller
     {
         // GET: Alumno
-        public ActionResult HomeAlumno()
-        {
-            return View();
-        }
+
     }
 }

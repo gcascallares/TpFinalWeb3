@@ -12,11 +12,22 @@ namespace TpFinalWeb3.Models.Servicios
         {
             MyContext ctx = new MyContext();
             Alumno alumnoDb = ctx.Alumno.SingleOrDefault(x => x.Email == buscado.Email);
-            if(alumnoDb.Email == buscado.Email && alumnoDb.Password == buscado.Password)
+            if(alumnoDb != null)
+            {
+                if (alumnoDb.Email == buscado.Email && alumnoDb.Password == buscado.Password)
                 {
-                return buscado.IdAlumno;
+                    return alumnoDb.IdAlumno;
+                }
+                else
+                {
+                    return 0;
+                }
             }
-            return 0;
+            else
+            {
+                return 0;
+            }
+
         }
     }
 }

@@ -9,9 +9,6 @@ namespace TpFinalWeb3.Controllers
     public class ProfesorController : Controller
     {
         // GET: Profesor
-        public ActionResult HomeProfesor()
-        {
-            return View();
-        }
+
     }
 }

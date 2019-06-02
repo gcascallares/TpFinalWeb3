@@ -11,11 +11,21 @@ namespace TpFinalWeb3.Models.Servicios
         {
             MyContext ctx = new MyContext();
             Profesor profesorDb = ctx.Profesor.SingleOrDefault(x => x.Email == buscado.Email);
-            if (profesorDb.Email == buscado.Email && profesorDb.Password == buscado.Password)
+            if(profesorDb != null)
             {
-                return buscado.IdProfesor;
+                if (profesorDb.Email == buscado.Email && profesorDb.Password == buscado.Password)
+                {
+                    return buscado.IdProfesor;
+                }
+                else
+                {
+                    return 0;
+                }
             }
-            return 0;
+            else
+            {
+                return 0;
+            }
 
         }
     }

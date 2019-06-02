@@ -17,30 +17,53 @@ namespace TpFinalWeb3.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult Login(string Email, String Password)
+        public ActionResult Login(string Email, string Password)
         {
-            /*string value = usuario["Profesor"];
-            if (value == "True")
+            
+            if (Request.Form["Profesor"] != null)
             {
                 Profesor profesor = new Profesor();
-                profesor.Email = usuario["Email"];
-                profesor.Password = usuario["Password"];
+                profesor.Email = Email;
+                profesor.Password = Password;
                 if (profesorServicio.VerificarProfesorLogin(profesor) != 0)
                 {
-                 return RedirectToAction("HomeProfesor");
+                     return RedirectToAction("HomeProfesor");
+                }
+                else
+                {
+                    ViewBag.MensajeError = "error usuario y/o contraseña";
+                    return View();
                 }
             }
-            if (value == "False")
-            {*/
+            else if (Request.Form["Profesor"] == null)
+            {
                 Alumno alumno = new Alumno();
                 alumno.Email = Email;
                 alumno.Password = Password;
-                if (alumnoServicio.VerificarAlumnoLogin(alumno) != 0)
+                if (alumnoServicio.VerificarAlumnoLogin(alumno) > 0)
                 {
-                    return RedirectToAction("HomeAlumno");
+                    return RedirectToAction("AlumnoIndex");
                 }
-            //}
-            ViewBag.MensajeError = "error usuario y/o contraseña";
+                else
+                {
+                    ViewBag.MensajeError = "error usuario y/o contraseña";
+                    return View();
+                }
+            }
+            else
+            {
+                ViewBag.MensajeError = "error usuario y/o contraseña";
+                return View();
+            }
+        }
+
+        public ActionResult AlumnoIndex()
+        {
+            return View();
+        }
+
+        public ActionResult ProfesorIndex()
+        {
             return View();
         }
     }
