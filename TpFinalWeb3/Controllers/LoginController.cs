@@ -17,36 +17,34 @@ namespace TpFinalWeb3.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult Login(string Email, string Password, int[] profesor = null)
+        public ActionResult Login(LoginServicio login)
         {
-            if (profesor == null)
+            if (login.CheckProfesor is true)
             {
-                Alumno alumno = new Alumno();
-                alumno.Email = Email;
-                alumno.Password = Password;
-                if (alumnoServicio.VerificarAlumnoLogin(alumno) > 0)
+                if (profesorServicio.VerificarProfesorLogin(login) is null)
                 {
-                    return RedirectToAction("AlumnoIndex");
+                    ViewBag.MensajeError = "Email y/o Contraseña inválidos";
+                    return View();
                 }
                 else
                 {
-                    ViewBag.MensajeError = "error usuario y/o contraseña";
-                    return View();
+                    Profesor profesor = new Profesor();
+                    profesor = profesorServicio.VerificarProfesorLogin(login);
+                    return RedirectToAction("ProfesorIndex", profesor);
                 }
             }
             else
             {
-                Profesor profesorLogin = new Profesor();
-                profesorLogin.Email = Email;
-                profesorLogin.Password = Password;
-                if (profesorServicio.VerificarProfesorLogin(profesorLogin) != 0)
+                if (alumnoServicio.VerificarAlumnoLogin(login) is null)
                 {
-                    return RedirectToAction("ProfesorIndex");
+                    ViewBag.MensajeError = "Email y/o Contraseña inválidos";
+                    return View();
                 }
                 else
                 {
-                    ViewBag.MensajeError = "error usuario y/o contraseña";
-                    return View();
+                    Alumno alumno = new Alumno();
+                    alumno = alumnoServicio.VerificarAlumnoLogin(login);
+                    return RedirectToAction("AlumnoIndex", alumno);
                 }
             }
         }

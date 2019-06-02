@@ -157,6 +157,7 @@
       <DependentUpon>ModelBD.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\Servicios\AlumnoServicio.cs" />
+    <Compile Include="Models\Servicios\LoginServicio.cs" />
     <Compile Include="Models\Servicios\ProfesorServicio.cs" />
     <Compile Include="Pregunta.cs">
       <DependentUpon>ModelBD.tt</DependentUpon>
