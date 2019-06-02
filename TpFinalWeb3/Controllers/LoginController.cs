@@ -17,7 +17,7 @@ namespace TpFinalWeb3.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult Login(FormCollection usuario)
+        public ActionResult Login(string Email, String Password)
         {
             /*string value = usuario["Profesor"];
             if (value == "True")
@@ -33,8 +33,8 @@ namespace TpFinalWeb3.Controllers
             if (value == "False")
             {*/
                 Alumno alumno = new Alumno();
-                alumno.Email = usuario["Email"];
-                alumno.Password = usuario["Password"];
+                alumno.Email = Email;
+                alumno.Password = Password;
                 if (alumnoServicio.VerificarAlumnoLogin(alumno) != 0)
                 {
                     return RedirectToAction("HomeAlumno");
