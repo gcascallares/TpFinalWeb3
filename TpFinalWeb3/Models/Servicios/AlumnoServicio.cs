@@ -11,17 +11,10 @@ namespace TpFinalWeb3.Models.Servicios
         public int VerificarAlumnoLogin(Alumno buscado)
         {
             MyContext ctx = new MyContext();
-            Alumno alumnoDb = ctx.Alumno.SingleOrDefault(x => x.Email == buscado.Email);
+            Alumno alumnoDb = ctx.Alumno.SingleOrDefault(x => x.Email == buscado.Email && x.Password == buscado.Password);
             if(alumnoDb != null)
             {
-                if (alumnoDb.Email == buscado.Email && alumnoDb.Password == buscado.Password)
-                {
-                    return alumnoDb.IdAlumno;
-                }
-                else
-                {
-                    return 0;
-                }
+                return alumnoDb.IdAlumno;
             }
             else
             {

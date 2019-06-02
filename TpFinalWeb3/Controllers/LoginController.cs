@@ -17,25 +17,9 @@ namespace TpFinalWeb3.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult Login(string Email, string Password)
+        public ActionResult Login(string Email, string Password, int[] profesor = null)
         {
-            
-            if (Request.Form["Profesor"] != null)
-            {
-                Profesor profesor = new Profesor();
-                profesor.Email = Email;
-                profesor.Password = Password;
-                if (profesorServicio.VerificarProfesorLogin(profesor) != 0)
-                {
-                     return RedirectToAction("HomeProfesor");
-                }
-                else
-                {
-                    ViewBag.MensajeError = "error usuario y/o contraseña";
-                    return View();
-                }
-            }
-            else if (Request.Form["Profesor"] == null)
+            if (profesor == null)
             {
                 Alumno alumno = new Alumno();
                 alumno.Email = Email;
@@ -52,8 +36,18 @@ namespace TpFinalWeb3.Controllers
             }
             else
             {
-                ViewBag.MensajeError = "error usuario y/o contraseña";
-                return View();
+                Profesor profesorLogin = new Profesor();
+                profesorLogin.Email = Email;
+                profesorLogin.Password = Password;
+                if (profesorServicio.VerificarProfesorLogin(profesorLogin) != 0)
+                {
+                    return RedirectToAction("ProfesorIndex");
+                }
+                else
+                {
+                    ViewBag.MensajeError = "error usuario y/o contraseña";
+                    return View();
+                }
             }
         }
 
