@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="TP_20191CModelStoreContainer" CdmEntityContainer="MyContext">
-    <EntitySetMapping Name="Alumnos">
+    <EntitySetMapping Name="Alumno">
       <EntityTypeMapping TypeName="TP_20191CModel.Alumno">
         <MappingFragment StoreEntitySet="Alumno">
           <ScalarProperty Name="IdAlumno" ColumnName="IdAlumno" />
@@ -19,7 +19,7 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Clases">
+    <EntitySetMapping Name="Clase">
       <EntityTypeMapping TypeName="TP_20191CModel.Clase">
         <MappingFragment StoreEntitySet="Clase">
           <ScalarProperty Name="IdClase" ColumnName="IdClase" />
@@ -28,7 +28,7 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Preguntas">
+    <EntitySetMapping Name="Pregunta">
       <EntityTypeMapping TypeName="TP_20191CModel.Pregunta">
         <MappingFragment StoreEntitySet="Pregunta">
           <ScalarProperty Name="IdPregunta" ColumnName="IdPregunta" />
@@ -45,7 +45,7 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Profesores">
+    <EntitySetMapping Name="Profesor">
       <EntityTypeMapping TypeName="TP_20191CModel.Profesor">
         <MappingFragment StoreEntitySet="Profesor">
           <ScalarProperty Name="IdProfesor" ColumnName="IdProfesor" />
@@ -58,7 +58,7 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="RespuestaAlumnos">
+    <EntitySetMapping Name="RespuestaAlumno">
       <EntityTypeMapping TypeName="TP_20191CModel.RespuestaAlumno">
         <MappingFragment StoreEntitySet="RespuestaAlumno">
           <ScalarProperty Name="IdRespuestaAlumno" ColumnName="IdRespuestaAlumno" />
@@ -76,7 +76,7 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="ResultadoEvaluaciones">
+    <EntitySetMapping Name="ResultadoEvaluacion">
       <EntityTypeMapping TypeName="TP_20191CModel.ResultadoEvaluacion">
         <MappingFragment StoreEntitySet="ResultadoEvaluacion">
           <ScalarProperty Name="IdResultadoEvaluacion" ColumnName="IdResultadoEvaluacion" />
@@ -84,7 +84,7 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Temas">
+    <EntitySetMapping Name="Tema">
       <EntityTypeMapping TypeName="TP_20191CModel.Tema">
         <MappingFragment StoreEntitySet="Tema">
           <ScalarProperty Name="IdTema" ColumnName="IdTema" />

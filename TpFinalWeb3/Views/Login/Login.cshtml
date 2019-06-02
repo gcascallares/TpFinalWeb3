@@ -1,14 +1,17 @@
-﻿
+﻿@model TpFinalWeb3.Models.Servicios.LoginServicio
 @{
     ViewBag.Title = "Login";
 }
 
 <h2>Login</h2>
 
-<form action="/Login/Login" method="post">
+<form action="~/Login/Login" method="post">
+    @Html.ValidationMessageFor(Model => Model.Email)
     <input type="email" name="Email" /><br>
+    @Html.ValidationMessageFor(Model => Model.Password)
     <input type="password" name="Password" /><br>
-    <input type="checkbox" name="Profesor" value="">Soy Profesor<br>
-    <input type="button" name="Login" value="Login" />
+    <input type="checkbox" name="CheckProfesor" value="1">Soy Profesor<br>
+    <input type="submit" value="Login" />
 </form>
+@ViewBag.MensajeError
 

@@ -134,8 +134,10 @@
     <Compile Include="Clase.cs">
       <DependentUpon>ModelBD.tt</DependentUpon>
     </Compile>
+    <Compile Include="Controllers\AlumnoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\ProfesorController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -155,6 +157,7 @@
       <DependentUpon>ModelBD.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\Servicios\AlumnoServicio.cs" />
+    <Compile Include="Models\Servicios\LoginServicio.cs" />
     <Compile Include="Models\Servicios\ProfesorServicio.cs" />
     <Compile Include="Pregunta.cs">
       <DependentUpon>ModelBD.tt</DependentUpon>
@@ -227,9 +230,13 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Login\Login.cshtml" />
+    <Content Include="Views\Login\ProfesorIndex.cshtml" />
+    <Content Include="Views\Login\AlumnoIndex.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Alumno\" />
+    <Folder Include="Views\Profesor\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

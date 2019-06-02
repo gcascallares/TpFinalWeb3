@@ -17,21 +17,46 @@ namespace TpFinalWeb3.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult Login(FormCollection usuario)
+        public ActionResult Login(LoginServicio login)
         {
-            string value = usuario["Profesor"];
-            if(value == "True"){
-                Profesor profesor = new Profesor();
-                profesor.Email = usuario["Email"];
-                profesor.Password = usuario["Password"];
-                profesorServicio.VerificarProfesorLogin(profesor);
-                return View();
+            if (login.CheckProfesor == 1)
+            {
+                if (profesorServicio.VerificarProfesorLogin(login) is null)
+                {
+                    ViewBag.MensajeError = "Email y/o Contraseña inválidos";
+                    return View();
+                }
+                else
+                {
+                    Profesor profesor = new Profesor();
+                    profesor = profesorServicio.VerificarProfesorLogin(login);
+                    return RedirectToAction("ProfesorIndex", profesor);
+                }
             }
-            Alumno alumno = new Alumno();
-            alumno.Email = usuario["Email"];
-            alumno.Password = usuario["Password"];
-            alumnoServicio.VerificarAlumnoLogin(alumno);
-            return View();
+            else
+            {
+                if (alumnoServicio.VerificarAlumnoLogin(login) is null)
+                {
+                    ViewBag.MensajeError = "Email y/o Contraseña inválidos";
+                    return View();
+                }
+                else
+                {
+                    Alumno alumno = new Alumno();
+                    alumno = alumnoServicio.VerificarAlumnoLogin(login);
+                    return RedirectToAction("AlumnoIndex", alumno);
+                }
+            }
+        }
+
+        public ActionResult AlumnoIndex(Alumno alumno)
+        {
+            return View(alumno);
+        }
+
+        public ActionResult ProfesorIndex(Profesor profesor)
+        {
+            return View(profesor);
         }
     }
 }
