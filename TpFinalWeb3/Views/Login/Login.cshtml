@@ -10,7 +10,7 @@
     <input type="email" name="Email" /><br>
     @Html.ValidationMessageFor(Model => Model.Password)
     <input type="password" name="Password" /><br>
-    <input type="checkbox" name="CheckProfesor" hiddenfor="CheckProfesor">Soy Profesor<br>
+    <input type="checkbox" name="CheckProfesor" value="1">Soy Profesor<br>
     <input type="submit" value="Login" />
 </form>
 @ViewBag.MensajeError

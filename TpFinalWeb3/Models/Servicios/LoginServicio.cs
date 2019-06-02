@@ -19,6 +19,6 @@ namespace TpFinalWeb3.Models.Servicios
         [Display(Name = "Contraseña")]
         public string Password { get; set; }
 
-        public bool CheckProfesor { get; set; } = false;
+        public int CheckProfesor { get; set; }
     }
 }

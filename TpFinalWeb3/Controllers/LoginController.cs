@@ -19,7 +19,7 @@ namespace TpFinalWeb3.Controllers
         [HttpPost]
         public ActionResult Login(LoginServicio login)
         {
-            if (login.CheckProfesor is true)
+            if (login.CheckProfesor == 1)
             {
                 if (profesorServicio.VerificarProfesorLogin(login) is null)
                 {
@@ -49,14 +49,14 @@ namespace TpFinalWeb3.Controllers
             }
         }
 
-        public ActionResult AlumnoIndex()
+        public ActionResult AlumnoIndex(Alumno alumno)
         {
-            return View();
+            return View(alumno);
         }
 
-        public ActionResult ProfesorIndex()
+        public ActionResult ProfesorIndex(Profesor profesor)
         {
-            return View();
+            return View(profesor);
         }
     }
 }
