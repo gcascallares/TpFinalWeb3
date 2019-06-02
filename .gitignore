@@ -23,4 +23,7 @@ $RECYCLE.BIN/
 # =========================
 .vs/TpFinalWeb3/v16/Server/sqlite3/db.lock
 .vs/TpFinalWeb3/v16/Server/sqlite3/storage.ide-shm
+<<<<<<< HEAD
+=======
 .vs/TpFinalWeb3/v16/Server/sqlite3/storage.ide-shm
+>>>>>>> refs/remotes/origin/master
