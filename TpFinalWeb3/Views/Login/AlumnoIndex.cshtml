@@ -6,4 +6,25 @@
 
 <h2>AlumnoIndex</h2>
 <h2>Bienvenido @Model.Nombre</h2>
+<table>
+    @{int posicion = 1; }
+    <tr>
+        <td> posicion </td>
+        <td> Alumno </td>
+        <td> Puntos </td>
+        <td> Respuestas Bien </td>
+        <td> Mejor Respuesta </td>
+    </tr>
+    @foreach (Alumno item in ViewBag.TodosLosAlumnos)
+    {
+        <tr>
+            <td> @posicion </td>
+            <td> @item.Nombre @item.Apellido </td>
+            <td> @item.PuntosTotales </td>
+            <td> @item.CantidadRespuestasCorrectas </td>
+            <td> @item.CantidadMejorRespuesta </td>
+        </tr>
+        posicion += 1;
+    }
+</table>
 

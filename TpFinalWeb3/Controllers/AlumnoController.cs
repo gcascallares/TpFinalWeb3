@@ -8,7 +8,6 @@ namespace TpFinalWeb3.Controllers
 {
     public class AlumnoController : Controller
     {
-        // GET: Alumno
 
     }
 }
