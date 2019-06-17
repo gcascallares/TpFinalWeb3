@@ -232,11 +232,12 @@
     <Content Include="Views\Login\Login.cshtml" />
     <Content Include="Views\Login\ProfesorIndex.cshtml" />
     <Content Include="Views\Login\AlumnoIndex.cshtml" />
+    <Content Include="Views\Profesor\Preguntas.cshtml" />
+    <Content Include="Views\Profesor\PreguntasCrear.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Alumno\" />
-    <Folder Include="Views\Profesor\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
