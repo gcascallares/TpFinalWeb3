@@ -29,17 +29,23 @@ namespace TpFinalWeb3.Controllers
         public ActionResult PreguntasCrear(Pregunta p, int [] ListaClases, int [] ListaTemas)
         {
             MyContext ctx = new MyContext();
-            ctx.Pregunta.Add(p);
             foreach (int IdClase in ListaClases)
             {
-                Clase c = ctx.Clase.Find(IdClase);
+                Clase c = new Clase();
+                c = ctx.Clase.Find(IdClase);
                 p.Clase = c;
             }
             foreach (int IdTema in ListaTemas)
             {
-                Tema t = ctx.Tema.Find(IdTema);
+                Tema t = new Tema();
+                t = ctx.Tema.Find(IdTema);
                 p.Tema = t;
             }
+            p.IdProfesorCreacion = 1;
+            p.FechaHoraCreacion = DateTime.Now;
+            p.Nro = p.Nro;
+            p.Pregunta1 = p.Pregunta1;
+            ctx.Pregunta.Add(p);
             ctx.SaveChanges();
             return RedirectToAction("Preguntas");
         }

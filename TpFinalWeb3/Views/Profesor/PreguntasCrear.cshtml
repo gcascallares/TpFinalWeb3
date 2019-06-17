@@ -5,7 +5,7 @@
 
 <h2>PreguntasCrear</h2>
 <form action="/Profesor/PreguntasCrear" method="post">
-    Nro:<input type="text" name="nombre" value="@ViewBag.NroPregunta" /><br />
+    Nro:<input type="text" name="Nro" value="@ViewBag.NroPregunta" /><br />
     Clase:<select name="ListaClases">
         @foreach (Clase c in ViewBag.ListaClases)
         {
@@ -20,7 +20,9 @@
         }
     </select>
     <br />
-    Pregunta:<input type="text" name="@Model.Pregunta1" /><br />
+    Disponible desde: <input type="datetime" name="FechaDisponibleDesde" value="" /><br />
+    Hasta: <input type="datetime" name="FechaDisponibleHasta" value="" /><br />
+    Pregunta:<input type="text" name="Pregunta1" value="" /><br />
     <input type="submit" name="Crear" value="Crear" /><br />
 </form>
 <a href="/Profesor/PreguntasCrear"><input type="submit" name="Cancelar" value="Cancelar" /></a>
