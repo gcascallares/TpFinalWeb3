@@ -53,8 +53,7 @@ namespace TpFinalWeb3.Controllers
         public ActionResult ModificarPregunta(int? IdPregunta)
         {
             MyContext ctx = new MyContext();
-            Pregunta p = new Pregunta();
-            p = ctx.Pregunta.Find(IdPregunta);
+            Pregunta p = ctx.Pregunta.FirstOrDefault(x=>x.IdPregunta == IdPregunta);
             ViewBag.ListaClases = ctx.Clase.ToList();
             ViewBag.ListaTemas = ctx.Tema.ToList();
             return View(p);

@@ -1,12 +1,12 @@
 ﻿@model TpFinalWeb3.Pregunta
-
 @{
     ViewBag.Title = "ModificarPregunta";
 }
 
 <h2>ModificarPregunta</h2>
+
 <form action="/Profesor/ModificarPregunta" method="post">
-    Nro:<input type="text" name="Nro" value="@ViewBag.NroPregunta" required /><br />
+    Nro:<input type="text" name="Nro" value="@Model.Nro" required /><br />
     Clase:<select name="ListaClases" required>
         @foreach (Clase c in ViewBag.ListaClases)
         {
@@ -27,4 +27,6 @@
     <input type="submit" name="Modificar" value="Modificar" /><br />
 </form>
 <a href="/Profesor/Preguntas"><input type="submit" name="Cancelar" value="Cancelar" /></a>
+
+
 
