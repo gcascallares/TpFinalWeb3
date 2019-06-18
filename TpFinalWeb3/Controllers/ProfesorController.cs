@@ -50,5 +50,39 @@ namespace TpFinalWeb3.Controllers
             return RedirectToAction("Preguntas");
         }
 
+        public ActionResult ModificarPregunta(int? IdPregunta)
+        {
+            MyContext ctx = new MyContext();
+            Pregunta p = new Pregunta();
+            p = ctx.Pregunta.Find(IdPregunta);
+            ViewBag.ListaClases = ctx.Clase.ToList();
+            ViewBag.ListaTemas = ctx.Tema.ToList();
+            return View(p);
+        }
+
+        [HttpPost]
+        public ActionResult ModificarPregunta(Pregunta p, int[] ListaClases, int[] ListaTemas)
+        {
+            MyContext ctx = new MyContext();
+            foreach (int IdClase in ListaClases)
+            {
+                Clase c = new Clase();
+                c = ctx.Clase.Find(IdClase);
+                p.Clase = c;
+            }
+            foreach (int IdTema in ListaTemas)
+            {
+                Tema t = new Tema();
+                t = ctx.Tema.Find(IdTema);
+                p.Tema = t;
+            }
+            p.IdProfesorModificacion = (int)Session["idLogueado"];
+            p.FechaHoraModificacion = DateTime.Now;
+            p.Nro = p.Nro;
+            p.Pregunta1 = p.Pregunta1;
+            ctx.Pregunta.Add(p);
+            ctx.SaveChanges();
+            return RedirectToAction("Preguntas");
+        }
     }
 }
