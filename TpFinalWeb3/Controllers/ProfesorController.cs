@@ -41,7 +41,7 @@ namespace TpFinalWeb3.Controllers
                 t = ctx.Tema.Find(IdTema);
                 p.Tema = t;
             }
-            p.IdProfesorCreacion = 1;
+            p.IdProfesorCreacion = (int)Session["idLogueado"];
             p.FechaHoraCreacion = DateTime.Now;
             p.Nro = p.Nro;
             p.Pregunta1 = p.Pregunta1;
