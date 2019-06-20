@@ -4,7 +4,7 @@
 }
 
 <h2>Preguntas</h2>
-<a href="#">Crear Pregunta</a>
+<a href="/Profesor/PreguntasCrear">Crear Pregunta</a>
 <table>
     @{int posicion = 1; }
     <tr>
@@ -19,16 +19,17 @@
     </tr>
     @foreach (Pregunta item in ViewBag.Preguntas)
     {
-<tr>
-    <td> @posicion </td>
-    <td> @item.Clase.Nombre </td>
-    <td> @item.Tema.Nombre </td>
-    <td> @item.Pregunta1 </td>
-    <td> @item.FechaDisponibleDesde </td>
-    <td> @item.FechaDisponibleHasta </td>
-    <td> <a href="#">¿?</a> </td>
-    <td> <a href="#">X</a> </td>
-</tr>
+        <tr>
+            <td> @posicion </td>
+            <td> @item.Clase.Nombre </td>
+            <td> @item.Tema.Nombre </td>
+            <td> @item.Pregunta1 </td>
+            <td> @item.FechaDisponibleDesde </td>
+            <td> @item.FechaDisponibleHasta </td>
+            <td> <a href="#">¿?</a> </td>
+            <td> <a href="#">X</a> </td>
+        </tr>
         posicion += 1;
     }
 </table>
+@Html.Partial("pv_Footer")

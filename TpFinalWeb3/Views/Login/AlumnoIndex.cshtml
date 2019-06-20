@@ -27,4 +27,14 @@
         posicion += 1;
     }
 </table>
+<br />
+<h1>Ultimas dos preguntas</h1>
+@foreach (Pregunta p in ViewBag.DosPreguntas)
+{
 
+<h3>@p.IdPregunta.@p.Pregunta1</h3>
+   
+}
+
+
+@Html.Partial("pv_Footer")
