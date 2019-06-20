@@ -1,0 +1,37 @@
+﻿
+@{
+    ViewBag.Title = "Preguntas";
+}
+
+<h2>Preguntas</h2>
+<a href="#">Crear Pregunta</a>
+<h2>
+    @ViewBag.MensajeError
+</h2>
+    <table>
+        @{int posicion = 1; }
+        <tr>
+            <td> Nro </td>
+            <td> Clase </td>
+            <td> Tema </td>
+            <td> Pregunta </td>
+            <td> Fecha Desde </td>
+            <td> Fecha Hasta </td>
+            <td> Evaluar </td>
+            <td> Eliminar </td>
+        </tr>
+        @foreach (Pregunta item in ViewBag.Preguntas)
+        {
+            <tr>
+                <td> @posicion </td>
+                <td> @item.Clase.Nombre </td>
+                <td> @item.Tema.Nombre </td>
+                <td> <a href="/Profesor/ModificarPregunta/@item.IdPregunta">@item.Pregunta1 </a></td>
+                <td> @item.FechaDisponibleDesde </td>
+                <td> @item.FechaDisponibleHasta </td>
+                <td> <a href="#">¿?</a> </td>
+                <td> <a href="/Profesor/EliminarPregunta/@item.IdPregunta">X</a> </td>
+            </tr>
+            posicion += 1;
+        }
+    </table>

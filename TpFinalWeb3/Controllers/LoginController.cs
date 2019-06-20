@@ -53,19 +53,26 @@ namespace TpFinalWeb3.Controllers
         public ActionResult AlumnoIndex(Alumno alumno)
         {
             Session["idLogueado"] = alumno.IdAlumno;
+            int id = (int)Session["idLogueado"];
             MyContext ctx = new MyContext();
             /*List <Pregunta> preguntas = ctx.Pregunta.ToList();
             var p = preguntas.Where(preg => preg.FechaDisponibleHasta < DateTime.Now);
             ViewBag.Preguntas = p;*/
+<<<<<<< HEAD
 
             ViewBag.TodosLosAlumnos = ctx.Alumno.ToList();
             ViewBag.DosPreguntas = alumnoServicio.ultimasDosPreguntas();
 
+=======
+            ViewBag.PreguntasSinRespuesta = alumnoServicio.PreguntasSinResponder(id);
+            ViewBag.TablaDePosiciones = alumnoServicio.TablaDePosiciones();
+>>>>>>> master
             return View(alumno);
         }
 
         public ActionResult ProfesorIndex(Profesor profesor)
         {
+            Session["idLogueado"] = profesor.IdProfesor;
             return View(profesor);
         }
     }

@@ -15,7 +15,7 @@
         <td> Respuestas Bien </td>
         <td> Mejor Respuesta </td>
     </tr>
-    @foreach (Alumno item in ViewBag.TodosLosAlumnos)
+    @foreach (Alumno item in ViewBag.TablaDePosiciones)
     {
         <tr>
             <td> @posicion </td>
@@ -32,9 +32,16 @@
 @foreach (Pregunta p in ViewBag.DosPreguntas)
 {
 
+<<<<<<< HEAD
 <h3>@p.IdPregunta.@p.Pregunta1</h3>
    
 }
 
 
 @Html.Partial("pv_Footer")
+=======
+    @foreach (Pregunta item in ViewBag.PreguntasSinRespuesta)
+    {
+        <h3>@item.Pregunta1</h3>
+    }
+>>>>>>> master

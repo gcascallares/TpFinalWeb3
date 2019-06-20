@@ -1,0 +1,30 @@
+﻿@model TpFinalWeb3.Pregunta
+@{
+    ViewBag.Title = "PreguntasCrear";
+}
+
+<h2>PreguntasCrear</h2>
+<form action="/Profesor/PreguntasCrear" method="post">
+    Nro:<input type="text" name="Nro" value="@ViewBag.NroPregunta" required /><br />
+    Clase:<select name="ListaClases" required>
+        @foreach (Clase c in ViewBag.ListaClases)
+        {
+            <option value="@c.IdClase">@c.Nombre</option>
+        }
+    </select>
+    <br />
+    Tema:<select name="ListaTemas" required>
+        @foreach (Tema t in ViewBag.ListaTemas)
+        {
+            <option value="@t.IdTema">@t.Nombre</option>
+        }
+    </select>
+    <br />
+    Disponible desde: <input type="datetime" name="FechaDisponibleDesde" value="" /><br />
+    Hasta: <input type="datetime" name="FechaDisponibleHasta" value="" /><br />
+    Pregunta:<input type="text" name="Pregunta1" value="" required /><br />
+    <input type="submit" name="Crear" value="Crear" /><br />
+</form>
+<a href="/Profesor/PreguntasCrear"><input type="submit" name="Cancelar" value="Cancelar" /></a>
+
+
