@@ -22,5 +22,27 @@ namespace TpFinalWeb3.Models.Servicios
             }
 
         }
+
+        public List<Alumno> TablaDePosiciones()
+        {
+            MyContext ctx = new MyContext();
+            List<Alumno> tablaDePosiciones = new List<Alumno>();
+            tablaDePosiciones = ctx.Alumno.OrderByDescending(x => x.CantidadMejorRespuesta).OrderByDescending(x => x.CantidadRespuestasCorrectas).OrderByDescending(x => x.PuntosTotales).ToList();
+            return tablaDePosiciones;
+        }
+
+        public List<Pregunta> PreguntasSinResponder(int id)
+        {
+            MyContext ctx = new MyContext();
+            List<Pregunta> preguntasSinResponder = new List<Pregunta>();
+              var preguntasSR =(
+                from p in ctx.Pregunta
+                join r in ctx.RespuestaAlumno on p.IdPregunta equals r.IdPregunta
+                join a in ctx.Alumno on r.IdAlumno equals a.IdAlumno
+                where a.IdAlumno != id
+                select p).Distinct();
+            preguntasSinResponder = preguntasSR.ToList();
+            return preguntasSinResponder;
+        }
     }
 }
