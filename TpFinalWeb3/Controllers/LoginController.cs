@@ -62,6 +62,7 @@ namespace TpFinalWeb3.Controllers
 
         public ActionResult ProfesorIndex(Profesor profesor)
         {
+            Session["idLogueado"] = profesor.IdProfesor;
             return View(profesor);
         }
     }

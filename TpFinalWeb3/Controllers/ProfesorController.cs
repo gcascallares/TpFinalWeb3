@@ -14,6 +14,7 @@ namespace TpFinalWeb3.Controllers
             ViewBag.Preguntas = ctx.Pregunta.ToList();
             return View();
         }
+        
         //[ActionName("Preguntas/Crear")]
         public ActionResult PreguntasCrear()
         {
@@ -41,7 +42,7 @@ namespace TpFinalWeb3.Controllers
                 t = ctx.Tema.Find(IdTema);
                 p.Tema = t;
             }
-            p.IdProfesorCreacion = 1;
+            p.IdProfesorCreacion = (int)Session["idLogueado"];
             p.FechaHoraCreacion = DateTime.Now;
             p.Nro = p.Nro;
             p.Pregunta1 = p.Pregunta1;
@@ -50,5 +51,23 @@ namespace TpFinalWeb3.Controllers
             return RedirectToAction("Preguntas");
         }
 
+        public ActionResult EliminarPregunta(int id)
+        {
+            MyContext ctx = new MyContext();
+            Pregunta p = ctx.Pregunta.FirstOrDefault(x => x.IdPregunta == id);
+            if(p.RespuestaAlumno.Count()==0)
+            {
+                ctx.Pregunta.Remove(p);
+                ctx.SaveChanges();
+                return RedirectToAction("Preguntas");
+            }
+            else
+            {
+                string mensajeError = "No puede elminar preguntas con respuestas";
+                ViewBag.Preguntas = ctx.Pregunta.ToList();
+                ViewBag.MensajeError = mensajeError;
+                return View("Preguntas");
+            }
+        }
     }
 }
