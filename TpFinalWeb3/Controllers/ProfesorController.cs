@@ -14,6 +14,7 @@ namespace TpFinalWeb3.Controllers
             ViewBag.Preguntas = ctx.Pregunta.ToList();
             return View();
         }
+        
         //[ActionName("Preguntas/Crear")]
         public ActionResult PreguntasCrear()
         {
@@ -50,38 +51,23 @@ namespace TpFinalWeb3.Controllers
             return RedirectToAction("Preguntas");
         }
 
-        public ActionResult ModificarPregunta(int? IdPregunta)
+        public ActionResult EliminarPregunta(int id)
         {
             MyContext ctx = new MyContext();
-            Pregunta p = ctx.Pregunta.FirstOrDefault(x=>x.IdPregunta == IdPregunta);
-            ViewBag.ListaClases = ctx.Clase.ToList();
-            ViewBag.ListaTemas = ctx.Tema.ToList();
-            return View(p);
-        }
-
-        [HttpPost]
-        public ActionResult ModificarPregunta(Pregunta p, int[] ListaClases, int[] ListaTemas)
-        {
-            MyContext ctx = new MyContext();
-            foreach (int IdClase in ListaClases)
+            Pregunta p = ctx.Pregunta.FirstOrDefault(x => x.IdPregunta == id);
+            if(p.RespuestaAlumno.Count()==0)
             {
-                Clase c = new Clase();
-                c = ctx.Clase.Find(IdClase);
-                p.Clase = c;
+                ctx.Pregunta.Remove(p);
+                ctx.SaveChanges();
+                return RedirectToAction("Preguntas");
             }
-            foreach (int IdTema in ListaTemas)
+            else
             {
-                Tema t = new Tema();
-                t = ctx.Tema.Find(IdTema);
-                p.Tema = t;
+                string mensajeError = "No puede elminar preguntas con respuestas";
+                ViewBag.Preguntas = ctx.Pregunta.ToList();
+                ViewBag.MensajeError = mensajeError;
+                return View("Preguntas");
             }
-            p.IdProfesorModificacion = (int)Session["idLogueado"];
-            p.FechaHoraModificacion = DateTime.Now;
-            p.Nro = p.Nro;
-            p.Pregunta1 = p.Pregunta1;
-            ctx.Pregunta.Add(p);
-            ctx.SaveChanges();
-            return RedirectToAction("Preguntas");
         }
     }
 }
