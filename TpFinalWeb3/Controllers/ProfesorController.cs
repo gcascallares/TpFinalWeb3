@@ -81,9 +81,28 @@ namespace TpFinalWeb3.Controllers
 
         public ActionResult ModificarPregunta(int id)
         {
+            MyContext ctx = new MyContext();
+            Pregunta PreguntaPorId = profesorServicio.BuscarPreguntaPorId(id);
+            ViewBag.ListaClases = ctx.Clase.ToList();
+            ViewBag.ListaTemas = ctx.Tema.ToList();
+            return View(PreguntaPorId);
 
-           ViewBag.PreguntaPorId = profesorServicio.BuscarPreguntaPorId(id);
-           return View();
+        }
+
+        [HttpPost]
+        public ActionResult ModificarPregunta(Pregunta preguntaModificada, int[] NuevaListaClases, int[] NuevaListaTemas)
+        {
+            MyContext ctx = new MyContext();
+            int idPregunta = preguntaModificada.IdPregunta;
+            Pregunta pregunta = profesorServicio.BuscarPreguntaPorId(idPregunta);
+            
+            if(pregunta.Nro != preguntaModificada.Nro)
+            {
+                int NroPregunta = preguntaModificada.Nro;
+                profesorServicio.ModificarNroPregunta(NroPregunta,idPregunta);
+            }
+
+            return RedirectToAction("Preguntas");
 
         }
     }

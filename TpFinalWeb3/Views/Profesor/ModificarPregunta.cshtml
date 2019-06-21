@@ -1,4 +1,4 @@
-﻿
+﻿@model TpFinalWeb3.Pregunta
 @{
     ViewBag.Title = "ModificarPregunta";
 
@@ -31,5 +31,28 @@
 
 <h2>ModificarPregunta</h2>
 
-@ViewBag.PreguntaPorId.idPregunta
-@ViewBag.PreguntaPorId.idTema
+
+
+<form action="/Profesor/ModificarPregunta" method="post">
+    Nro:<input type="number" name="NuevoNro" value="@Model.Nro" /><br />
+    Clase:<select name="NuevaListaClases">
+        @foreach (Clase c in ViewBag.ListaClases)
+        {
+            <option value="@c.IdClase">@c.Nombre</option>
+        }
+    </select>
+    <br />
+    Tema:<select name="NuevaListaTemas">
+        @foreach (Tema t in ViewBag.ListaTemas)
+        {
+            <option value="@t.IdTema">@t.Nombre</option>
+        }
+    </select>
+    <br />
+    Disponible desde: <input type="datetime" name="NuevaFechaDisponibleDesde" value="@Model.FechaDisponibleDesde" /><br />
+    Hasta: <input type="datetime" name="NuevaFechaDisponibleHasta" value="@Model.FechaDisponibleHasta" /><br />
+    Pregunta:<input type="text" name="NuevaPregunta1" value="@Model.Pregunta1" required /><br />
+    <input type="hidden" name="idPregunta" value="@Model.IdPregunta" />
+    <input type="submit" name="Guardar" value="Guardar" /><br />
+</form>
+<a href="/Profesor/Preguntas"><input type="submit" name="Cancelar" value="Cancelar" /></a>

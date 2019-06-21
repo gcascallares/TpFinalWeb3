@@ -29,5 +29,19 @@ namespace TpFinalWeb3.Models.Servicios
             Pregunta preguntaPorId = ctx.Pregunta.Find(id);
             return preguntaPorId;
         }
+
+
+        public void ModificarNroPregunta(int NroPregunta, int idPregunta)
+        {
+            MyContext ctx = new MyContext();
+            var pregunta = ctx.Pregunta.Find(idPregunta);
+            if (pregunta == null)
+            {
+                return;
+            }
+            ctx.Entry(pregunta.Nro).CurrentValues.SetValues(NroPregunta);
+            ctx.SaveChanges();
+        }
+
     }
 }
