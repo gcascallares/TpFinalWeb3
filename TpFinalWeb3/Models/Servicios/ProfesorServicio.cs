@@ -21,5 +21,44 @@ namespace TpFinalWeb3.Models.Servicios
             }
 
         }
+
+        public void CrearPregunta(Pregunta p, int[] ListaClases, int[] ListaTemas, int id)
+        {
+            MyContext ctx = new MyContext();
+            foreach (int IdClase in ListaClases)
+            {
+                Clase c = new Clase();
+                c = ctx.Clase.Find(IdClase);
+                p.Clase = c;
+            }
+            foreach (int IdTema in ListaTemas)
+            {
+                Tema t = new Tema();
+                t = ctx.Tema.Find(IdTema);
+                p.Tema = t;
+            }
+            p.IdProfesorCreacion = id;
+            p.FechaHoraCreacion = DateTime.Now;
+            p.Nro = p.Nro;
+            p.Pregunta1 = p.Pregunta1;
+            ctx.Pregunta.Add(p);
+            ctx.SaveChanges();
+        }
+
+        public Boolean EliminarPregunta(int id)
+        {
+            MyContext ctx = new MyContext();
+            Pregunta p = ctx.Pregunta.FirstOrDefault(x => x.IdPregunta == id);
+            if (p.RespuestaAlumno.Count() == 0)
+            {
+                ctx.Pregunta.Remove(p);
+                ctx.SaveChanges();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }
