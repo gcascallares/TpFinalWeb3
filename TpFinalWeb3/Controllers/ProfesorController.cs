@@ -112,18 +112,17 @@ namespace TpFinalWeb3.Controllers
                  pregunta.Tema = preguntaModificada.Tema;
              }*/
 
-            //preguntaModificada.Nro = preguntaModificada.Nro;
-            // preguntaModificada.Pregunta1 = preguntaModificada.Pregunta1;
-            // preguntaModificada.IdProfesorCreacion = (int)Session["idLogueado"];
-            //preguntaModificada.FechaHoraModificacion = DateTime.Now;
-            // preguntaModificada.FechaDisponibleDesde = preguntaModificada.FechaDisponibleDesde;
-            //preguntaModificada.FechaDisponibleHasta = preguntaModificada.FechaDisponibleHasta;
+            preguntaModificada.Nro = preguntaModificada.Nro;
+            preguntaModificada.Pregunta1 = preguntaModificada.Pregunta1;
+            preguntaModificada.FechaHoraModificacion = DateTime.Now;
+            preguntaModificada.FechaDisponibleDesde = preguntaModificada.FechaDisponibleDesde;
+            preguntaModificada.FechaDisponibleHasta = preguntaModificada.FechaDisponibleHasta;
 
             preguntaPorId.Nro = preguntaModificada.Nro;
-            // preguntaPorId.Pregunta1 = preguntaModificada.Pregunta1;
-            //preguntaPorId.IdProfesorCreacion = preguntaModificada.IdProfesorCreacion;
-            //preguntaPorId.FechaHoraModificacion = preguntaModificada.FechaHoraModificacion;
-            //preguntaPorId.FechaDisponibleHasta = preguntaModificada.FechaDisponibleHasta;
+            preguntaPorId.Pregunta1 = preguntaModificada.Pregunta1;
+            preguntaPorId.FechaHoraModificacion = preguntaModificada.FechaHoraModificacion;
+            preguntaPorId.FechaDisponibleDesde = preguntaModificada.FechaDisponibleDesde;
+            preguntaPorId.FechaDisponibleHasta = preguntaModificada.FechaDisponibleHasta;
 
             ctx.SaveChanges();
 
