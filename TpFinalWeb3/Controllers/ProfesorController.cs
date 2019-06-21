@@ -3,11 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using TpFinalWeb3.Models.Servicios;
 
 namespace TpFinalWeb3.Controllers
 {
     public class ProfesorController : Controller
     {
+
+        ProfesorServicio profesorServicio = new ProfesorServicio();
+
+        public ActionResult Inicio()
+        {
+            return RedirectToAction("ProfesorIndex");
+        }
+
         public ActionResult Preguntas()
         {
             MyContext ctx = new MyContext();
@@ -68,6 +77,14 @@ namespace TpFinalWeb3.Controllers
                 ViewBag.MensajeError = mensajeError;
                 return View("Preguntas");
             }
+        }
+
+        public ActionResult ModificarPregunta(int id)
+        {
+
+           ViewBag.PreguntaPorId = profesorServicio.BuscarPreguntaPorId(id);
+           return View();
+
         }
     }
 }

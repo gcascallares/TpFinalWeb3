@@ -58,15 +58,15 @@ namespace TpFinalWeb3.Controllers
             /*List <Pregunta> preguntas = ctx.Pregunta.ToList();
             var p = preguntas.Where(preg => preg.FechaDisponibleHasta < DateTime.Now);
             ViewBag.Preguntas = p;*/
-<<<<<<< HEAD
+
 
             ViewBag.TodosLosAlumnos = ctx.Alumno.ToList();
             ViewBag.DosPreguntas = alumnoServicio.ultimasDosPreguntas();
 
-=======
+
             ViewBag.PreguntasSinRespuesta = alumnoServicio.PreguntasSinResponder(id);
             ViewBag.TablaDePosiciones = alumnoServicio.TablaDePosiciones();
->>>>>>> master
+
             return View(alumno);
         }
 

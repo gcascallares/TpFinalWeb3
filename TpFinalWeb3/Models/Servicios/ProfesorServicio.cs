@@ -21,5 +21,13 @@ namespace TpFinalWeb3.Models.Servicios
             }
 
         }
+
+        public Pregunta BuscarPreguntaPorId(int id)
+        {
+            MyContext ctx = new MyContext();
+            //int idPregunta = id;
+            Pregunta preguntaPorId = ctx.Pregunta.Find(id);
+            return preguntaPorId;
+        }
     }
 }

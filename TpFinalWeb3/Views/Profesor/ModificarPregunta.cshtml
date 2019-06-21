@@ -1,7 +1,7 @@
-﻿@model TpFinalWeb3.Profesor
-
+﻿
 @{
-    ViewBag.Title = "ProfesorIndex";
+    ViewBag.Title = "ModificarPregunta";
+
 }
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
@@ -29,7 +29,7 @@
     </div>
 </nav>
 
-<h2>ProfesorIndex</h2>
-<h2>Bienvenido @Model.Nombre</h2>
+<h2>ModificarPregunta</h2>
 
-@Html.Partial("pv_Footer")
+@ViewBag.PreguntaPorId.idPregunta
+@ViewBag.PreguntaPorId.idTema
