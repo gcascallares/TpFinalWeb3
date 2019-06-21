@@ -34,24 +34,24 @@
 
 
 <form action="/Profesor/ModificarPregunta" method="post">
-    Nro:<input type="number" name="NuevoNro" value="@Model.Nro" /><br />
-    Clase:<select name="NuevaListaClases">
+    Nro:<input type="number" name="Nro" value="@Model.Nro" /><br />
+    Clase:<select name="ListaClases">
         @foreach (Clase c in ViewBag.ListaClases)
         {
             <option value="@c.IdClase">@c.Nombre</option>
         }
     </select>
     <br />
-    Tema:<select name="NuevaListaTemas">
+    Tema:<select name="ListaTemas">
         @foreach (Tema t in ViewBag.ListaTemas)
         {
             <option value="@t.IdTema">@t.Nombre</option>
         }
     </select>
     <br />
-    Disponible desde: <input type="datetime" name="NuevaFechaDisponibleDesde" value="@Model.FechaDisponibleDesde" /><br />
-    Hasta: <input type="datetime" name="NuevaFechaDisponibleHasta" value="@Model.FechaDisponibleHasta" /><br />
-    Pregunta:<input type="text" name="NuevaPregunta1" value="@Model.Pregunta1" required /><br />
+    Disponible desde: <input type="datetime" name="FechaDisponibleDesde" value="@Model.FechaDisponibleDesde" /><br />
+    Hasta: <input type="datetime" name="FechaDisponibleHasta" value="@Model.FechaDisponibleHasta" /><br />
+    Pregunta:<input type="text" name="Pregunta1" value="@Model.Pregunta1" required /><br />
     <input type="hidden" name="idPregunta" value="@Model.IdPregunta" />
     <input type="submit" name="Guardar" value="Guardar" /><br />
 </form>

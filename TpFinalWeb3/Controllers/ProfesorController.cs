@@ -95,10 +95,12 @@ namespace TpFinalWeb3.Controllers
             MyContext ctx = new MyContext();
             int idPregunta = preguntaModificada.IdPregunta;
             Pregunta pregunta = profesorServicio.BuscarPreguntaPorId(idPregunta);
-            
-            if(pregunta.Nro != preguntaModificada.Nro)
+            preguntaModificada.Nro = preguntaModificada.Nro;
+            int NroPregunta = preguntaModificada.Nro;
+
+            if (pregunta.Nro != preguntaModificada.Nro)
             {
-                int NroPregunta = preguntaModificada.Nro;
+               
                 profesorServicio.ModificarNroPregunta(NroPregunta,idPregunta);
             }
 
