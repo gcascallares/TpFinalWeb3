@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using TpFinalWeb3.Models.Servicios;
 
 namespace TpFinalWeb3.Controllers
 {
     public class ProfesorController : Controller
     {
+        ProfesorServicio profesorServicio = new ProfesorServicio();
         public ActionResult Preguntas()
         {
             MyContext ctx = new MyContext();
@@ -29,41 +31,21 @@ namespace TpFinalWeb3.Controllers
         //[ActionName("Preguntas/Crear")]
         public ActionResult PreguntasCrear(Pregunta p, int [] ListaClases, int [] ListaTemas)
         {
-            MyContext ctx = new MyContext();
-            foreach (int IdClase in ListaClases)
-            {
-                Clase c = new Clase();
-                c = ctx.Clase.Find(IdClase);
-                p.Clase = c;
-            }
-            foreach (int IdTema in ListaTemas)
-            {
-                Tema t = new Tema();
-                t = ctx.Tema.Find(IdTema);
-                p.Tema = t;
-            }
-            p.IdProfesorCreacion = (int)Session["idLogueado"];
-            p.FechaHoraCreacion = DateTime.Now;
-            p.Nro = p.Nro;
-            p.Pregunta1 = p.Pregunta1;
-            ctx.Pregunta.Add(p);
-            ctx.SaveChanges();
+            int id=(int)Session["idLogueado"];
+            profesorServicio.CrearPregunta(p,ListaClases,ListaTemas,id);
             return RedirectToAction("Preguntas");
         }
 
         public ActionResult EliminarPregunta(int id)
         {
-            MyContext ctx = new MyContext();
-            Pregunta p = ctx.Pregunta.FirstOrDefault(x => x.IdPregunta == id);
-            if(p.RespuestaAlumno.Count()==0)
+            if(profesorServicio.EliminarPregunta(id) is true)
             {
-                ctx.Pregunta.Remove(p);
-                ctx.SaveChanges();
                 return RedirectToAction("Preguntas");
             }
             else
             {
                 string mensajeError = "No puede elminar preguntas con respuestas";
+                MyContext ctx = new MyContext();
                 ViewBag.Preguntas = ctx.Pregunta.ToList();
                 ViewBag.MensajeError = mensajeError;
                 return View("Preguntas");
