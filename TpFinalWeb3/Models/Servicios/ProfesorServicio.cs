@@ -25,7 +25,6 @@ namespace TpFinalWeb3.Models.Servicios
         public Pregunta BuscarPreguntaPorId(int id)
         {
             MyContext ctx = new MyContext();
-            //int idPregunta = id;
             Pregunta preguntaPorId = ctx.Pregunta.Find(id);
             return preguntaPorId;
         }
@@ -39,5 +38,13 @@ namespace TpFinalWeb3.Models.Servicios
             ctx.SaveChanges();
         }
 
+        public void ModificarDescripcionPregunta(string descripcionPregunta, int idPregunta)
+        {
+            MyContext ctx = new MyContext();
+            var pregunta = ctx.Pregunta.Find(idPregunta);
+            pregunta.Pregunta1 = descripcionPregunta;
+            ctx.SaveChanges();
+        }
+        
     }
 }

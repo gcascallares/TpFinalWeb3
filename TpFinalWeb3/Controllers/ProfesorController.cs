@@ -90,21 +90,64 @@ namespace TpFinalWeb3.Controllers
         }
 
         [HttpPost]
-        public ActionResult ModificarPregunta(Pregunta preguntaModificada, int[] NuevaListaClases, int[] NuevaListaTemas)
+        public ActionResult ModificarPregunta(Pregunta preguntaModificada, int[] ListaClases, int[] ListaTemas)
         {
             MyContext ctx = new MyContext();
             int idPregunta = preguntaModificada.IdPregunta;
-            Pregunta pregunta = profesorServicio.BuscarPreguntaPorId(idPregunta);
-            preguntaModificada.Nro = preguntaModificada.Nro;
-            int NroPregunta = preguntaModificada.Nro;
+            Pregunta preguntaPorId = profesorServicio.BuscarPreguntaPorId(idPregunta);
 
-            if (pregunta.Nro != preguntaModificada.Nro)
-            {
-               
-                profesorServicio.ModificarNroPregunta(NroPregunta,idPregunta);
-            }
+
+            /* foreach (int IdClase in ListaClases)
+             {
+                 Clase c = new Clase();
+                 c = ctx.Clase.Find(IdClase);
+                 preguntaModificada.Clase = c;
+                 pregunta.Clase = preguntaModificada.Clase;
+             }
+             foreach (int IdTema in ListaTemas)
+             {
+                 Tema t = new Tema();
+                 t = ctx.Tema.Find(IdTema);
+                 preguntaModificada.Tema = t;
+                 pregunta.Tema = preguntaModificada.Tema;
+             }*/
+
+            //preguntaModificada.Nro = preguntaModificada.Nro;
+            // preguntaModificada.Pregunta1 = preguntaModificada.Pregunta1;
+            // preguntaModificada.IdProfesorCreacion = (int)Session["idLogueado"];
+            //preguntaModificada.FechaHoraModificacion = DateTime.Now;
+            // preguntaModificada.FechaDisponibleDesde = preguntaModificada.FechaDisponibleDesde;
+            //preguntaModificada.FechaDisponibleHasta = preguntaModificada.FechaDisponibleHasta;
+
+            preguntaPorId.Nro = preguntaModificada.Nro;
+            // preguntaPorId.Pregunta1 = preguntaModificada.Pregunta1;
+            //preguntaPorId.IdProfesorCreacion = preguntaModificada.IdProfesorCreacion;
+            //preguntaPorId.FechaHoraModificacion = preguntaModificada.FechaHoraModificacion;
+            //preguntaPorId.FechaDisponibleHasta = preguntaModificada.FechaDisponibleHasta;
+
+            ctx.SaveChanges();
 
             return RedirectToAction("Preguntas");
+
+            /* MyContext ctx = new MyContext();
+             int idPregunta = preguntaModificada.IdPregunta;
+             Pregunta pregunta = profesorServicio.BuscarPreguntaPorId(idPregunta);
+
+             //Modificar Nro
+             preguntaModificada.Nro = preguntaModificada.Nro;
+             int NroPregunta = preguntaModificada.Nro;
+             profesorServicio.ModificarNroPregunta(NroPregunta,idPregunta);
+
+             //Modificar Descripcion Pregunta
+             preguntaModificada.Pregunta1 = preguntaModificada.Pregunta1;
+             string descripcionPregunta = preguntaModificada.Pregunta1;
+             profesorServicio.ModificarDescripcionPregunta(descripcionPregunta, idPregunta);
+
+             //Modificar FechaDisponibleDesde 
+            // preguntaModificada.FechaDisponibleDesde = preguntaModificada.FechaDisponibleDesde;
+             //DateTime fechaDisponibleDesdeNueva = preguntaModificada.FechaDisponibleDesde;
+             //profesorServicio.ModificarFechaDesdePregunta(fechaDisponibleDesdeNueva, idPregunta);*/
+
 
         }
     }
