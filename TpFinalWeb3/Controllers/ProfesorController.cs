@@ -12,6 +12,7 @@ namespace TpFinalWeb3.Controllers
 
         ProfesorServicio profesorServicio = new ProfesorServicio();
 
+
         public ActionResult Inicio()
         {
             return RedirectToAction("ProfesorIndex");
@@ -77,6 +78,14 @@ namespace TpFinalWeb3.Controllers
                 ViewBag.MensajeError = mensajeError;
                 return View("Preguntas");
             }
+        }
+
+        public ActionResult EvaluarPregunta(int id)
+        {
+            MyContext ctx = new MyContext();
+            Pregunta PreguntaPorId = profesorServicio.BuscarPreguntaPorId(id);
+            ViewBag.respuestasPorId = profesorServicio.BuscarPreguntaEvaluar(id);
+            return View(PreguntaPorId);
         }
 
         public ActionResult ModificarPregunta(int id)

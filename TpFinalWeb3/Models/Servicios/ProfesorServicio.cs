@@ -45,6 +45,13 @@ namespace TpFinalWeb3.Models.Servicios
             pregunta.Pregunta1 = descripcionPregunta;
             ctx.SaveChanges();
         }
-        
+
+        public RespuestaAlumno BuscarPreguntaEvaluar(int id)
+        {
+            MyContext ctx = new MyContext();
+            RespuestaAlumno respuestasPorId = ctx.RespuestaAlumno.Find(id);
+            return respuestasPorId;
+        }
+
     }
 }

@@ -1,6 +1,6 @@
-﻿
+﻿@model TpFinalWeb3.Pregunta
 @{
-    ViewBag.Title = "Preguntas";
+    ViewBag.Title = "EvaluarPregunta";
 }
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
@@ -28,36 +28,33 @@
     </div>
 </nav>
 
-<h2>Preguntas</h2>
-<a href="/Profesor/PreguntasCrear">Crear Pregunta</a>
-<h2>
-    @ViewBag.MensajeError
-</h2>
+<h1>Respuestas</h1>
+<br />
+
+<h3>Tema: @Model.Tema.Nombre</h3>
+<h2>@Model.Pregunta1</h2>
+<h4>Fecha Desde: @Model.FechaDisponibleDesde Fecha Hasta: @Model.FechaDisponibleHasta</h4>
+
 <table>
-    @{int posicion = 1; }
     <tr>
-        <td> Nro </td>
-        <td> Clase </td>
-        <td> Tema </td>
-        <td> Pregunta </td>
-        <td> Fecha Desde </td>
-        <td> Fecha Hasta </td>
+        <td> Fecha y Hora </td>
+        <td> Alumno </td>
+        <td> Respuesta </td>
         <td> Evaluar </td>
-        <td> Eliminar </td>
+
     </tr>
-    @foreach (Pregunta item in ViewBag.Preguntas)
+    @foreach (RespuestaAlumno item in ViewBag.respuestasPorId)
     {
         <tr>
-            <td> @posicion </td>
-            <td> @item.Clase.Nombre </td>
-            <td> @item.Tema.Nombre </td>
-            <td> <a href="/Profesor/ModificarPregunta/@item.IdPregunta">@item.Pregunta1 </a></td>
-            <td> @item.FechaDisponibleDesde </td>
-            <td> @item.FechaDisponibleHasta </td>
-            <td> <a href="/Profesor/EvaluarPregunta/@item.IdPregunta">¿?</a> </td>
-            <td> <a href="/Profesor/EliminarPregunta/@item.IdPregunta">X</a> </td>
+            <td> @item.FechaHoraRespuesta </td>
+            <td> @item.Alumno.Nombre </td>
+            <td> @item.Respuesta </td>
+            <td> <a href="/Profesor/EvaluarPreguntaMal">Mal</a><a href="/Profesor/EvaluarPreguntaRegular">Regular</a><a href="/Profesor/EvaluarPreguntaCorrecta">Correcta</a> </td>
+ 
         </tr>
-        posicion += 1;
+       
     }
 </table>
+
+<br />
 @Html.Partial("pv_Footer")
