@@ -53,5 +53,33 @@ namespace TpFinalWeb3.Models.Servicios
             return respuestasPorId;
         }
 
+        public List<RespuestaAlumno> BuscarPreguntaEvaluarCorrecta(int id)
+        {
+            MyContext ctx = new MyContext();
+            List<RespuestaAlumno> respuestasPorId = (from r in ctx.RespuestaAlumno where r.IdPregunta == id && r.IdResultadoEvaluacion == 1 select r).ToList();
+            return respuestasPorId;
+        }
+
+        public List<RespuestaAlumno> BuscarPreguntaEvaluarSinCorreguir(int id)
+        {
+            MyContext ctx = new MyContext();
+            List<RespuestaAlumno> respuestasPorId = (from r in ctx.RespuestaAlumno where r.IdPregunta == id && r.IdResultadoEvaluacion == null select r).ToList();
+            return respuestasPorId;
+        }
+
+     
+        public List<RespuestaAlumno> BuscarPreguntaEvaluarRegular(int id)
+        {
+            MyContext ctx = new MyContext();
+            List<RespuestaAlumno> respuestasPorId = (from r in ctx.RespuestaAlumno where r.IdPregunta == id && r.IdResultadoEvaluacion == 2 select r).ToList();
+            return respuestasPorId;
+        }
+
+        public List<RespuestaAlumno> BuscarPreguntaEvaluarMal(int id)
+        {
+            MyContext ctx = new MyContext();
+            List<RespuestaAlumno> respuestasPorId = (from r in ctx.RespuestaAlumno where r.IdPregunta == id && r.IdResultadoEvaluacion == 3 select r).ToList();
+            return respuestasPorId;
+        }
     }
 }

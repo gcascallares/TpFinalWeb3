@@ -88,6 +88,39 @@ namespace TpFinalWeb3.Controllers
             return View(PreguntaPorId);
         }
 
+        public ActionResult EvaluarPreguntaCorrecta(int id)
+        {
+            MyContext ctx = new MyContext();
+            Pregunta PreguntaPorId = profesorServicio.BuscarPreguntaPorId(id);
+            ViewBag.respuestasPorId = profesorServicio.BuscarPreguntaEvaluarCorrecta(id);
+            return View("EvaluarPregunta",PreguntaPorId);
+        }
+
+        public ActionResult EvaluarPreguntaSinCorreguir(int id)
+        {
+            MyContext ctx = new MyContext();
+            Pregunta PreguntaPorId = profesorServicio.BuscarPreguntaPorId(id);
+            ViewBag.respuestasPorId = profesorServicio.BuscarPreguntaEvaluarSinCorreguir(id);
+            return View("EvaluarPregunta", PreguntaPorId);
+        }
+
+        public ActionResult EvaluarPreguntaRegular(int id)
+        {
+            MyContext ctx = new MyContext();
+            Pregunta PreguntaPorId = profesorServicio.BuscarPreguntaPorId(id);
+            ViewBag.respuestasPorId = profesorServicio.BuscarPreguntaEvaluarRegular(id);
+            return View("EvaluarPregunta", PreguntaPorId);
+        }
+
+        public ActionResult EvaluarPreguntaMal(int id)
+        {
+            MyContext ctx = new MyContext();
+            Pregunta PreguntaPorId = profesorServicio.BuscarPreguntaPorId(id);
+            ViewBag.respuestasPorId = profesorServicio.BuscarPreguntaEvaluarMal(id);
+            return View("EvaluarPregunta", PreguntaPorId);
+        }
+
+
         public ActionResult ModificarPregunta(int id)
         {
             MyContext ctx = new MyContext();

@@ -35,25 +35,38 @@
 <h2>@Model.Pregunta1</h2>
 <h4>Fecha Desde: @Model.FechaDisponibleDesde Fecha Hasta: @Model.FechaDisponibleHasta</h4>
 <br /><br />
-<table>
-    <tr>
-        <td> Fecha y Hora </td>
-        <td> Alumno </td>
-        <td> Respuesta </td>
-        <td> Evaluar </td>
 
-    </tr>
-    @foreach (RespuestaAlumno item in ViewBag.respuestasPorId)
-    {
+<a href="/Profesor/EvaluarPregunta/@Model.IdPregunta">Todas </a><a href="/Profesor/EvaluarPreguntaSinCorreguir/@Model.IdPregunta">Sin Corregir </a><a href="/Profesor/EvaluarPreguntaCorrecta/@Model.IdPregunta">Correctas </a><a href="/Profesor/EvaluarPreguntaRegular/@Model.IdPregunta">Regular </a><a href="/Profesor/EvaluarPreguntaMal/@Model.IdPregunta">Mal </a>
+<br /><br />
+<table class="table">
+    <thead>
         <tr>
-            <td> @item.FechaHoraRespuesta </td>
-            <td> @item.Alumno.Nombre @item.Alumno.Apellido </td>
-            <td> @item.Respuesta </td>
-            <td> <a href="/Profesor/EvaluarPreguntaMal">Mal</a>-<a href="/Profesor/EvaluarPreguntaRegular">Regular</a>-<a href="/Profesor/EvaluarPreguntaCorrecta">Correcta</a> </td>
- 
+            <td> Fecha y Hora </td>
+            <td> Alumno </td>
+            <td> Respuesta </td>
+            <td> Evaluar </td>
+
         </tr>
-       
-    }
+    </thead>
+        @foreach (RespuestaAlumno item in ViewBag.respuestasPorId)
+        {
+            <tr>
+                <td> @item.FechaHoraRespuesta </td>
+                <td> @item.Alumno.Nombre @item.Alumno.Apellido </td>
+                <td> @item.Respuesta </td>
+                @if (item.IdResultadoEvaluacion == null)
+                {
+                    <td> <a href="/Profesor/EvaluarPreguntaMal">Mal</a>-<a href="/Profesor/EvaluarPreguntaRegular">Regular</a>-<a href="/Profesor/EvaluarPreguntaCorrecta">Correcta</a> </td>
+
+                }
+                else
+                {
+                    <td>@item.ResultadoEvaluacion.Resultado</td>
+                }
+
+            </tr>
+
+        }
 </table>
 
 <br />
