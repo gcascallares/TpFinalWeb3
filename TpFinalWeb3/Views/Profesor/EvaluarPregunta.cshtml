@@ -34,7 +34,7 @@
 <h3>Tema: @Model.Tema.Nombre</h3>
 <h2>@Model.Pregunta1</h2>
 <h4>Fecha Desde: @Model.FechaDisponibleDesde Fecha Hasta: @Model.FechaDisponibleHasta</h4>
-
+<br /><br />
 <table>
     <tr>
         <td> Fecha y Hora </td>
@@ -47,9 +47,9 @@
     {
         <tr>
             <td> @item.FechaHoraRespuesta </td>
-            <td> @item.Alumno.Nombre </td>
+            <td> @item.Alumno.Nombre @item.Alumno.Apellido </td>
             <td> @item.Respuesta </td>
-            <td> <a href="/Profesor/EvaluarPreguntaMal">Mal</a><a href="/Profesor/EvaluarPreguntaRegular">Regular</a><a href="/Profesor/EvaluarPreguntaCorrecta">Correcta</a> </td>
+            <td> <a href="/Profesor/EvaluarPreguntaMal">Mal</a>-<a href="/Profesor/EvaluarPreguntaRegular">Regular</a>-<a href="/Profesor/EvaluarPreguntaCorrecta">Correcta</a> </td>
  
         </tr>
        

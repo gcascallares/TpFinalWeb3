@@ -46,10 +46,10 @@ namespace TpFinalWeb3.Models.Servicios
             ctx.SaveChanges();
         }
 
-        public RespuestaAlumno BuscarPreguntaEvaluar(int id)
+        public List<RespuestaAlumno> BuscarPreguntaEvaluar(int id)
         {
             MyContext ctx = new MyContext();
-            RespuestaAlumno respuestasPorId = ctx.RespuestaAlumno.Find(id);
+            List<RespuestaAlumno> respuestasPorId = (from r in ctx.RespuestaAlumno where r.IdPregunta == id  select r).ToList();
             return respuestasPorId;
         }
 
