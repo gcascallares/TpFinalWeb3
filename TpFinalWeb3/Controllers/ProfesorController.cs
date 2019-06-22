@@ -88,7 +88,7 @@ namespace TpFinalWeb3.Controllers
             return View(PreguntaPorId);
         }
 
-        public ActionResult EvaluarPreguntaCorrecta(int id)
+        public ActionResult EvaluarPreguntaFiltroCorrecta(int id)
         {
             MyContext ctx = new MyContext();
             Pregunta PreguntaPorId = profesorServicio.BuscarPreguntaPorId(id);
@@ -96,7 +96,7 @@ namespace TpFinalWeb3.Controllers
             return View("EvaluarPregunta",PreguntaPorId);
         }
 
-        public ActionResult EvaluarPreguntaSinCorreguir(int id)
+        public ActionResult EvaluarPreguntaFiltroSinCorreguir(int id)
         {
             MyContext ctx = new MyContext();
             Pregunta PreguntaPorId = profesorServicio.BuscarPreguntaPorId(id);
@@ -104,7 +104,7 @@ namespace TpFinalWeb3.Controllers
             return View("EvaluarPregunta", PreguntaPorId);
         }
 
-        public ActionResult EvaluarPreguntaRegular(int id)
+        public ActionResult EvaluarPreguntaFiltroRegular(int id)
         {
             MyContext ctx = new MyContext();
             Pregunta PreguntaPorId = profesorServicio.BuscarPreguntaPorId(id);
@@ -112,7 +112,7 @@ namespace TpFinalWeb3.Controllers
             return View("EvaluarPregunta", PreguntaPorId);
         }
 
-        public ActionResult EvaluarPreguntaMal(int id)
+        public ActionResult EvaluarPreguntaFiltroMal(int id)
         {
             MyContext ctx = new MyContext();
             Pregunta PreguntaPorId = profesorServicio.BuscarPreguntaPorId(id);
