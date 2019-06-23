@@ -234,6 +234,7 @@
     <Content Include="Views\Login\AlumnoIndex.cshtml" />
     <Content Include="Views\Profesor\Preguntas.cshtml" />
     <Content Include="Views\Profesor\PreguntasCrear.cshtml" />
+    <Content Include="Views\Profesor\ModificarPregunta.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

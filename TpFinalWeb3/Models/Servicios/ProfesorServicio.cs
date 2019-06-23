@@ -60,5 +60,39 @@ namespace TpFinalWeb3.Models.Servicios
                 return false;
             }
         }
+
+        public Pregunta BuscarPreguntaPorId(int id)
+        {
+            MyContext ctx = new MyContext();
+            Pregunta preguntaPorId = ctx.Pregunta.Find(id);
+            return preguntaPorId;
+        }
+
+        public void ModificarPregunta(Pregunta preguntaModificada, int[] ListaClases, int[] ListaTemas, int idProfesor)
+        {
+            MyContext ctx = new MyContext();
+            int idPregunta = preguntaModificada.IdPregunta;
+            Pregunta preguntaPorId = BuscarPreguntaPorId(idPregunta);
+            preguntaModificada.FechaHoraModificacion = DateTime.Now;
+            preguntaPorId.Nro = preguntaModificada.Nro;
+            preguntaPorId.Pregunta1 = preguntaModificada.Pregunta1;
+            preguntaPorId.FechaHoraModificacion = preguntaModificada.FechaHoraModificacion;
+            preguntaPorId.FechaDisponibleDesde = preguntaModificada.FechaDisponibleDesde;
+            preguntaPorId.FechaDisponibleHasta = preguntaModificada.FechaDisponibleHasta;
+            preguntaPorId.IdProfesorModificacion = idProfesor;
+            foreach (int IdClase in ListaClases)
+            {
+                Clase c = new Clase();
+                c = ctx.Clase.Find(IdClase);
+                preguntaPorId.Clase = c;
+            }
+            foreach (int IdTema in ListaTemas)
+            {
+                Tema t = new Tema();
+                t = ctx.Tema.Find(IdTema);
+                preguntaPorId.Tema = t;
+            }
+            ctx.SaveChanges();
+        }
     }
 }
