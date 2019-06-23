@@ -60,6 +60,7 @@ namespace TpFinalWeb3.Controllers
                 return View("Preguntas");
             }
         }
+<<<<<<< HEAD
 
         public ActionResult EvaluarPregunta(int id)
         {
@@ -101,5 +102,23 @@ namespace TpFinalWeb3.Controllers
             return View("EvaluarPregunta", PreguntaPorId);
         }
 
+=======
+        public ActionResult ModificarPregunta(int id)
+        {
+            MyContext ctx = new MyContext();
+            Pregunta PreguntaPorId = profesorServicio.BuscarPreguntaPorId(id);
+            ViewBag.ListaClases = ctx.Clase.ToList();
+            ViewBag.ListaTemas = ctx.Tema.ToList();
+            return View(PreguntaPorId);
+        }
+
+        [HttpPost]
+        public ActionResult ModificarPregunta(Pregunta preguntaModificada, int[] ListaClases, int[] ListaTemas)
+        {
+            int idProfesor = (int)Session["idLogueado"];
+            profesorServicio.ModificarPregunta(preguntaModificada, ListaClases, ListaTemas, idProfesor);
+            return RedirectToAction("Preguntas");
+        }
+>>>>>>> refs/remotes/origin/GabiNuevo
     }
 }
