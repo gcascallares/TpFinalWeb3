@@ -22,14 +22,6 @@ namespace TpFinalWeb3.Models.Servicios
 
         }
 
-        public Pregunta BuscarPreguntaPorId(int id)
-        {
-            MyContext ctx = new MyContext();
-            Pregunta preguntaPorId = ctx.Pregunta.Find(id);
-            return preguntaPorId;
-        }
-
-
         public List<RespuestaAlumno> BuscarPreguntaEvaluar(int id)
         {
             MyContext ctx = new MyContext();
@@ -106,9 +98,6 @@ namespace TpFinalWeb3.Models.Servicios
 
         }
 
-<<<<<<< HEAD
-    
-=======
         public Pregunta BuscarPreguntaPorId(int id)
         {
             MyContext ctx = new MyContext();
@@ -142,6 +131,5 @@ namespace TpFinalWeb3.Models.Servicios
             }
             ctx.SaveChanges();
         }
->>>>>>> refs/remotes/origin/GabiNuevo
     }
 }
