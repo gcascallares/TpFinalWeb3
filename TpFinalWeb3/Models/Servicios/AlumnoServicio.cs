@@ -23,6 +23,14 @@ namespace TpFinalWeb3.Models.Servicios
 
         }
 
+
+        public List<Pregunta> ultimasDosPreguntas()
+        {
+            MyContext ctx = new MyContext();
+            List<Pregunta> dosPreguntas = ((from p in ctx.Pregunta where p.FechaDisponibleHasta < DateTime.Now orderby p.FechaDisponibleHasta descending select p).Take(2)).ToList();
+            return dosPreguntas;
+        }
+
         public List<Alumno> TablaDePosiciones()
         {
             MyContext ctx = new MyContext();
@@ -43,6 +51,7 @@ namespace TpFinalWeb3.Models.Servicios
                 select p).Distinct();
             preguntasSinResponder = preguntasSR.ToList();
             return preguntasSinResponder;
+
         }
     }
 }

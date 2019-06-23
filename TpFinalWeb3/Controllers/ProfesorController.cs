@@ -9,7 +9,16 @@ namespace TpFinalWeb3.Controllers
 {
     public class ProfesorController : Controller
     {
+
         ProfesorServicio profesorServicio = new ProfesorServicio();
+
+
+        public ActionResult Inicio()
+        {
+            return RedirectToAction("ProfesorIndex");
+        }
+
+
         public ActionResult Preguntas()
         {
             MyContext ctx = new MyContext();
@@ -51,6 +60,49 @@ namespace TpFinalWeb3.Controllers
                 return View("Preguntas");
             }
         }
+<<<<<<< HEAD
+
+        public ActionResult EvaluarPregunta(int id)
+        {
+            MyContext ctx = new MyContext();
+            Pregunta PreguntaPorId = profesorServicio.BuscarPreguntaPorId(id);
+            ViewBag.respuestasPorId = profesorServicio.BuscarPreguntaEvaluar(id);
+            return View(PreguntaPorId);
+        }
+
+        public ActionResult EvaluarPreguntaFiltroCorrecta(int id)
+        {
+            MyContext ctx = new MyContext();
+            Pregunta PreguntaPorId = profesorServicio.BuscarPreguntaPorId(id);
+            ViewBag.respuestasPorId = profesorServicio.BuscarPreguntaEvaluarCorrecta(id);
+            return View("EvaluarPregunta",PreguntaPorId);
+        }
+
+        public ActionResult EvaluarPreguntaFiltroSinCorreguir(int id)
+        {
+            MyContext ctx = new MyContext();
+            Pregunta PreguntaPorId = profesorServicio.BuscarPreguntaPorId(id);
+            ViewBag.respuestasPorId = profesorServicio.BuscarPreguntaEvaluarSinCorreguir(id);
+            return View("EvaluarPregunta", PreguntaPorId);
+        }
+
+        public ActionResult EvaluarPreguntaFiltroRegular(int id)
+        {
+            MyContext ctx = new MyContext();
+            Pregunta PreguntaPorId = profesorServicio.BuscarPreguntaPorId(id);
+            ViewBag.respuestasPorId = profesorServicio.BuscarPreguntaEvaluarRegular(id);
+            return View("EvaluarPregunta", PreguntaPorId);
+        }
+
+        public ActionResult EvaluarPreguntaFiltroMal(int id)
+        {
+            MyContext ctx = new MyContext();
+            Pregunta PreguntaPorId = profesorServicio.BuscarPreguntaPorId(id);
+            ViewBag.respuestasPorId = profesorServicio.BuscarPreguntaEvaluarMal(id);
+            return View("EvaluarPregunta", PreguntaPorId);
+        }
+
+=======
         public ActionResult ModificarPregunta(int id)
         {
             MyContext ctx = new MyContext();
@@ -67,5 +119,6 @@ namespace TpFinalWeb3.Controllers
             profesorServicio.ModificarPregunta(preguntaModificada, ListaClases, ListaTemas, idProfesor);
             return RedirectToAction("Preguntas");
         }
+>>>>>>> refs/remotes/origin/GabiNuevo
     }
 }
