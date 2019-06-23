@@ -4,6 +4,29 @@
     ViewBag.Title = "AlumnoIndex";
 }
 
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">TpFinal 3</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li><a href="/Login/AlumnoIndex">Inicio</a></li>
+            <li><a href="/Alumno/Preguntas">Preguntas</a></li>
+            <li><a href="/Alumno/AcercaDe">Acerca De</a></li>
+            <li><a href="#">Salir</a></li>
+        </ul>
+    </div>
+</nav>
+
 <h2>AlumnoIndex</h2>
 <h2>Bienvenido @Model.Nombre</h2>
 <table>
@@ -27,8 +50,25 @@
         posicion += 1;
     }
 </table>
+<br />
+<h1>Ultimas dos preguntas</h1>
 
-    @foreach (Pregunta item in ViewBag.PreguntasSinRespuesta)
-    {
-        <h3>@item.Pregunta1</h3>
-    }
+@foreach (Pregunta p in ViewBag.DosPreguntas)
+{
+
+
+    <h3>@p.IdPregunta.@p.Pregunta1</h3>
+
+}
+
+
+<h1>Preguntas Sin responder</h1>
+
+@foreach (Pregunta item in ViewBag.PreguntasSinRespuesta)
+{
+    <a href="#">@item.Pregunta1</a>
+    <br />
+}
+<br />
+
+@Html.Partial("pv_Footer")

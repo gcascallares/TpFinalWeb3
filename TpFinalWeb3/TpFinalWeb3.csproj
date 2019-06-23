@@ -234,6 +234,12 @@
     <Content Include="Views\Login\AlumnoIndex.cshtml" />
     <Content Include="Views\Profesor\Preguntas.cshtml" />
     <Content Include="Views\Profesor\PreguntasCrear.cshtml" />
+<<<<<<< HEAD
+    <Content Include="Views\Shared\pv_Footer.cshtml" />
+    <Content Include="Views\Profesor\EvaluarPregunta.cshtml" />
+=======
+    <Content Include="Views\Profesor\ModificarPregunta.cshtml" />
+>>>>>>> refs/remotes/origin/GabiNuevo
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

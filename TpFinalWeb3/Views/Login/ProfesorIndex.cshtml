@@ -4,6 +4,32 @@
     ViewBag.Title = "ProfesorIndex";
 }
 
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">TpFinal 3</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li><a href="/Login/ProfesorIndex">Inicio</a></li>
+            <li><a href="/Profesor/Preguntas">Preguntas</a></li>
+            <li><a href="/Profesor/PreguntasCrear">Crear Preguntas</a></li>
+            <li><a href="#">Respuestas</a></li>
+            <li><a href="#">Acerca de</a></li>
+            <li><a href="#">Salir</a></li>
+        </ul>
+    </div>
+</nav>
+
 <h2>ProfesorIndex</h2>
 <h2>Bienvenido @Model.Nombre</h2>
 
+@Html.Partial("pv_Footer")
