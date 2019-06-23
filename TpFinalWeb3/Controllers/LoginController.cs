@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using TpFinalWeb3.Models.Servicios;
 
+
 namespace TpFinalWeb3.Controllers
 {
     public class LoginController : Controller
@@ -57,8 +58,15 @@ namespace TpFinalWeb3.Controllers
             /*List <Pregunta> preguntas = ctx.Pregunta.ToList();
             var p = preguntas.Where(preg => preg.FechaDisponibleHasta < DateTime.Now);
             ViewBag.Preguntas = p;*/
+
+
+            ViewBag.TodosLosAlumnos = ctx.Alumno.ToList();
+            ViewBag.DosPreguntas = alumnoServicio.ultimasDosPreguntas();
+
+
             ViewBag.PreguntasSinRespuesta = alumnoServicio.PreguntasSinResponder(id);
             ViewBag.TablaDePosiciones = alumnoServicio.TablaDePosiciones();
+
             return View(alumno);
         }
 
