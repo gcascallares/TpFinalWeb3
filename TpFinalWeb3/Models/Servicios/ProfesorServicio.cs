@@ -22,7 +22,6 @@ namespace TpFinalWeb3.Models.Servicios
 
         }
 
-<<<<<<< HEAD
         public Pregunta BuscarPreguntaPorId(int id)
         {
             MyContext ctx = new MyContext();
@@ -30,22 +29,6 @@ namespace TpFinalWeb3.Models.Servicios
             return preguntaPorId;
         }
 
-
-        public void ModificarNroPregunta(int NroPregunta, int idPregunta)
-        {
-            MyContext ctx = new MyContext();
-            var pregunta = ctx.Pregunta.Find(idPregunta);
-            pregunta.Nro = NroPregunta;
-            ctx.SaveChanges();
-        }
-
-        public void ModificarDescripcionPregunta(string descripcionPregunta, int idPregunta)
-        {
-            MyContext ctx = new MyContext();
-            var pregunta = ctx.Pregunta.Find(idPregunta);
-            pregunta.Pregunta1 = descripcionPregunta;
-            ctx.SaveChanges();
-        }
 
         public List<RespuestaAlumno> BuscarPreguntaEvaluar(int id)
         {
@@ -81,7 +64,8 @@ namespace TpFinalWeb3.Models.Servicios
             MyContext ctx = new MyContext();
             List<RespuestaAlumno> respuestasPorId = (from r in ctx.RespuestaAlumno where r.IdPregunta == id && r.IdResultadoEvaluacion == 3 select r).ToList();
             return respuestasPorId;
-=======
+        }
+
         public void CrearPregunta(Pregunta p, int[] ListaClases, int[] ListaTemas, int id)
         {
             MyContext ctx = new MyContext();
@@ -119,7 +103,7 @@ namespace TpFinalWeb3.Models.Servicios
             {
                 return false;
             }
->>>>>>> master
+
         }
     }
 }

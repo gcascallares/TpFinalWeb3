@@ -9,7 +9,6 @@ namespace TpFinalWeb3.Controllers
 {
     public class ProfesorController : Controller
     {
-<<<<<<< HEAD
 
         ProfesorServicio profesorServicio = new ProfesorServicio();
 
@@ -19,9 +18,7 @@ namespace TpFinalWeb3.Controllers
             return RedirectToAction("ProfesorIndex");
         }
 
-=======
-        ProfesorServicio profesorServicio = new ProfesorServicio();
->>>>>>> master
+
         public ActionResult Preguntas()
         {
             MyContext ctx = new MyContext();
@@ -104,76 +101,5 @@ namespace TpFinalWeb3.Controllers
             return View("EvaluarPregunta", PreguntaPorId);
         }
 
-
-        public ActionResult ModificarPregunta(int id)
-        {
-            MyContext ctx = new MyContext();
-            Pregunta PreguntaPorId = profesorServicio.BuscarPreguntaPorId(id);
-            ViewBag.ListaClases = ctx.Clase.ToList();
-            ViewBag.ListaTemas = ctx.Tema.ToList();
-            return View(PreguntaPorId);
-
-        }
-
-        [HttpPost]
-        public ActionResult ModificarPregunta(Pregunta preguntaModificada, int[] ListaClases, int[] ListaTemas)
-        {
-            MyContext ctx = new MyContext();
-            int idPregunta = preguntaModificada.IdPregunta;
-            Pregunta preguntaPorId = profesorServicio.BuscarPreguntaPorId(idPregunta);
-
-
-            /* foreach (int IdClase in ListaClases)
-             {
-                 Clase c = new Clase();
-                 c = ctx.Clase.Find(IdClase);
-                 preguntaModificada.Clase = c;
-                 pregunta.Clase = preguntaModificada.Clase;
-             }
-             foreach (int IdTema in ListaTemas)
-             {
-                 Tema t = new Tema();
-                 t = ctx.Tema.Find(IdTema);
-                 preguntaModificada.Tema = t;
-                 pregunta.Tema = preguntaModificada.Tema;
-             }*/
-
-            preguntaModificada.Nro = preguntaModificada.Nro;
-            preguntaModificada.Pregunta1 = preguntaModificada.Pregunta1;
-            preguntaModificada.FechaHoraModificacion = DateTime.Now;
-            preguntaModificada.FechaDisponibleDesde = preguntaModificada.FechaDisponibleDesde;
-            preguntaModificada.FechaDisponibleHasta = preguntaModificada.FechaDisponibleHasta;
-
-            preguntaPorId.Nro = preguntaModificada.Nro;
-            preguntaPorId.Pregunta1 = preguntaModificada.Pregunta1;
-            preguntaPorId.FechaHoraModificacion = preguntaModificada.FechaHoraModificacion;
-            preguntaPorId.FechaDisponibleDesde = preguntaModificada.FechaDisponibleDesde;
-            preguntaPorId.FechaDisponibleHasta = preguntaModificada.FechaDisponibleHasta;
-
-            ctx.SaveChanges();
-
-            return RedirectToAction("Preguntas");
-
-            /* MyContext ctx = new MyContext();
-             int idPregunta = preguntaModificada.IdPregunta;
-             Pregunta pregunta = profesorServicio.BuscarPreguntaPorId(idPregunta);
-
-             //Modificar Nro
-             preguntaModificada.Nro = preguntaModificada.Nro;
-             int NroPregunta = preguntaModificada.Nro;
-             profesorServicio.ModificarNroPregunta(NroPregunta,idPregunta);
-
-             //Modificar Descripcion Pregunta
-             preguntaModificada.Pregunta1 = preguntaModificada.Pregunta1;
-             string descripcionPregunta = preguntaModificada.Pregunta1;
-             profesorServicio.ModificarDescripcionPregunta(descripcionPregunta, idPregunta);
-
-             //Modificar FechaDisponibleDesde 
-            // preguntaModificada.FechaDisponibleDesde = preguntaModificada.FechaDisponibleDesde;
-             //DateTime fechaDisponibleDesdeNueva = preguntaModificada.FechaDisponibleDesde;
-             //profesorServicio.ModificarFechaDesdePregunta(fechaDisponibleDesdeNueva, idPregunta);*/
-
-
-        }
     }
 }
