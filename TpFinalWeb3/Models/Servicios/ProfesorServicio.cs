@@ -49,7 +49,7 @@ namespace TpFinalWeb3.Models.Servicios
         public List<RespuestaAlumno> BuscarPreguntaEvaluar(int id)
         {
             MyContext ctx = new MyContext();
-            List<RespuestaAlumno> respuestasPorId = (from r in ctx.RespuestaAlumno where r.IdPregunta == id  select r).ToList();
+            List<RespuestaAlumno> respuestasPorId = (from r in ctx.RespuestaAlumno where r.IdPregunta == id orderby r.FechaHoraRespuesta descending select r).ToList();
             return respuestasPorId;
         }
 
