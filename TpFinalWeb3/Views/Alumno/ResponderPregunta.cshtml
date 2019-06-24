@@ -1,0 +1,47 @@
+﻿@model TpFinalWeb3.Pregunta
+@{
+    ViewBag.Title = "ResponderPregunta";
+
+}
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">TpFinal 3</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li><a href="/Login/AlumnoIndex">Inicio</a></li>
+            <li><a href="/Alumno/VerPreguntasAlumno">Preguntas</a></li>
+            <li><a href="/Alumno/AcercaDe">Acerca De</a></li>
+            <li><a href="#">Salir</a></li>
+        </ul>
+    </div>
+</nav>
+
+
+<h2>ResponderPregunta</h2>
+
+
+<form action="/Alumno/GuardarRespuesta" method="post">
+    Nro:@Model.Nro - @Model.Pregunta1 <br />
+    Clase:@Model.Clase.Nombre
+    Tema: @Model.Tema.Nombre<br />
+    Disponible hasta: @Model.FechaDisponibleHasta<br />
+    <input type="hidden" name="idPregunta" value="@Model.IdPregunta" />
+    <textarea name="RespuestaAlumno" required"> </textarea>
+    <br />
+    <input type="submit" name="Enviar respuesta" value="Guardar" /><br />
+
+</form>
+<a href="/Alumno/VerPreguntasAlumno"><input type="submit" name="Cancelar" value="Cancelar" /></a>
+
+

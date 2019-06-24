@@ -1,9 +1,8 @@
 ﻿@model TpFinalWeb3.Alumno
 
 @{
-    ViewBag.Title = "AlumnoIndex";
+    ViewBag.Title = "Ver preguntas";
 }
-
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 
 <!-- jQuery library -->
@@ -27,48 +26,24 @@
     </div>
 </nav>
 
-<h2>AlumnoIndex</h2>
-<h2>Bienvenido @Model.Nombre</h2>
-<table>
-    @{int posicion = 1; }
-    <tr>
-        <td> posicion </td>
-        <td> Alumno </td>
-        <td> Puntos </td>
-        <td> Respuestas Bien </td>
-        <td> Mejor Respuesta </td>
-    </tr>
-    @foreach (Alumno item in ViewBag.TablaDePosiciones)
-    {
-        <tr>
-            <td> @posicion </td>
-            <td> @item.Nombre @item.Apellido </td>
-            <td> @item.PuntosTotales </td>
-            <td> @item.CantidadRespuestasCorrectas </td>
-            <td> @item.CantidadMejorRespuesta </td>
-        </tr>
-        posicion += 1;
-    }
-</table>
-<br />
-<h1>Ultimas dos preguntas</h1>
+<h2>Preguntas</h2>
+<h4>
+    Recordá que cuanto antes respondas correctamente, más chances tenes de sumar un mejor puntaje,
+    y si tu respuesta es la más completa, vas a recibir un puntaje extra!
+</h4>
 
-@foreach (Pregunta p in ViewBag.DosPreguntas)
-{
+<a href="#">Ver preguntas sin responder</a> <br />
+<a href="#">Ver preguntas respondidas</a>
 
-
-    <h3>@p.IdPregunta.@p.Pregunta1</h3>
-
-}
-
-
-<h1>Preguntas Sin responder</h1>
+<h1>Preguntas sin responder</h1>
 
 @foreach (Pregunta item in ViewBag.PreguntasSinRespuesta)
 {
-    <a href="#">@item.Pregunta1</a>
+    <p>@item.Clase.Nombre @item.Tema.Nombre</p>
+    <p>@item.Pregunta1 <a href="/Alumno/ResponderPregunta/@item.IdPregunta">Responder</a> </p>
     <br />
 }
 <br />
 
 @Html.Partial("pv_Footer")
+
