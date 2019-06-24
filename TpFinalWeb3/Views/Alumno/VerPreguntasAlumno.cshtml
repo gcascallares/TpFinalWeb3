@@ -40,10 +40,20 @@
 @foreach (Pregunta item in ViewBag.PreguntasSinRespuesta)
 {
     <p>@item.Clase.Nombre @item.Tema.Nombre</p>
-    <p>@item.Pregunta1 <a href="/Alumno/ResponderPregunta/@item.IdPregunta">Responder</a> </p>
+    <p>@item.Pregunta1 <br/> </p>
+
+    if (@item.FechaDisponibleHasta < DateTime.Now) //HAY QUE CAMBIAR EL < POR >.
+    {
+    <p> <a href="/Alumno/ResponderPregunta/@item.IdPregunta">Responder</a> <br/>
+        Hay tiempo de responder hasta el: @item.FechaDisponibleHasta </p>
     <br />
-}
+    } else
+    {
+       <p>Ya se terminó el tiempo para responder! :(  </p> <br />
+    }
+    }
 <br />
+
 
 @Html.Partial("pv_Footer")
 
