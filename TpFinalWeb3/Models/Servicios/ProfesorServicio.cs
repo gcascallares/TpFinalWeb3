@@ -106,6 +106,50 @@ namespace TpFinalWeb3.Models.Servicios
 
         }
 
-    
+        public Boolean TotalCorregidas(int id)
+        {
+            MyContext ctx = new MyContext();
+            List<RespuestaAlumno> q = (from r in ctx.RespuestaAlumno where r.IdPregunta == id && r.IdResultadoEvaluacion == null select r).ToList();
+
+            if (q.Count() == 0)
+            {
+                return true;
+            } else
+            {
+                return false;
+            }
+        }
+
+        public Boolean MejorRespuesta(int id)
+        {
+            MyContext ctx = new MyContext();
+            List<RespuestaAlumno> q = (from r in ctx.RespuestaAlumno where r.IdPregunta == id && r.MejorRespuesta == true select r).ToList();
+
+            if (q.Count() == 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public RespuestaAlumno BuscarRespuestaPorId(int idRespuestaAlumno)
+        {
+            MyContext ctx = new MyContext();
+            RespuestaAlumno respuestaPorId = ctx.RespuestaAlumno.Find(idRespuestaAlumno);
+            return respuestaPorId;
+        }
+        public void mejorRespuesta(RespuestaAlumno respuestaPorId)
+        {
+            MyContext ctx = new MyContext();
+            respuestaPorId.MejorRespuesta = true;
+            ctx.SaveChanges();
+        }
+
+      
+
+           
     }
 }

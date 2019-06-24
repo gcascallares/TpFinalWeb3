@@ -66,6 +66,8 @@ namespace TpFinalWeb3.Controllers
             MyContext ctx = new MyContext();
             Pregunta PreguntaPorId = profesorServicio.BuscarPreguntaPorId(id);
             ViewBag.respuestasPorId = profesorServicio.BuscarPreguntaEvaluar(id);
+            ViewData["TodasCorregidas"] = profesorServicio.TotalCorregidas(id);
+            ViewData["MejorRespuesta"] = profesorServicio.MejorRespuesta(id);
             return View(PreguntaPorId);
         }
 
@@ -74,6 +76,8 @@ namespace TpFinalWeb3.Controllers
             MyContext ctx = new MyContext();
             Pregunta PreguntaPorId = profesorServicio.BuscarPreguntaPorId(id);
             ViewBag.respuestasPorId = profesorServicio.BuscarPreguntaEvaluarCorrecta(id);
+            ViewData["TodasCorregidas"] = profesorServicio.TotalCorregidas(id);
+            ViewData["MejorRespuesta"] = profesorServicio.MejorRespuesta(id);
             return View("EvaluarPregunta",PreguntaPorId);
         }
 
@@ -82,6 +86,8 @@ namespace TpFinalWeb3.Controllers
             MyContext ctx = new MyContext();
             Pregunta PreguntaPorId = profesorServicio.BuscarPreguntaPorId(id);
             ViewBag.respuestasPorId = profesorServicio.BuscarPreguntaEvaluarSinCorreguir(id);
+            ViewData["TodasCorregidas"] = profesorServicio.TotalCorregidas(id);
+            ViewData["MejorRespuesta"] = profesorServicio.MejorRespuesta(id);
             return View("EvaluarPregunta", PreguntaPorId);
         }
 
@@ -90,6 +96,8 @@ namespace TpFinalWeb3.Controllers
             MyContext ctx = new MyContext();
             Pregunta PreguntaPorId = profesorServicio.BuscarPreguntaPorId(id);
             ViewBag.respuestasPorId = profesorServicio.BuscarPreguntaEvaluarRegular(id);
+            ViewData["TodasCorregidas"] = profesorServicio.TotalCorregidas(id);
+            ViewData["MejorRespuesta"] = profesorServicio.MejorRespuesta(id);
             return View("EvaluarPregunta", PreguntaPorId);
         }
 
@@ -98,8 +106,20 @@ namespace TpFinalWeb3.Controllers
             MyContext ctx = new MyContext();
             Pregunta PreguntaPorId = profesorServicio.BuscarPreguntaPorId(id);
             ViewBag.respuestasPorId = profesorServicio.BuscarPreguntaEvaluarMal(id);
+            ViewData["TodasCorregidas"] = profesorServicio.TotalCorregidas(id);
+            ViewData["MejorRespuesta"] = profesorServicio.MejorRespuesta(id);
             return View("EvaluarPregunta", PreguntaPorId);
         }
+
+        public ActionResult MejorRespuesta(int id, int idRespuestaAlumno)
+        {
+            MyContext ctx = new MyContext();
+            Pregunta PreguntaPorId = profesorServicio.BuscarPreguntaPorId(id);
+            RespuestaAlumno respuestaPorId = profesorServicio.BuscarRespuestaPorId(idRespuestaAlumno);
+            profesorServicio.mejorRespuesta(respuestaPorId);
+            return View("EvaluarPregunta", PreguntaPorId);
+        }
+
 
     }
 }
