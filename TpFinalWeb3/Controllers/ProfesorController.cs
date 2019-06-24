@@ -111,7 +111,7 @@ namespace TpFinalWeb3.Controllers
             return View("EvaluarPregunta", PreguntaPorId);
         }
 
-<<<<<<< HEAD
+
         public ActionResult MejorRespuesta(int id, int idRespuestaAlumno)
         {
             MyContext ctx = new MyContext();
@@ -122,7 +122,6 @@ namespace TpFinalWeb3.Controllers
         }
 
 
-=======
 
         public ActionResult ModificarPregunta(int id)
         {
@@ -140,6 +139,6 @@ namespace TpFinalWeb3.Controllers
             profesorServicio.ModificarPregunta(preguntaModificada, ListaClases, ListaTemas, idProfesor);
             return RedirectToAction("Preguntas");
         }
->>>>>>> master
+
     }
 }

@@ -98,7 +98,6 @@ namespace TpFinalWeb3.Models.Servicios
 
         }
 
-<<<<<<< HEAD
         public Boolean TotalCorregidas(int id)
         {
             MyContext ctx = new MyContext();
@@ -141,10 +140,7 @@ namespace TpFinalWeb3.Models.Servicios
             ctx.SaveChanges();
         }
 
-      
 
-           
-=======
         public Pregunta BuscarPreguntaPorId(int id)
         {
             MyContext ctx = new MyContext();
@@ -178,6 +174,5 @@ namespace TpFinalWeb3.Models.Servicios
             }
             ctx.SaveChanges();
         }
->>>>>>> master
     }
 }
