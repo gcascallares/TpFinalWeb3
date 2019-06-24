@@ -1,8 +1,15 @@
 ﻿@model TpFinalWeb3.Pregunta
 @{
     ViewBag.Title = "ModificarPregunta";
-
 }
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 
 
 <nav class="navbar navbar-default">
@@ -21,20 +28,17 @@
     </div>
 </nav>
 
-<h2>ModificarPregunta</h2>
-
-
-
+<h2>PreguntasCrear</h2>
 <form action="/Profesor/ModificarPregunta" method="post">
-    Nro:<input type="number" name="Nro" value="@Model.Nro" /><br />
-    Clase:<select name="ListaClases">
+    Nro:<input type="text" name="Nro" value="@Model.Nro" required /><br />
+    Clase:<select name="ListaClases" required>
         @foreach (Clase c in ViewBag.ListaClases)
         {
             <option value="@c.IdClase">@c.Nombre</option>
         }
     </select>
     <br />
-    Tema:<select name="ListaTemas">
+    Tema:<select name="ListaTemas" required>
         @foreach (Tema t in ViewBag.ListaTemas)
         {
             <option value="@t.IdTema">@t.Nombre</option>
@@ -44,7 +48,10 @@
     Disponible desde: <input type="datetime" name="FechaDisponibleDesde" value="@Model.FechaDisponibleDesde" /><br />
     Hasta: <input type="datetime" name="FechaDisponibleHasta" value="@Model.FechaDisponibleHasta" /><br />
     Pregunta:<input type="text" name="Pregunta1" value="@Model.Pregunta1" required /><br />
-    <input type="hidden" name="idPregunta" value="@Model.IdPregunta" />
-    <input type="submit" name="Guardar" value="Guardar" /><br />
+    <input type="text" name="IdPregunta" value="@Model.IdPregunta" hidden />
+    <input type="submit" name="Modificar" value="Modificar" /><br />
 </form>
 <a href="/Profesor/Preguntas"><input type="submit" name="Cancelar" value="Cancelar" /></a>
+
+
+@Html.Partial("pv_Footer")
