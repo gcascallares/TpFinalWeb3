@@ -111,6 +111,7 @@ namespace TpFinalWeb3.Controllers
             return View("EvaluarPregunta", PreguntaPorId);
         }
 
+<<<<<<< HEAD
         public ActionResult MejorRespuesta(int id, int idRespuestaAlumno)
         {
             MyContext ctx = new MyContext();
@@ -121,5 +122,24 @@ namespace TpFinalWeb3.Controllers
         }
 
 
+=======
+
+        public ActionResult ModificarPregunta(int id)
+        {
+            MyContext ctx = new MyContext();
+            Pregunta PreguntaPorId = profesorServicio.BuscarPreguntaPorId(id);
+            ViewBag.ListaClases = ctx.Clase.ToList();
+            ViewBag.ListaTemas = ctx.Tema.ToList();
+            return View(PreguntaPorId);
+        }
+
+        [HttpPost]
+        public ActionResult ModificarPregunta(Pregunta preguntaModificada, int[] ListaClases, int[] ListaTemas)
+        {
+            int idProfesor = (int)Session["idLogueado"];
+            profesorServicio.ModificarPregunta(preguntaModificada, ListaClases, ListaTemas, idProfesor);
+            return RedirectToAction("Preguntas");
+        }
+>>>>>>> master
     }
 }

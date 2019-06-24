@@ -28,3 +28,8 @@ $RECYCLE.BIN/
 .vs/TpFinalWeb3/v16/Server/sqlite3/storage.ide-shm
 >>>>>>> refs/remotes/origin/master
 .vs/TpFinalWeb3/v16/Server/sqlite3/storage.ide
+.vs/TpFinalWeb3/config/applicationhost.config
+.vs/TpFinalWeb3/v16/.suo
+TpFinalWeb3/bin/TpFinalWeb3.dll.config
+TpFinalWeb3/obj/Debug/TpFinalWeb3.csproj.FileListAbsolute.txt
+TpFinalWeb3/Web.config

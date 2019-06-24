@@ -158,6 +158,7 @@
     </Compile>
     <Compile Include="Models\Servicios\AlumnoServicio.cs" />
     <Compile Include="Models\Servicios\LoginServicio.cs" />
+    <Compile Include="Models\Servicios\PreguntaServicio.cs" />
     <Compile Include="Models\Servicios\ProfesorServicio.cs" />
     <Compile Include="Pregunta.cs">
       <DependentUpon>ModelBD.tt</DependentUpon>
@@ -234,12 +235,12 @@
     <Content Include="Views\Login\AlumnoIndex.cshtml" />
     <Content Include="Views\Profesor\Preguntas.cshtml" />
     <Content Include="Views\Profesor\PreguntasCrear.cshtml" />
-    <Content Include="Views\Shared\pv_Footer.cshtml" />
-    <Content Include="Views\Profesor\EvaluarPregunta.cshtml" />
+    <Content Include="Views\Alumno\ResponderPregunta.cshtml" />
+    <Content Include="Views\Alumno\VerPreguntasAlumno.cshtml" />
+    <Content Include="Views\Profesor\ModificarPregunta.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Alumno\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
