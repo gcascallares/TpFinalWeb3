@@ -1,8 +1,8 @@
 ﻿@model TpFinalWeb3.Alumno
-@{
-    ViewBag.Title = "VerPreguntasAlumno";
-}
 
+@{
+    ViewBag.Title = "Ver preguntas";
+}
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 
 <!-- jQuery library -->
@@ -31,7 +31,6 @@
 <a href="/Alumno/VerPreguntaFiltroMal/@Model.IdAlumno">Mal</a>
 <a href="/Alumno/VerPreguntaFiltroSinCorregir/@Model.IdAlumno">Sin corregir</a>
 
-
 <h2>Preguntas</h2>
 <h4>
     Recordá que cuanto antes respondas correctamente, más chances tenes de sumar un mejor puntaje,
@@ -39,30 +38,25 @@
 </h4>
 
 
-<h1>Preguntas sin responder</h1>
-
-@foreach (Pregunta item in ViewBag.PreguntasSinRespuesta)
+@foreach (RespuestaAlumno item in ViewBag.FiltroRespuesta)
 {
-    <p>@item.Clase.Nombre @item.Tema.Nombre</p>
-    <p>@item.Pregunta1 <br /> </p>
+    <p>N° pregunta: @item.Pregunta.Nro, @item.Pregunta.Clase.Nombre, Tema: @item.Pregunta.Tema.Nombre </p>
+    <p>Pregunta: @item.Pregunta.Pregunta1 </p>
+    <p>Respuesta: @item.Respuesta </p>
+    <p>Órden: @item.Orden</p>
 
-    if (@item.FechaDisponibleHasta < DateTime.Now) //HAY QUE CAMBIAR EL < POR >.
+    if (item.IdResultadoEvaluacion != null)
     {
-        <p>
-            <a href="/Alumno/ResponderPregunta/@item.IdPregunta">Responder</a> <br />
-            Hay tiempo de responder hasta el: @item.FechaDisponibleHasta
-        </p>
-        <br />
+        <p> Correción: @item.ResultadoEvaluacion.Resultado </p> <br /><br />
     }
     else
     {
-        <p>Ya se terminó el tiempo para responder! :(  </p> <br />
+        <p> Correción pendiente </p> <br /><br />
     }
+
+
 }
-<br />
+
 
 
 @Html.Partial("pv_Footer")
-
-
-

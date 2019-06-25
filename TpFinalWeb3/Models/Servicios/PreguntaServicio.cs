@@ -40,5 +40,44 @@ namespace TpFinalWeb3.Models.Servicios
             ctx.RespuestaAlumno.Add(respuestaAlumno);
             ctx.SaveChanges();
         }
+
+        public Pregunta BuscarPreguntaPorId(int id)
+        {
+            MyContext ctx = new MyContext();
+            Pregunta preguntaPorId = ctx.Pregunta.Find(id);
+            return preguntaPorId;
+        }
+
+        public List<RespuestaAlumno> VerPreguntaEvaluarCorrecta(int id)
+        {
+            MyContext ctx = new MyContext();
+            List<RespuestaAlumno> respuestasCorrectas = 
+            (from r in ctx.RespuestaAlumno where r.IdAlumno==id && r.IdResultadoEvaluacion == 1 select r).ToList();
+            return respuestasCorrectas;
+        }
+
+        public List<RespuestaAlumno> VerPreguntaEvaluarRegular(int id)
+        {
+            MyContext ctx = new MyContext();
+            List<RespuestaAlumno> respuestasRegular =
+            (from r in ctx.RespuestaAlumno where r.IdAlumno == id && r.IdResultadoEvaluacion == 2 select r).ToList();
+            return respuestasRegular;
+        }
+
+        public List<RespuestaAlumno> VerPreguntaEvaluarMal(int id)
+        {
+            MyContext ctx = new MyContext();
+            List<RespuestaAlumno> respuestasMal =
+            (from r in ctx.RespuestaAlumno where r.IdAlumno == id && r.IdResultadoEvaluacion == 3 select r).ToList();
+            return respuestasMal;
+        }
+
+        public List<RespuestaAlumno> VerPreguntaSinCorregir(int id)
+        {
+            MyContext ctx = new MyContext();
+            List<RespuestaAlumno> respuestasSinCorregir = 
+            (from r in ctx.RespuestaAlumno where r.IdPregunta == id && r.IdResultadoEvaluacion == null select r).ToList();
+            return respuestasSinCorregir;
+        }
     }
 }

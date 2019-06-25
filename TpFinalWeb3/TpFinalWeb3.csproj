@@ -141,6 +141,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\SesionHelper.cs" />
     <Compile Include="ModelBD.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -236,8 +237,9 @@
     <Content Include="Views\Profesor\Preguntas.cshtml" />
     <Content Include="Views\Profesor\PreguntasCrear.cshtml" />
     <Content Include="Views\Alumno\ResponderPregunta.cshtml" />
-    <Content Include="Views\Alumno\VerPreguntasAlumno.cshtml" />
     <Content Include="Views\Profesor\ModificarPregunta.cshtml" />
+    <Content Include="Views\Alumno\VerPreguntaFiltro.cshtml" />
+    <Content Include="Views\Alumno\VerPreguntasAlumno.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
