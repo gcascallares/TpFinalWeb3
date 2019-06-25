@@ -54,12 +54,12 @@ namespace TpFinalWeb3.Controllers
 
         public ActionResult AlumnoIndex(int id)
         {
-            //Session["idLogueado"] = alumno.IdAlumno;
             //int id = (int)Session["idLogueado"];
             MyContext ctx = new MyContext();
             AlumnoServicio alumnoServicio = new AlumnoServicio();
             Alumno alumno = alumnoServicio.buscarAlumnoPorId(id);
-            
+            Session["idLogueado"] = alumno.IdAlumno;
+
             /*List <Pregunta> preguntas = ctx.Pregunta.ToList();
             var p = preguntas.Where(preg => preg.FechaDisponibleHasta < DateTime.Now);
             ViewBag.Preguntas = p;*/

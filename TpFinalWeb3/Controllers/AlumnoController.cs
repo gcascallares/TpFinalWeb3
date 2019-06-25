@@ -37,13 +37,13 @@ namespace TpFinalWeb3.Controllers
             ProfesorServicio profesorServicio = new ProfesorServicio();
             PreguntaServicio preguntaServicio = new PreguntaServicio();
             int id = pregunta.IdPregunta;
-            //int idAlumno = (int)Session["idLogueado"];
-            int idAlumno = SesionHelper.IdUsuario;
-            Pregunta preg = profesorServicio.BuscarPreguntaPorId(id);
+            int idAlumno = (int)Session["idLogueado"];
+            //int idAlumno = SesionHelper.IdUsuario;
+            Pregunta preg = ctx.Pregunta.Find(id);
             preguntaServicio.GuardarRespuesta(preg, respuesta, idAlumno);
 
             ctx.SaveChanges();
-            return RedirectToAction("/VerPreguntasAlumno");
+            return RedirectToAction("/VerPreguntasAlumno/"+idAlumno);
         }
 
         public ActionResult VerPreguntaFiltroCorrecta(int id)
