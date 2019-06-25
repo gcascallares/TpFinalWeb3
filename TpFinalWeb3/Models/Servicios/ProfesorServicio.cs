@@ -152,7 +152,7 @@ namespace TpFinalWeb3.Models.Servicios
         {
             MyContext ctx = new MyContext();
             int idPregunta = preguntaModificada.IdPregunta;
-            Pregunta preguntaPorId = BuscarPreguntaPorId(idPregunta);
+            Pregunta preguntaPorId = ctx.Pregunta.Find(idPregunta);
             preguntaModificada.FechaHoraModificacion = DateTime.Now;
             preguntaPorId.Nro = preguntaModificada.Nro;
             preguntaPorId.Pregunta1 = preguntaModificada.Pregunta1;
