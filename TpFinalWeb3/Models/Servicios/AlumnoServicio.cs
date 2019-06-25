@@ -23,7 +23,12 @@ namespace TpFinalWeb3.Models.Servicios
 
         }
 
-
+        public Alumno buscarAlumnoPorId(int id)
+        {
+            MyContext ctx = new MyContext();
+            Alumno alumno = ctx.Alumno.Find(id);
+            return alumno;
+        }
         public List<Pregunta> ultimasDosPreguntas()
         {
             MyContext ctx = new MyContext();

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using TpFinalWeb3.Helpers;
 using TpFinalWeb3.Models.Servicios;
 
 
@@ -45,16 +46,20 @@ namespace TpFinalWeb3.Controllers
                 {
                     Alumno alumno = new Alumno();
                     alumno = alumnoServicio.VerificarAlumnoLogin(login);
-                    return RedirectToAction("AlumnoIndex", alumno);
+                    //int id = alumno.IdAlumno;
+                    return RedirectToAction("AlumnoIndex", new { id = alumno.IdAlumno });
                 }
             }
         }
 
-        public ActionResult AlumnoIndex(Alumno alumno)
+        public ActionResult AlumnoIndex(int id)
         {
-            Session["idLogueado"] = alumno.IdAlumno;
-            int id = (int)Session["idLogueado"];
+            //int id = (int)Session["idLogueado"];
             MyContext ctx = new MyContext();
+            AlumnoServicio alumnoServicio = new AlumnoServicio();
+            Alumno alumno = alumnoServicio.buscarAlumnoPorId(id);
+            Session["idLogueado"] = alumno.IdAlumno;
+
             /*List <Pregunta> preguntas = ctx.Pregunta.ToList();
             var p = preguntas.Where(preg => preg.FechaDisponibleHasta < DateTime.Now);
             ViewBag.Preguntas = p;*/
@@ -62,9 +67,7 @@ namespace TpFinalWeb3.Controllers
 
             ViewBag.TodosLosAlumnos = ctx.Alumno.ToList();
             ViewBag.DosPreguntas = alumnoServicio.ultimasDosPreguntas();
-
-
-            ViewBag.PreguntasSinRespuesta = alumnoServicio.PreguntasSinResponder(id);
+            ViewBag.PreguntasSinRespuesta = alumnoServicio.PreguntasSinResponder(alumno.IdAlumno);
             ViewBag.TablaDePosiciones = alumnoServicio.TablaDePosiciones();
 
             return View(alumno);

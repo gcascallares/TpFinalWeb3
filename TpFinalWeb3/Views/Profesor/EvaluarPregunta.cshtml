@@ -1,7 +1,10 @@
 ﻿@model TpFinalWeb3.Pregunta
 @{
     ViewBag.Title = "EvaluarPregunta";
+    //var totalCorregidas = ViewBag.TodasCorregidas;
 }
+
+
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 
@@ -45,26 +48,37 @@
             <td> Alumno </td>
             <td> Respuesta </td>
             <td> Evaluar </td>
-
+            <td></td>
         </tr>
     </thead>
         @foreach (RespuestaAlumno item in ViewBag.respuestasPorId)
         {
-            <tr>
-                <td> @item.FechaHoraRespuesta </td>
-                <td> @item.Alumno.Nombre @item.Alumno.Apellido </td>
-                <td> @item.Respuesta </td>
-                @if (item.IdResultadoEvaluacion == null)
-                {
-                    <td> <a href="/Profesor/EvaluarPreguntaMal">Mal</a>-<a href="/Profesor/EvaluarPreguntaRegular">Regular</a>-<a href="/Profesor/EvaluarPreguntaCorrecta">Correcta</a> </td>
+<tr>
+    <td> @item.FechaHoraRespuesta </td>
+    <td> @item.Alumno.Nombre @item.Alumno.Apellido </td>
+    <td> @item.Respuesta </td>
+    @if (item.IdResultadoEvaluacion == null)
+    {
+        <td> <a href="/Profesor/EvaluarPreguntaMal">Mal</a>-<a href="/Profesor/EvaluarPreguntaRegular">Regular</a>-<a href="/Profesor/EvaluarPreguntaCorrecta">Correcta</a> </td>
 
-                }
-                else
-                {
-                    <td>@item.ResultadoEvaluacion.Resultado</td>
-                }
+    }
+    else
+    {
+        <td>@item.ResultadoEvaluacion.Resultado</td>
+    }
 
-            </tr>
+    @if ((bool)ViewData["TodasCorregidas"] == true && (bool)ViewData["MejorRespuesta"] == true)
+    {
+        <td><a href="/Profesor/MejorRespuesta/@Model.IdPregunta/@item.IdRespuestaAlumno">Mejor Respuesta</a></td>
+    }
+    else
+    {
+        <td>.</td>
+    }
+
+    
+
+</tr>
 
         }
 </table>
