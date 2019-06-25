@@ -8,17 +8,17 @@ namespace TpFinalWeb3.Models.Servicios
 {
     public class AlumnoServicio
     {
-        public Alumno VerificarAlumnoLogin(LoginServicio buscado)
+        public int VerificarAlumnoLogin(LoginServicio buscado)
         {
             MyContext ctx = new MyContext();
             Alumno alumnoDb = ctx.Alumno.SingleOrDefault(x => x.Email == buscado.Email && x.Password == buscado.Password);
             if(alumnoDb != null)
             {
-                return alumnoDb;
+                return alumnoDb.IdAlumno;
             }
             else
             {
-                return null;
+                return 0;
             }
 
         }

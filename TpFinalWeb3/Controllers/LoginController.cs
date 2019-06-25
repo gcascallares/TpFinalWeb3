@@ -13,6 +13,7 @@ namespace TpFinalWeb3.Controllers
     {
         AlumnoServicio alumnoServicio = new AlumnoServicio();
         ProfesorServicio profesorServicio = new ProfesorServicio();
+
         // GET: Login
         public ActionResult Login()
         {
@@ -23,31 +24,30 @@ namespace TpFinalWeb3.Controllers
         {
             if (login.CheckProfesor == 1)
             {
-                if (profesorServicio.VerificarProfesorLogin(login) is null)
+                if (profesorServicio.VerificarProfesorLogin(login) == 0)
                 {
                     ViewBag.MensajeError = "Email y/o Contraseña inválidos";
                     return View();
                 }
                 else
                 {
-                    Profesor profesor = new Profesor();
-                    profesor = profesorServicio.VerificarProfesorLogin(login);
-                    return RedirectToAction("ProfesorIndex", profesor);
+                    int idP = profesorServicio.VerificarProfesorLogin(login);
+                    Helpers.SesionHelper.IdUsuario = idP;
+                    return RedirectToAction("ProfesorIndex");
                 }
             }
             else
             {
-                if (alumnoServicio.VerificarAlumnoLogin(login) is null)
+                if (alumnoServicio.VerificarAlumnoLogin(login)==0)
                 {
                     ViewBag.MensajeError = "Email y/o Contraseña inválidos";
                     return View();
                 }
                 else
                 {
-                    Alumno alumno = new Alumno();
-                    alumno = alumnoServicio.VerificarAlumnoLogin(login);
-                    //int id = alumno.IdAlumno;
-                    return RedirectToAction("AlumnoIndex", new { id = alumno.IdAlumno });
+                    int idA = alumnoServicio.VerificarAlumnoLogin(login);
+                    Helpers.SesionHelper.IdUsuario = idA;
+                    return RedirectToAction("AlumnoIndex", new { id = idA });
                 }
             }
         }
@@ -56,7 +56,6 @@ namespace TpFinalWeb3.Controllers
         {
             //int id = (int)Session["idLogueado"];
             MyContext ctx = new MyContext();
-            AlumnoServicio alumnoServicio = new AlumnoServicio();
             Alumno alumno = alumnoServicio.buscarAlumnoPorId(id);
             Session["idLogueado"] = alumno.IdAlumno;
 
@@ -73,10 +72,13 @@ namespace TpFinalWeb3.Controllers
             return View(alumno);
         }
 
-        public ActionResult ProfesorIndex(Profesor profesor)
+        public ActionResult ProfesorIndex()
         {
+            int id = Helpers.SesionHelper.IdUsuario;
+            Profesor profesor = profesorServicio.buscarProfesorPorId(id);
             Session["idLogueado"] = profesor.IdProfesor;
             return View(profesor);
         }
+
     }
 }

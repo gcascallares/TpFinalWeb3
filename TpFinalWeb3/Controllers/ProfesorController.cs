@@ -15,6 +15,7 @@ namespace TpFinalWeb3.Controllers
 
         public ActionResult Inicio()
         {
+            int id = (int)Session["idLogueado"];
             return RedirectToAction("ProfesorIndex");
         }
 
