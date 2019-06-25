@@ -10,10 +10,12 @@ namespace TpFinalWeb3.Controllers
 {
     public class AlumnoController : Controller
     {
+        AlumnoServicio alumnoServicio = new AlumnoServicio();
+        ProfesorServicio profesorServicio = new ProfesorServicio();
+        PreguntaServicio preguntaServicio = new PreguntaServicio();
         public ActionResult VerPreguntasAlumno(int id)
         {
             MyContext ctx = new MyContext();
-            AlumnoServicio alumnoServicio = new AlumnoServicio();
             //int id = (int)Session["idLogueado"];
             //int id = SesionHelper.IdUsuario;
             Alumno alum = alumnoServicio.buscarAlumnoPorId(id);
@@ -24,7 +26,6 @@ namespace TpFinalWeb3.Controllers
         public ActionResult ResponderPregunta(int id)
         {
             MyContext ctx = new MyContext();
-            ProfesorServicio profesorServicio = new ProfesorServicio();
             Pregunta preg = profesorServicio.BuscarPreguntaPorId(id);
             return View(preg);
         }
@@ -33,9 +34,7 @@ namespace TpFinalWeb3.Controllers
         public ActionResult GuardarRespuesta(Pregunta pregunta, string RespuestaAlumno)
         {
             MyContext ctx = new MyContext();
-            string respuesta = RespuestaAlumno;
-            ProfesorServicio profesorServicio = new ProfesorServicio();
-            PreguntaServicio preguntaServicio = new PreguntaServicio();
+            string respuesta = RespuestaAlumno;       
             int id = pregunta.IdPregunta;
             int idAlumno = (int)Session["idLogueado"];
             //int idAlumno = SesionHelper.IdUsuario;
@@ -49,8 +48,6 @@ namespace TpFinalWeb3.Controllers
         public ActionResult VerPreguntaFiltroCorrecta(int id)
         {
             MyContext ctx = new MyContext();
-            PreguntaServicio preguntaServicio = new PreguntaServicio();
-            AlumnoServicio alumnoServicio = new AlumnoServicio();
             Alumno alum = alumnoServicio.buscarAlumnoPorId(id);
             ViewBag.FiltroRespuesta = preguntaServicio.VerPreguntaEvaluarCorrecta(id);
             return View("VerPreguntaFiltro",alum);
@@ -59,8 +56,6 @@ namespace TpFinalWeb3.Controllers
         public ActionResult VerPreguntaFiltroRegular(int id)
         {
             MyContext ctx = new MyContext();
-            PreguntaServicio preguntaServicio = new PreguntaServicio();
-            AlumnoServicio alumnoServicio = new AlumnoServicio();
             Alumno alum = alumnoServicio.buscarAlumnoPorId(id);
             ViewBag.FiltroRespuesta = preguntaServicio.VerPreguntaEvaluarRegular(id);
             return View("VerPreguntaFiltro",alum);
@@ -69,8 +64,6 @@ namespace TpFinalWeb3.Controllers
         public ActionResult VerPreguntaFiltroMal(int id)
         {
             MyContext ctx = new MyContext();
-            PreguntaServicio preguntaServicio = new PreguntaServicio();
-            AlumnoServicio alumnoServicio = new AlumnoServicio();
             Alumno alum = alumnoServicio.buscarAlumnoPorId(id);
             ViewBag.FiltroRespuesta = preguntaServicio.VerPreguntaEvaluarMal(id);
             return View("VerPreguntaFiltro",alum);
@@ -79,8 +72,6 @@ namespace TpFinalWeb3.Controllers
         public ActionResult VerPreguntaFiltroSinCorregir(int id)
         {
             MyContext ctx = new MyContext();
-            PreguntaServicio preguntaServicio = new PreguntaServicio();
-            AlumnoServicio alumnoServicio = new AlumnoServicio();
             Alumno alum = alumnoServicio.buscarAlumnoPorId(id);
             ViewBag.FiltroRespuesta = preguntaServicio.VerPreguntaSinCorregir(id);
             return View("VerPreguntaFiltro",alum);
