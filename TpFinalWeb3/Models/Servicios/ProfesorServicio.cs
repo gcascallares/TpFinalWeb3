@@ -7,21 +7,26 @@ namespace TpFinalWeb3.Models.Servicios
 {
     public class ProfesorServicio
     {
-        public Profesor VerificarProfesorLogin(LoginServicio buscado)
+        public int VerificarProfesorLogin(LoginServicio buscado)
         {
             MyContext ctx = new MyContext();
             Profesor profesorDb = ctx.Profesor.SingleOrDefault(x => x.Email == buscado.Email && x.Password == buscado.Password);
             if(profesorDb != null)
             {
-                return profesorDb;
+                return profesorDb.IdProfesor;
             }
             else
             {
-                return null;
+                return 0;
             }
 
         }
-
+        public Profesor buscarProfesorPorId(int id)
+        {
+            MyContext ctx = new MyContext();
+            Profesor profesor = ctx.Profesor.Find(id);
+            return profesor;
+        }
         public List<RespuestaAlumno> BuscarPreguntaEvaluar(int id)
         {
             MyContext ctx = new MyContext();
