@@ -15,6 +15,7 @@ namespace TpFinalWeb3.Controllers
 
         public ActionResult Inicio()
         {
+            int id = (int)Session["idLogueado"];
             return RedirectToAction("ProfesorIndex");
         }
 
@@ -25,7 +26,7 @@ namespace TpFinalWeb3.Controllers
             ViewBag.Preguntas = ctx.Pregunta.ToList();
             return View();
         }
-        
+
         //[ActionName("Preguntas/Crear")]
         public ActionResult PreguntasCrear()
         {
@@ -34,15 +35,22 @@ namespace TpFinalWeb3.Controllers
             ViewBag.NroPregunta = (ctx.Pregunta.Count()) + 1;
             ViewBag.ListaClases = ctx.Clase.ToList();
             ViewBag.ListaTemas = ctx.Tema.ToList();
-            return View(pregunta);
+            return View (pregunta);
         }
         [HttpPost]
-        //[ActionName("Preguntas/Crear")]
         public ActionResult PreguntasCrear(Pregunta p, int [] ListaClases, int [] ListaTemas)
         {
-            int id=(int)Session["idLogueado"];
-            profesorServicio.CrearPregunta(p,ListaClases,ListaTemas,id);
-            return RedirectToAction("Preguntas");
+            if (!ModelState.IsValid)
+            {
+                return RedirectToAction("Login");
+
+            }
+            else
+            {
+                int id = (int)Session["idLogueado"];
+                profesorServicio.CrearPregunta(p, ListaClases, ListaTemas, id);
+                return RedirectToAction("Preguntas");
+            }
         }
 
         public ActionResult EliminarPregunta(int id)
@@ -133,9 +141,17 @@ namespace TpFinalWeb3.Controllers
         [HttpPost]
         public ActionResult ModificarPregunta(Pregunta preguntaModificada, int[] ListaClases, int[] ListaTemas)
         {
-            int idProfesor = (int)Session["idLogueado"];
-            profesorServicio.ModificarPregunta(preguntaModificada, ListaClases, ListaTemas, idProfesor);
-            return RedirectToAction("Preguntas");
+            if (!ModelState.IsValid)
+            {
+                return RedirectToAction("Login");
+
+            }
+            else
+            {
+                int idProfesor = (int)Session["idLogueado"];
+                profesorServicio.ModificarPregunta(preguntaModificada, ListaClases, ListaTemas, idProfesor);
+                return RedirectToAction("Preguntas");
+            }
         }
 
     }

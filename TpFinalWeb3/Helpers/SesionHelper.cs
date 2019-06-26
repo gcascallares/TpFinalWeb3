@@ -8,5 +8,6 @@ namespace TpFinalWeb3.Helpers
     public static class SesionHelper
     {
         public static int IdUsuario { get; set; }
+        public static string RolUsuario { get; set; }
     }
 }
