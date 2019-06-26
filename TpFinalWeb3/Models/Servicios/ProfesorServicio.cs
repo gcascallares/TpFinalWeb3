@@ -133,10 +133,11 @@ namespace TpFinalWeb3.Models.Servicios
             RespuestaAlumno respuestaPorId = ctx.RespuestaAlumno.Find(idRespuestaAlumno);
             return respuestaPorId;
         }
-        public void mejorRespuesta(RespuestaAlumno respuestaPorId)
+        public void ActivarMejorRespuesta(RespuestaAlumno respuestaPorId)
         {
             MyContext ctx = new MyContext();
-            respuestaPorId.MejorRespuesta = true;
+            RespuestaAlumno respuestaId = ctx.RespuestaAlumno.Find(respuestaPorId.IdRespuestaAlumno);
+            respuestaId.MejorRespuesta = true;
             ctx.SaveChanges();
         }
 

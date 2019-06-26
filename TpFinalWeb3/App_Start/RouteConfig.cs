@@ -15,8 +15,8 @@ namespace TpFinalWeb3
 
             routes.MapRoute(
                 name: "Default",
-                url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Login", action = "Login", id = UrlParameter.Optional }
+                url: "{controller}/{action}/{id}/{idDos}",
+                defaults: new { controller = "Login", action = "Login", id = UrlParameter.Optional, idDos = UrlParameter.Optional }
             );
         }
     }
