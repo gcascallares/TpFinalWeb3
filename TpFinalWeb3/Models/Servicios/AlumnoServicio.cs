@@ -60,5 +60,40 @@ namespace TpFinalWeb3.Models.Servicios
             return preguntasSinResponder;
 
         }
+
+        public void EnviarEmailMejorRespuesta(RespuestaAlumno respuestaPorId)
+        {
+            MyContext ctx = new MyContext();
+            Alumno alumno = ctx.Alumno.Find(respuestaPorId.IdAlumno);
+            Pregunta pregunta = ctx.Pregunta.Find(respuestaPorId.IdPregunta);
+            System.Net.Mail.MailMessage mensaje = new System.Net.Mail.MailMessage();
+            string email = alumno.Email;
+            mensaje.To.Add(email);
+            string asunto = "Su respuesta ha sido marcada como la mejor. ¡Felicitaciones!";
+            mensaje.Subject = asunto;
+            mensaje.SubjectEncoding = System.Text.Encoding.UTF8;
+
+            int alumnoId = respuestaPorId.IdAlumno;
+            string preguntaTxt = pregunta.Pregunta1;
+            string respuesta = respuestaPorId.Respuesta;
+            string linkRespuesta = ("http://localhost:53443/Alumno/VerPreguntasAlumno/1");
+            string linkPosiciones = ("http://localhost:53443/Login/AlumnoIndex/" + alumnoId);
+
+
+            mensaje.Body = ("Su respuesta ha sido marcada como la mejor! Pregunta: " + preguntaTxt + " Su Respuesta: " + respuesta + " " + linkRespuesta + " Posiciones: " + linkPosiciones + "" + " Felicidades!");
+            mensaje.BodyEncoding = System.Text.Encoding.UTF8;
+            mensaje.IsBodyHtml = true;
+            mensaje.From = new System.Net.Mail.MailAddress("alan.boca12@gmail.com");
+
+            System.Net.Mail.SmtpClient cliente = new System.Net.Mail.SmtpClient();
+            cliente.Credentials = new System.Net.NetworkCredential("restocomidas@gmail.com", "unlam2018");
+            cliente.Port = 587;
+            cliente.EnableSsl = true;
+            cliente.Host = "smtp.gmail.com";
+
+            cliente.Send(mensaje);
+
+
+        }
     }
 }

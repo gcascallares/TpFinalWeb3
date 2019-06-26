@@ -11,7 +11,7 @@ namespace TpFinalWeb3.Controllers
     {
 
         ProfesorServicio profesorServicio = new ProfesorServicio();
-
+        AlumnoServicio alumnoServicio = new AlumnoServicio();
 
         public ActionResult Inicio()
         {
@@ -126,6 +126,7 @@ namespace TpFinalWeb3.Controllers
             Pregunta PreguntaPorId = profesorServicio.BuscarPreguntaPorId(id);
             RespuestaAlumno respuestaPorId = profesorServicio.BuscarRespuestaPorId(idDos);
             profesorServicio.ActivarMejorRespuesta(respuestaPorId);
+            alumnoServicio.EnviarEmailMejorRespuesta(respuestaPorId);
             return RedirectToAction("EvaluarPregunta", new { id = PreguntaPorId.IdPregunta } );
         }
 

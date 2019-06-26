@@ -76,5 +76,7 @@ namespace TpFinalWeb3.Controllers
             ViewBag.FiltroRespuesta = preguntaServicio.VerPreguntaSinCorregir(id);
             return View("VerPreguntaFiltro",alum);
         }
+
+       
     }
 }
