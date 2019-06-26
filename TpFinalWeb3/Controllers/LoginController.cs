@@ -22,32 +22,40 @@ namespace TpFinalWeb3.Controllers
         [HttpPost]
         public ActionResult Login(LoginServicio login)
         {
-            if (login.CheckProfesor == 1)
+            if (!ModelState.IsValid)
             {
-                if (profesorServicio.VerificarProfesorLogin(login) == 0)
-                {
-                    ViewBag.MensajeError = "Email y/o Contraseña inválidos";
-                    return View();
-                }
-                else
-                {
-                    int idP = profesorServicio.VerificarProfesorLogin(login);
-                    Helpers.SesionHelper.IdUsuario = idP;
-                    return RedirectToAction("ProfesorIndex");
-                }
+                return View();
+
             }
             else
             {
-                if (alumnoServicio.VerificarAlumnoLogin(login)==0)
+                if (login.CheckProfesor == 1)
                 {
-                    ViewBag.MensajeError = "Email y/o Contraseña inválidos";
-                    return View();
+                    if (profesorServicio.VerificarProfesorLogin(login) == 0)
+                    {
+                        ViewBag.MensajeError = "Email y/o Contraseña inválidos";
+                        return View();
+                    }
+                    else
+                    {
+                        int idP = profesorServicio.VerificarProfesorLogin(login);
+                        Helpers.SesionHelper.IdUsuario = idP;
+                        return RedirectToAction("ProfesorIndex");
+                    }
                 }
                 else
                 {
-                    int idA = alumnoServicio.VerificarAlumnoLogin(login);
-                    Helpers.SesionHelper.IdUsuario = idA;
-                    return RedirectToAction("AlumnoIndex", new { id = idA });
+                    if (alumnoServicio.VerificarAlumnoLogin(login) == 0)
+                    {
+                        ViewBag.MensajeError = "Email y/o Contraseña inválidos";
+                        return View();
+                    }
+                    else
+                    {
+                        int idA = alumnoServicio.VerificarAlumnoLogin(login);
+                        Helpers.SesionHelper.IdUsuario = idA;
+                        return RedirectToAction("AlumnoIndex", new { id = idA });
+                    }
                 }
             }
         }

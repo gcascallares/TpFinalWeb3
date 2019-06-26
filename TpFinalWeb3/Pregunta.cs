@@ -11,7 +11,8 @@ namespace TpFinalWeb3
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Pregunta
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -21,11 +22,16 @@ namespace TpFinalWeb3
         }
     
         public int IdPregunta { get; set; }
+        [Required(ErrorMessage = "Debe ingresar un numero pregunta")]
         public int Nro { get; set; }
+        [Required(ErrorMessage = "Debe seleccionar una clase")]
         public int IdClase { get; set; }
+        [Required(ErrorMessage = "Debe seleccionar un tema")]
         public int IdTema { get; set; }
         public Nullable<System.DateTime> FechaDisponibleDesde { get; set; }
         public Nullable<System.DateTime> FechaDisponibleHasta { get; set; }
+        [Required(ErrorMessage = "Debe ingresar una pregunta")]
+        [StringLength(8000, ErrorMessage = "Debe ingresar una pregunta mas corta")]
         public string Pregunta1 { get; set; }
         public int IdProfesorCreacion { get; set; }
         public System.DateTime FechaHoraCreacion { get; set; }

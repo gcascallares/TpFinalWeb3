@@ -10,7 +10,7 @@ namespace TpFinalWeb3.Models.Servicios
     {
         [Required(ErrorMessage ="Debe ingresar un Email")]
         [DataType(DataType.EmailAddress)]
-        [StringLength(400,ErrorMessage ="Debe ingresar un Email mar corto")]
+        [StringLength(400,ErrorMessage ="Debe ingresar un Email mas corto")]
         [EmailAddress(ErrorMessage = "Debe ingresar un Email valido")]
         public string Email { get; set; }
         [Required(ErrorMessage = "Debe ingresar una contraseña")]

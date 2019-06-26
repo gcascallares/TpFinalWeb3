@@ -28,9 +28,11 @@
     </div>
 </nav>
 
-<h2>PreguntasCrear</h2>
+<h2>PreguntasModificar</h2>
 <form action="/Profesor/ModificarPregunta" method="post">
+    @Html.ValidationMessageFor(Model => Model.Nro)
     Nro:<input type="text" name="Nro" value="@Model.Nro" required /><br />
+    @Html.ValidationMessageFor(Model => Model.Clase)
     Clase:<select name="ListaClases" required>
         @foreach (Clase c in ViewBag.ListaClases)
         {
@@ -38,6 +40,7 @@
         }
     </select>
     <br />
+    @Html.ValidationMessageFor(Model => Model.Tema)
     Tema:<select name="ListaTemas" required>
         @foreach (Tema t in ViewBag.ListaTemas)
         {
@@ -47,6 +50,7 @@
     <br />
     Disponible desde: <input type="datetime" name="FechaDisponibleDesde" value="@Model.FechaDisponibleDesde" /><br />
     Hasta: <input type="datetime" name="FechaDisponibleHasta" value="@Model.FechaDisponibleHasta" /><br />
+    @Html.ValidationMessageFor(Model => Model.Pregunta1)
     Pregunta:<input type="text" name="Pregunta1" value="@Model.Pregunta1" required /><br />
     <input type="text" name="IdPregunta" value="@Model.IdPregunta" hidden />
     <input type="submit" name="Modificar" value="Modificar" /><br />
