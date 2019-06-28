@@ -48,17 +48,17 @@ namespace TpFinalWeb3.Models.Servicios
         {
             MyContext ctx = new MyContext();
             List<Pregunta> preguntasSinResponder = new List<Pregunta>();
-            var preguntasSR =(
-              from p in ctx.Pregunta
-              join r in ctx.RespuestaAlumno on p.IdPregunta equals r.IdPregunta
-              join a in ctx.Alumno on r.IdAlumno equals a.IdAlumno
-              where a.IdAlumno != id
-              select p).Distinct();
-            //Esta Consulta funciona en sql pero no en visual
-            //var preguntasSR = ctx.Pregunta.SqlQuery("select Pregunta.Pregunta from Pregunta left join RespuestaAlumno on RespuestaAlumno.IdPregunta = Pregunta.IdPregunta where RespuestaAlumno.IdAlumno <> @id and  Pregunta.IdPregunta not in (select RespuestaAlumno.IdPregunta from RespuestaAlumno where RespuestaAlumno.IdAlumno = @id) or RespuestaAlumno.IdAlumno is null;", new SqlParameter("@id", id)).ToList();
-            preguntasSinResponder = preguntasSR.ToList();
+            var preguntasSR = (from p in ctx.Pregunta.Include("RespuestaAlumno")
+                              from r in ctx.RespuestaAlumno
+                              where r.IdAlumno != id
+                             select p).Distinct();
+            var respondidas = (from p in ctx.Pregunta
+                              join r in ctx.RespuestaAlumno on p.IdPregunta equals r.IdPregunta
+                              join a in ctx.Alumno on r.IdAlumno equals a.IdAlumno
+                              where a.IdAlumno == id
+                              select p).Distinct();
+            preguntasSinResponder = preguntasSR.Except(respondidas).ToList();
             return preguntasSinResponder;
-
         }
 
         public void EnviarEmailMejorRespuesta(RespuestaAlumno respuestaPorId)
