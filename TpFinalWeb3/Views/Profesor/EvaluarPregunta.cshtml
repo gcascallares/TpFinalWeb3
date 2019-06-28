@@ -1,7 +1,7 @@
 ﻿@model TpFinalWeb3.Pregunta
 @{
     ViewBag.Title = "EvaluarPregunta";
-    //var totalCorregidas = ViewBag.TodasCorregidas;
+
 }
 
 
@@ -59,7 +59,7 @@
     <td> @item.Respuesta </td>
     @if (item.IdResultadoEvaluacion == null)
     {
-        <td> <a href="/Profesor/EvaluarPreguntaMal">Mal</a>-<a href="/Profesor/EvaluarPreguntaRegular">Regular</a>-<a href="/Profesor/EvaluarPreguntaCorrecta">Correcta</a> </td>
+        <td> <a href="/Profesor/EvaluarRespuestaMal/@Model.IdPregunta/@item.IdRespuestaAlumno">Mal</a>-<a href="/Profesor/EvaluarRespuestaRegular/@Model.IdPregunta/@item.IdRespuestaAlumno">Regular</a>-<a href="/Profesor/EvaluarRespuestaCorrecta/@Model.IdPregunta/@item.IdRespuestaAlumno">Correcta</a> </td>
 
     }
     else

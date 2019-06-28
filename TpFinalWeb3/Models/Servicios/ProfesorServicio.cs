@@ -141,8 +141,11 @@ namespace TpFinalWeb3.Models.Servicios
         public void ActivarMejorRespuesta(RespuestaAlumno respuestaPorId)
         {
             MyContext ctx = new MyContext();
-            RespuestaAlumno respuestaId = ctx.RespuestaAlumno.Find(respuestaPorId.IdRespuestaAlumno);
-            respuestaId.MejorRespuesta = true;
+            int idrespuesta = respuestaPorId.IdRespuestaAlumno;
+            RespuestaAlumno respuesta = ctx.RespuestaAlumno.Find(idrespuesta);
+            respuesta.MejorRespuesta = true;
+            int PuntosTotales = (int)respuesta.Puntos + 500;
+            respuesta.Puntos = PuntosTotales;
             ctx.SaveChanges();
         }
 

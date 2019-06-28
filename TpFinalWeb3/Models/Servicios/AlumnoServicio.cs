@@ -95,5 +95,84 @@ namespace TpFinalWeb3.Models.Servicios
 
 
         }
+        public void EvaluarPreguntaCorrecta(int idProfesor, RespuestaAlumno respuestaPorId)
+        {
+            MyContext ctx = new MyContext();
+            int idrespuesta = respuestaPorId.IdRespuestaAlumno;
+            RespuestaAlumno respuesta = ctx.RespuestaAlumno.Find(idrespuesta);
+
+            int idPre = respuestaPorId.IdPregunta;
+
+            List<RespuestaAlumno> RespuestasCorrectasHastaElMomento = (from r in ctx.RespuestaAlumno where r.IdPregunta == idPre && r.IdResultadoEvaluacion == 1 select r).ToList();
+
+            var SumaRespuestasCorrectasHastaElMomento = RespuestasCorrectasHastaElMomento.Select(x => x.IdResultadoEvaluacion).Sum();
+
+            respuesta.RespuestasCorrectasHastaElMomento = SumaRespuestasCorrectasHastaElMomento;
+
+            int respCorr = (int)SumaRespuestasCorrectasHastaElMomento;
+
+            int puntajeRespuesta = 1000 - (1000 / 10 * (respCorr));
+
+ 
+                if (puntajeRespuesta >= 0)
+                {
+                     respuesta.Puntos = puntajeRespuesta;
+                  
+                }
+                else
+                {
+                    respuesta.Puntos = 100;
+              
+                     }
+
+            respuesta.IdResultadoEvaluacion = 1;
+
+            ctx.SaveChanges();
+
+        }
+
+        public void EvaluarPreguntaRegular(int idProfesor, RespuestaAlumno respuestaPorId)
+        {
+            MyContext ctx = new MyContext();
+            int idrespuesta = respuestaPorId.IdRespuestaAlumno;
+            RespuestaAlumno respuesta = ctx.RespuestaAlumno.Find(idrespuesta);
+
+            var RespuestasCorrectasHastaElMomento = (from r in ctx.RespuestaAlumno where r.IdPregunta == respuestaPorId.IdPregunta && r.IdResultadoEvaluacion == 1 select r).ToList();
+
+            var SumaRespuestasCorrectasHastaElMomento = RespuestasCorrectasHastaElMomento.Select(x => x.IdResultadoEvaluacion).Sum();
+
+            respuesta.RespuestasCorrectasHastaElMomento = SumaRespuestasCorrectasHastaElMomento;
+
+            int respCorr = (int)SumaRespuestasCorrectasHastaElMomento;
+
+            int puntajeRespuesta = (1000 - (1000 / 10 * (respCorr)))/2;
+
+            if (puntajeRespuesta >= 0)
+            {
+                respuesta.Puntos = puntajeRespuesta;
+            }
+            else
+            {
+                respuesta.Puntos = 100;
+            }
+            respuesta.IdResultadoEvaluacion = 2;
+            ctx.SaveChanges();
+
+        }
+
+        public void EvaluarPreguntaMal(int idProfesor, RespuestaAlumno respuestaPorId)
+        {
+            MyContext ctx = new MyContext();
+
+            int idrespuesta = respuestaPorId.IdRespuestaAlumno;
+            RespuestaAlumno respuesta = ctx.RespuestaAlumno.Find(idrespuesta);
+
+            respuesta.Puntos = 0;
+
+            respuesta.IdResultadoEvaluacion = 3;
+
+            ctx.SaveChanges();
+
+        }
     }
 }

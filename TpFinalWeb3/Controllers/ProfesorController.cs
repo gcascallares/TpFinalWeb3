@@ -155,5 +155,34 @@ namespace TpFinalWeb3.Controllers
             }
         }
 
+        public ActionResult EvaluarRespuestaCorrecta(int id, int idDos)
+        {
+            MyContext ctx = new MyContext();
+            int idProfesor = (int)Session["idLogueado"];
+            Pregunta PreguntaPorId = profesorServicio.BuscarPreguntaPorId(id);
+            RespuestaAlumno respuestaPorId = profesorServicio.BuscarRespuestaPorId(idDos);
+            alumnoServicio.EvaluarPreguntaCorrecta(idProfesor,respuestaPorId);
+            return RedirectToAction("EvaluarPregunta", new { id = PreguntaPorId.IdPregunta });
+        }
+
+        public ActionResult EvaluarRespuestaRegular(int id, int idDos)
+        {
+            MyContext ctx = new MyContext();
+            int idProfesor = (int)Session["idLogueado"];
+            Pregunta PreguntaPorId = profesorServicio.BuscarPreguntaPorId(id);
+            RespuestaAlumno respuestaPorId = profesorServicio.BuscarRespuestaPorId(idDos);
+            alumnoServicio.EvaluarPreguntaRegular(idProfesor, respuestaPorId);
+            return RedirectToAction("EvaluarPregunta", new { id = PreguntaPorId.IdPregunta });
+        }
+
+        public ActionResult EvaluarRespuestaMal(int id, int idDos)
+        {
+            MyContext ctx = new MyContext();
+            int idProfesor = (int)Session["idLogueado"];
+            Pregunta PreguntaPorId = profesorServicio.BuscarPreguntaPorId(id);
+            RespuestaAlumno respuestaPorId = profesorServicio.BuscarRespuestaPorId(idDos);
+            alumnoServicio.EvaluarPreguntaMal(idProfesor, respuestaPorId);
+            return RedirectToAction("EvaluarPregunta", new { id = PreguntaPorId.IdPregunta });
+        }
     }
 }
