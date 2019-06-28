@@ -1,0 +1,65 @@
+﻿@model TpFinalWeb3.RespuestaAlumno
+@{
+    ViewBag.Title = "VerRespuesta";
+}
+
+<h2>VerRespuesta</h2>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">TpFinal 3</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li><a href="/Login/AlumnoIndex">Inicio</a></li>
+            <li><a href="/Alumno/VerPreguntasAlumno">Preguntas</a></li>
+            <li><a href="/Alumno/AcercaDe">Acerca De</a></li>
+            <li><a href="#">Salir</a></li>
+        </ul>
+    </div>
+</nav>
+
+<div>
+    <h5>@Model.Pregunta.Clase.Nombre: @Model.Pregunta.Tema.Nombre</h5>
+    <h2>@Model.Pregunta.Nro @Model.Pregunta.Pregunta1</h2>
+</div>
+
+<br />
+
+@if (Model.IdResultadoEvaluacion == null)
+{
+    <h2>Corrección Pendiente</h2>
+}
+else
+{
+    <div>
+        <h2>Resultado:@Model.ResultadoEvaluacion.Resultado / Orden: @Model.Orden / Puntos: @Model.Puntos</h2>
+        @if (Model.MejorRespuesta == true)
+        {
+            <h2>Mejor Respuesta!</h2>
+        }
+        else
+        {
+            <p></p>
+        }
+
+    </div>
+    <br /><br />
+}
+
+<div>
+    <h3>@Model.Respuesta</h3>
+</div>
+
+
+
+<a href="/Alumno/VerPreguntasAlumno/@Model.IdAlumno"><input type="submit" name="Volver" value="Volver" /></a>

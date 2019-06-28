@@ -77,6 +77,13 @@ namespace TpFinalWeb3.Controllers
             return View("VerPreguntaFiltro",alum);
         }
 
-       
+        public ActionResult VerRespuesta(int id)
+        {
+            MyContext ctx = new MyContext();
+            RespuestaAlumno respuesta = ctx.RespuestaAlumno.Find(id);
+            return View(respuesta);
+        }
+
+
     }
 }
