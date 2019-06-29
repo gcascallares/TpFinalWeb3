@@ -56,7 +56,7 @@
 @foreach (Pregunta p in ViewBag.DosPreguntas)
 {
     int posicion2 = 0;
-    <h3>@p.IdPregunta.@p.Pregunta1</h3>
+    <h3>@p.Nro .@p.Pregunta1</h3>
     foreach (RespuestaAlumno item in p.RespuestaAlumno)
     {
         posicion2 += 1;
@@ -76,7 +76,7 @@
 
 @foreach (Pregunta item in ViewBag.PreguntasSinRespuesta)
 {
-    <a href="#">@item.Pregunta1</a>
+    <a href="#">@item.Nro @item.Pregunta1</a>
     <br />
 }
 <br />
