@@ -55,10 +55,20 @@
 
 @foreach (Pregunta p in ViewBag.DosPreguntas)
 {
-
-
+    int posicion2 = 0;
     <h3>@p.IdPregunta.@p.Pregunta1</h3>
-
+    foreach (RespuestaAlumno item in p.RespuestaAlumno)
+    {
+        posicion2 += 1;
+<table>
+    <tr>
+        <td> @posicion2 .</td>
+        <td>&nbsp @item.Alumno.Nombre @item.Alumno.Apellido &nbsp</td>
+        <td>&nbsp + @item.Puntos &nbsp</td>
+        <td> &nbsp @if(item.MejorRespuesta is true){<h5>Mejor Respuesta </h5>}</td>
+    </tr>
+</table>
+    }
 }
 
 
