@@ -15,7 +15,6 @@ namespace TpFinalWeb3.Controllers
         PreguntaServicio preguntaServicio = new PreguntaServicio();
         public ActionResult VerPreguntasAlumno(int id)
         {
-            MyContext ctx = new MyContext();
             //int id = (int)Session["idLogueado"];
             //int id = SesionHelper.IdUsuario;
             Alumno alum = alumnoServicio.buscarAlumnoPorId(id);
@@ -25,7 +24,6 @@ namespace TpFinalWeb3.Controllers
 
         public ActionResult ResponderPregunta(int id)
         {
-            MyContext ctx = new MyContext();
             Pregunta preg = profesorServicio.BuscarPreguntaPorId(id);
             return View(preg);
         }
@@ -47,7 +45,6 @@ namespace TpFinalWeb3.Controllers
 
         public ActionResult VerPreguntaFiltroCorrecta(int id)
         {
-            MyContext ctx = new MyContext();
             Alumno alum = alumnoServicio.buscarAlumnoPorId(id);
             ViewBag.FiltroRespuesta = preguntaServicio.VerPreguntaEvaluarCorrecta(id);
             return View("VerPreguntaFiltro",alum);
@@ -55,7 +52,6 @@ namespace TpFinalWeb3.Controllers
 
         public ActionResult VerPreguntaFiltroRegular(int id)
         {
-            MyContext ctx = new MyContext();
             Alumno alum = alumnoServicio.buscarAlumnoPorId(id);
             ViewBag.FiltroRespuesta = preguntaServicio.VerPreguntaEvaluarRegular(id);
             return View("VerPreguntaFiltro",alum);
@@ -63,7 +59,6 @@ namespace TpFinalWeb3.Controllers
 
         public ActionResult VerPreguntaFiltroMal(int id)
         {
-            MyContext ctx = new MyContext();
             Alumno alum = alumnoServicio.buscarAlumnoPorId(id);
             ViewBag.FiltroRespuesta = preguntaServicio.VerPreguntaEvaluarMal(id);
             return View("VerPreguntaFiltro",alum);
@@ -71,7 +66,6 @@ namespace TpFinalWeb3.Controllers
 
         public ActionResult VerPreguntaFiltroSinCorregir(int id)
         {
-            MyContext ctx = new MyContext();
             Alumno alum = alumnoServicio.buscarAlumnoPorId(id);
             ViewBag.FiltroRespuesta = preguntaServicio.VerPreguntaSinCorregir(id);
             return View("VerPreguntaFiltro",alum);
