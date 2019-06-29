@@ -46,7 +46,7 @@ namespace TpFinalWeb3.Models.Servicios
         {
             MyContext ctx = new MyContext();
             List<RespuestaAlumno> respuestasCorrectas = 
-            (from r in ctx.RespuestaAlumno where r.IdAlumno==id && r.IdResultadoEvaluacion == 1 select r).ToList();
+            (from r in ctx.RespuestaAlumno where r.IdAlumno==id && r.IdResultadoEvaluacion == 1 select r).OrderByDescending(x=>x.Pregunta.Nro).ToList();
             return respuestasCorrectas;
         }
 
@@ -54,7 +54,7 @@ namespace TpFinalWeb3.Models.Servicios
         {
             MyContext ctx = new MyContext();
             List<RespuestaAlumno> respuestasRegular =
-            (from r in ctx.RespuestaAlumno where r.IdAlumno == id && r.IdResultadoEvaluacion == 2 select r).ToList();
+            (from r in ctx.RespuestaAlumno where r.IdAlumno == id && r.IdResultadoEvaluacion == 2 select r).OrderByDescending(x => x.Pregunta.Nro).ToList();
             return respuestasRegular;
         }
 
@@ -62,7 +62,7 @@ namespace TpFinalWeb3.Models.Servicios
         {
             MyContext ctx = new MyContext();
             List<RespuestaAlumno> respuestasMal =
-            (from r in ctx.RespuestaAlumno where r.IdAlumno == id && r.IdResultadoEvaluacion == 3 select r).ToList();
+            (from r in ctx.RespuestaAlumno where r.IdAlumno == id && r.IdResultadoEvaluacion == 3 select r).OrderByDescending(x => x.Pregunta.Nro).ToList();
             return respuestasMal;
         }
 
@@ -71,8 +71,29 @@ namespace TpFinalWeb3.Models.Servicios
             MyContext ctx = new MyContext();
             List<RespuestaAlumno> respuestasSinCorregir = 
             (from r in ctx.RespuestaAlumno
-             where r.IdAlumno == id && r.IdResultadoEvaluacion == null select r).ToList();
+             where r.IdAlumno == id && r.IdResultadoEvaluacion == null select r).OrderByDescending(x => x.Pregunta.Nro).ToList();
             return respuestasSinCorregir;
+        }
+        public void VerPreguntasTodas()
+        {
+            //
+        }
+
+        public List<Pregunta> PreguntasSinResponder(int id)
+        {
+            MyContext ctx = new MyContext();
+            List<Pregunta> preguntasSinResponder = new List<Pregunta>();
+            var preguntasSR = (from p in ctx.Pregunta.Include("RespuestaAlumno")
+                               from r in ctx.RespuestaAlumno
+                               where r.IdAlumno != id
+                               select p).Distinct();
+            var respondidas = (from p in ctx.Pregunta
+                               join r in ctx.RespuestaAlumno on p.IdPregunta equals r.IdPregunta
+                               join a in ctx.Alumno on r.IdAlumno equals a.IdAlumno
+                               where a.IdAlumno == id
+                               select p).Distinct();
+            preguntasSinResponder = preguntasSR.Except(respondidas).OrderByDescending(x=>x.Nro).ToList();
+            return preguntasSinResponder;
         }
     }
 }
