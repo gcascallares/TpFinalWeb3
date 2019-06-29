@@ -42,19 +42,31 @@
 {
     <p>N° pregunta: @item.Pregunta.Nro, @item.Pregunta.Clase.Nombre, Tema: @item.Pregunta.Tema.Nombre </p>
     <p>Pregunta: @item.Pregunta.Pregunta1 </p>
-    <p>Respuesta: @item.Respuesta </p>
     <p>Órden: @item.Orden</p>
+    <p>Puntos obtenidos: @item.Puntos</p>
 
     if (item.IdResultadoEvaluacion != null)
     {
-        <p> Correción: @item.ResultadoEvaluacion.Resultado </p> <br /><br />
+        <a href="/Alumno/VerRespuesta/@item.IdRespuestaAlumno"> Ver </a>
+        <p> Correción: @item.ResultadoEvaluacion.Resultado </p>
+
     }
     else
     {
-        <p> Correción pendiente </p> <br /><br />
+        <a href="/Alumno/VerRespuesta/@item.IdRespuestaAlumno"> Ver </a>
+        <p> Correción pendiente </p>
+
     }
 
-
+    if (item.MejorRespuesta == true)
+    {
+        <p>Mejor Respuesta!</p>
+    }
+    else
+    {
+        <p></p>
+    }
+    <br /><br />
 }
 
 

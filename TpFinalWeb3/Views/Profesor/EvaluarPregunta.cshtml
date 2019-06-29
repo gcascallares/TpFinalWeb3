@@ -1,7 +1,7 @@
 ﻿@model TpFinalWeb3.Pregunta
 @{
     ViewBag.Title = "EvaluarPregunta";
-    //var totalCorregidas = ViewBag.TodasCorregidas;
+
 }
 
 
@@ -51,15 +51,22 @@
             <td></td>
         </tr>
     </thead>
+
+    @{ int contador = 1;}
         @foreach (RespuestaAlumno item in ViewBag.respuestasPorId)
         {
 <tr>
     <td> @item.FechaHoraRespuesta </td>
     <td> @item.Alumno.Nombre @item.Alumno.Apellido </td>
     <td> @item.Respuesta </td>
+
     @if (item.IdResultadoEvaluacion == null)
     {
-        <td> <a href="/Profesor/EvaluarPreguntaMal">Mal</a>-<a href="/Profesor/EvaluarPreguntaRegular">Regular</a>-<a href="/Profesor/EvaluarPreguntaCorrecta">Correcta</a> </td>
+        if (contador == 1)
+        {
+            <td> <a href="/Profesor/EvaluarRespuestaMal/@Model.IdPregunta/@item.IdRespuestaAlumno">Mal</a>-<a href="/Profesor/EvaluarRespuestaRegular/@Model.IdPregunta/@item.IdRespuestaAlumno">Regular</a>-<a href="/Profesor/EvaluarRespuestaCorrecta/@Model.IdPregunta/@item.IdRespuestaAlumno">Correcta</a> </td>
+            contador++;
+        }
 
     }
     else
@@ -69,14 +76,17 @@
 
     @if ((bool)ViewData["TodasCorregidas"] == true && (bool)ViewData["MejorRespuesta"] == true)
     {
-        <td><a href="/Profesor/MejorRespuesta/@Model.IdPregunta/@item.IdRespuestaAlumno" >Mejor Respuesta</a></td>
+        <td><a href="/Profesor/MejorRespuesta/@Model.IdPregunta/@item.IdRespuestaAlumno">Mejor Respuesta</a></td>
     }
     else
     {
         <td>.</td>
     }
 
-    
+    @if (item.MejorRespuesta == true)
+    {
+        <td>MEJOR RESPUESTA!</td>
+    }
 
 </tr>
 

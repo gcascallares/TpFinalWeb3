@@ -9,22 +9,15 @@ namespace TpFinalWeb3.Models.Servicios
     public class PreguntaServicio
     {
 
-        public int OrdenRespuesta(Pregunta preg)
+        public int OrdenRespuesta(int idPregunta)
         {
             MyContext ctx = new MyContext();
-            RespuestaAlumno respuestaAlumno = new RespuestaAlumno();
-            /*List<RespuestaAlumno> listaRA = ctx.RespuestaAlumno.ToList();
-            int orden = listaRA.Last().Orden;*/
-            //return orden;
+            int orden = (
+            from r in ctx.RespuestaAlumno
+            join p in ctx.Pregunta on r.IdPregunta equals p.IdPregunta
+            where p.IdPregunta == idPregunta
+            select r).Count();
 
-            List<RespuestaAlumno> respuestas = new List<RespuestaAlumno>();
-            var resp = (
-              from p in ctx.Pregunta
-              join r in ctx.RespuestaAlumno on p.IdPregunta equals r.IdPregunta
-              where p.IdPregunta == preg.IdPregunta
-              select r);
-            respuestas = resp.ToList();
-            int orden = respuestas.Last().Orden;
             return orden;
         }
         public void GuardarRespuesta(Pregunta preg, string respuesta, int idAlumno)
@@ -35,7 +28,8 @@ namespace TpFinalWeb3.Models.Servicios
             respuestaAlumno.IdAlumno = idAlumno;
             respuestaAlumno.FechaHoraRespuesta = DateTime.Now;
             respuestaAlumno.Respuesta = respuesta;
-            int orden = OrdenRespuesta(preg);
+            int orden = OrdenRespuesta(preg.IdPregunta);
+
             respuestaAlumno.Orden = orden + 1;
             ctx.RespuestaAlumno.Add(respuestaAlumno);
             ctx.SaveChanges();
@@ -76,7 +70,8 @@ namespace TpFinalWeb3.Models.Servicios
         {
             MyContext ctx = new MyContext();
             List<RespuestaAlumno> respuestasSinCorregir = 
-            (from r in ctx.RespuestaAlumno where r.IdPregunta == id && r.IdResultadoEvaluacion == null select r).ToList();
+            (from r in ctx.RespuestaAlumno
+             where r.IdAlumno == id && r.IdResultadoEvaluacion == null select r).ToList();
             return respuestasSinCorregir;
         }
     }

@@ -30,7 +30,7 @@ namespace TpFinalWeb3.Models.Servicios
         public List<RespuestaAlumno> BuscarPreguntaEvaluar(int id)
         {
             MyContext ctx = new MyContext();
-            List<RespuestaAlumno> respuestasPorId = (from r in ctx.RespuestaAlumno where r.IdPregunta == id orderby r.FechaHoraRespuesta descending select r).ToList();
+            List<RespuestaAlumno> respuestasPorId = (from r in ctx.RespuestaAlumno where r.IdPregunta == id orderby r.FechaHoraRespuesta ascending select r).ToList();
             return respuestasPorId;
         }
 
@@ -141,8 +141,11 @@ namespace TpFinalWeb3.Models.Servicios
         public void ActivarMejorRespuesta(RespuestaAlumno respuestaPorId)
         {
             MyContext ctx = new MyContext();
-            RespuestaAlumno respuestaId = ctx.RespuestaAlumno.Find(respuestaPorId.IdRespuestaAlumno);
-            respuestaId.MejorRespuesta = true;
+            int idrespuesta = respuestaPorId.IdRespuestaAlumno;
+            RespuestaAlumno respuesta = ctx.RespuestaAlumno.Find(idrespuesta);
+            respuesta.MejorRespuesta = true;
+            int PuntosTotales = (int)respuesta.Puntos + 500;
+            respuesta.Puntos = PuntosTotales;
             ctx.SaveChanges();
         }
 

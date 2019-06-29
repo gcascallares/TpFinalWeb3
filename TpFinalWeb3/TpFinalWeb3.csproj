@@ -240,6 +240,8 @@
     <Content Include="Views\Profesor\ModificarPregunta.cshtml" />
     <Content Include="Views\Alumno\VerPreguntaFiltro.cshtml" />
     <Content Include="Views\Alumno\VerPreguntasAlumno.cshtml" />
+    <Content Include="Views\Profesor\EvaluarPregunta.cshtml" />
+    <Content Include="Views\Alumno\VerRespuesta.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
