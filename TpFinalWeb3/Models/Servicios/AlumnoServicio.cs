@@ -32,8 +32,14 @@ namespace TpFinalWeb3.Models.Servicios
         public List<Pregunta> ultimasDosPreguntas()
         {
             MyContext ctx = new MyContext();
-            List<Pregunta> dosPreguntas = ((from p in ctx.Pregunta where p.FechaDisponibleHasta < DateTime.Now orderby p.FechaDisponibleHasta descending select p).Take(2)).ToList();
-            return dosPreguntas;
+            //List<Pregunta> dosPreguntas = ((from p in ctx.Pregunta where p.FechaDisponibleHasta < DateTime.Now orderby p.FechaDisponibleHasta descending select p).Take(2)).ToList();
+            var ultimasDosPreguntas = (from p in ctx.Pregunta.Include("RespuestaAlumno").Include("Alumno")
+                                                 join r in ctx.RespuestaAlumno on p.IdPregunta equals r.IdPregunta
+                                                 join a in ctx.Alumno on r.IdAlumno equals a.IdAlumno
+                                       where p.FechaDisponibleHasta < DateTime.Now
+                                       orderby p.FechaDisponibleHasta descending
+                                       select p).Take(2).ToList();
+            return ultimasDosPreguntas;
         }
 
         public List<Alumno> TablaDePosiciones()
