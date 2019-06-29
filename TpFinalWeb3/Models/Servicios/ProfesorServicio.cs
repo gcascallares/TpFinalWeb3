@@ -183,5 +183,22 @@ namespace TpFinalWeb3.Models.Servicios
             }
             ctx.SaveChanges();
         }
+
+        public Boolean VerificarRespuestas(int id)
+        {
+            MyContext ctx = new MyContext();
+            var respuestas = (from p in ctx.Pregunta
+                              join r in ctx.RespuestaAlumno on p.IdPregunta equals r.IdPregunta
+                              where p.IdPregunta == id
+                              select p).ToList();
+            if(respuestas.Count() == 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }

@@ -29,6 +29,8 @@
 </nav>
 
 <h2>PreguntasModificar</h2>
+<h3>@ViewBag.AvisoRespuestas</h3>
+
 <form action="/Profesor/ModificarPregunta" method="post">
     @Html.ValidationMessageFor(Model => Model.Nro)
     Nro:<input type="text" name="Nro" value="@Model.Nro" required /><br />
