@@ -61,10 +61,9 @@ namespace TpFinalWeb3.Controllers
             }
             else
             {
-                string mensajeError = "No puede elminar preguntas con respuestas";
                 MyContext ctx = new MyContext();
                 ViewBag.Preguntas = ctx.Pregunta.ToList();
-                ViewBag.MensajeError = mensajeError;
+                ViewBag.MensajeError = "No puede elminar preguntas con respuestas";
                 return View("Preguntas");
             }
         }
@@ -136,6 +135,10 @@ namespace TpFinalWeb3.Controllers
             Pregunta PreguntaPorId = profesorServicio.BuscarPreguntaPorId(id);
             ViewBag.ListaClases = ctx.Clase.ToList();
             ViewBag.ListaTemas = ctx.Tema.ToList();
+            if (profesorServicio.VerificarRespuestas(id) == false)
+            {
+                ViewBag.AvisoRespuestas = "Ya se recibieron respuestas a esta pregunta, evite hacer modificaciones que puedan repercutir en las respuestas recibidas";
+            }
             return View(PreguntaPorId);
         }
 
