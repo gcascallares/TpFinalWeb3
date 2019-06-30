@@ -141,6 +141,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\Paginador.cs" />
     <Compile Include="Helpers\SesionHelper.cs" />
     <Compile Include="ModelBD.Context.cs">
       <AutoGen>True</AutoGen>

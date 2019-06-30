@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using TpFinalWeb3.Helpers;
 using TpFinalWeb3.Models;
 
 namespace TpFinalWeb3.Models.Servicios
@@ -94,6 +95,30 @@ namespace TpFinalWeb3.Models.Servicios
                                select p).Distinct();
             preguntasSinResponder = preguntasSR.Except(respondidas).OrderByDescending(x=>x.Nro).ToList();
             return preguntasSinResponder;
+        }
+
+        public Paginador<Pregunta> Preguntas(int pagina = 1)
+        {
+            int _RegistrosPorPagina = 10;
+            List<Pregunta> listaPreguntas = new List<Pregunta>();
+            Paginador<Pregunta> paginadorPreguntas = new Paginador<Pregunta>();
+            int _TotalRegistros = 0;
+            MyContext ctx = new MyContext();
+            _TotalRegistros =ctx.Pregunta.Count();
+            listaPreguntas = ctx.Pregunta.OrderBy(x => x.Nro)
+                                                 .Skip((pagina - 1) * _RegistrosPorPagina)
+                                                 .Take(_RegistrosPorPagina)
+                                                 .ToList();
+                var _TotalPaginas = (int)Math.Ceiling((double)_TotalRegistros / _RegistrosPorPagina);
+                paginadorPreguntas = new Paginador<Pregunta>()
+                {
+                    RegistrosPorPagina = _RegistrosPorPagina,
+                    TotalRegistros = _TotalRegistros,
+                    TotalPaginas = _TotalPaginas,
+                    PaginaActual = pagina,
+                    Resultado = listaPreguntas
+                };
+                return paginadorPreguntas;
         }
     }
 }
