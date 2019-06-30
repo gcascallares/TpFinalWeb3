@@ -183,5 +183,38 @@ namespace TpFinalWeb3.Models.Servicios
             }
             ctx.SaveChanges();
         }
+
+        public void EnviarEmailRespuestaAlumno(Pregunta preg, string respuesta, int idAlumno)
+        {
+            MyContext ctx = new MyContext();
+            Alumno alumno = ctx.Alumno.Find(idAlumno);
+            Pregunta pregunta = ctx.Pregunta.Find(preg.IdPregunta);
+            RespuestaAlumno respuestaAlumno = ctx.RespuestaAlumno.Find(idAlumno, pregunta.IdPregunta);
+            System.Net.Mail.MailMessage mensaje = new System.Net.Mail.MailMessage();
+
+            string email = respuestaAlumno.Profesor.Email;
+            mensaje.To.Add(email);
+            string asunto = "Asunto: Respuesta a Pregunta"+ pregunta.Nro +" Orden:"+ respuestaAlumno.Orden +" Apellido" + alumno.Apellido;
+            mensaje.Subject = asunto;
+            mensaje.SubjectEncoding = System.Text.Encoding.UTF8;
+
+
+            string evaluarPregunta = ("http://localhost:53443/Profesor/EvaluarPregunta/" + pregunta.IdPregunta);
+
+
+            mensaje.Body = ("Pregunta: " + pregunta.Pregunta1 + " Alumno: " + alumno.Nombre + " "+ alumno.Apellido + " Orden: " + respuestaAlumno.Orden + "" + " Respuesta:"+ respuesta + "Evaluar: " + evaluarPregunta);
+            mensaje.BodyEncoding = System.Text.Encoding.UTF8;
+            mensaje.IsBodyHtml = true;
+            mensaje.From = new System.Net.Mail.MailAddress("alan.boca12@gmail.com");
+
+            System.Net.Mail.SmtpClient cliente = new System.Net.Mail.SmtpClient();
+            cliente.Credentials = new System.Net.NetworkCredential("restocomidas@gmail.com", "unlam2018");
+            cliente.Port = 587;
+            cliente.EnableSsl = true;
+            cliente.Host = "smtp.gmail.com";
+
+            cliente.Send(mensaje);
+        }
+      
     }
 }

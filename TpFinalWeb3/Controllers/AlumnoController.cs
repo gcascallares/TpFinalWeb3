@@ -40,7 +40,7 @@ namespace TpFinalWeb3.Controllers
             //int idAlumno = SesionHelper.IdUsuario;
             Pregunta preg = ctx.Pregunta.Find(id);
             preguntaServicio.GuardarRespuesta(preg, respuesta, idAlumno);
-
+            profesorServicio.EnviarEmailRespuestaAlumno(preg, respuesta, idAlumno);
             ctx.SaveChanges();
             return RedirectToAction("/VerPreguntasAlumno/"+idAlumno);
         }
