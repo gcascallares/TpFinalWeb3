@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using TpFinalWeb3.Helpers;
 using TpFinalWeb3.Models.Servicios;
 
 namespace TpFinalWeb3.Controllers
 {
     public class ProfesorController : Controller
     {
-
+        PreguntaServicio preguntaServicio = new PreguntaServicio();
         ProfesorServicio profesorServicio = new ProfesorServicio();
         AlumnoServicio alumnoServicio = new AlumnoServicio();
 
@@ -20,12 +21,13 @@ namespace TpFinalWeb3.Controllers
         }
 
 
-        public ActionResult Preguntas()
+        public ActionResult Preguntas(int pagina = 1)
         {
-            MyContext ctx = new MyContext();
-            ViewBag.Preguntas = ctx.Pregunta.ToList();
-            return View();
+            Paginador<Pregunta> paginador = preguntaServicio.Preguntas(pagina);
+            return View(paginador);
         }
+
+
 
         //[ActionName("Preguntas/Crear")]
         public ActionResult PreguntasCrear()
@@ -62,9 +64,10 @@ namespace TpFinalWeb3.Controllers
             else
             {
                 MyContext ctx = new MyContext();
-                ViewBag.Preguntas = ctx.Pregunta.ToList();
+                int pagina = 1;
                 ViewBag.MensajeError = "No puede elminar preguntas con respuestas";
-                return View("Preguntas");
+                Paginador<Pregunta> paginador = preguntaServicio.Preguntas(pagina);
+                return View("Preguntas", paginador);
             }
         }
 
