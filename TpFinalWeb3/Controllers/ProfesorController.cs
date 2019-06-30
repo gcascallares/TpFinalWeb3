@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using TpFinalWeb3.Helpers;
 using TpFinalWeb3.Models.Servicios;
 
 namespace TpFinalWeb3.Controllers
 {
     public class ProfesorController : Controller
     {
-
+        PreguntaServicio preguntaServicio = new PreguntaServicio();
         ProfesorServicio profesorServicio = new ProfesorServicio();
         AlumnoServicio alumnoServicio = new AlumnoServicio();
 
@@ -20,12 +21,13 @@ namespace TpFinalWeb3.Controllers
         }
 
 
-        public ActionResult Preguntas()
+        public ActionResult Preguntas(int pagina = 1)
         {
-            MyContext ctx = new MyContext();
-            ViewBag.Preguntas = ctx.Pregunta.ToList();
-            return View();
+            Paginador<Pregunta> paginador = preguntaServicio.Preguntas(pagina);
+            return View(paginador);
         }
+
+
 
         //[ActionName("Preguntas/Crear")]
         public ActionResult PreguntasCrear()
@@ -61,11 +63,11 @@ namespace TpFinalWeb3.Controllers
             }
             else
             {
-                string mensajeError = "No puede elminar preguntas con respuestas";
                 MyContext ctx = new MyContext();
-                ViewBag.Preguntas = ctx.Pregunta.ToList();
-                ViewBag.MensajeError = mensajeError;
-                return View("Preguntas");
+                int pagina = 1;
+                ViewBag.MensajeError = "No puede elminar preguntas con respuestas";
+                Paginador<Pregunta> paginador = preguntaServicio.Preguntas(pagina);
+                return View("Preguntas", paginador);
             }
         }
 
@@ -136,6 +138,10 @@ namespace TpFinalWeb3.Controllers
             Pregunta PreguntaPorId = profesorServicio.BuscarPreguntaPorId(id);
             ViewBag.ListaClases = ctx.Clase.ToList();
             ViewBag.ListaTemas = ctx.Tema.ToList();
+            if (profesorServicio.VerificarRespuestas(id) == false)
+            {
+                ViewBag.AvisoRespuestas = "Ya se recibieron respuestas a esta pregunta, evite hacer modificaciones que puedan repercutir en las respuestas recibidas";
+            }
             return View(PreguntaPorId);
         }
 

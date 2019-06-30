@@ -30,7 +30,7 @@ namespace TpFinalWeb3.Models.Servicios
         public List<RespuestaAlumno> BuscarPreguntaEvaluar(int id)
         {
             MyContext ctx = new MyContext();
-            List<RespuestaAlumno> respuestasPorId = (from r in ctx.RespuestaAlumno where r.IdPregunta == id orderby r.FechaHoraRespuesta descending select r).ToList();
+            List<RespuestaAlumno> respuestasPorId = (from r in ctx.RespuestaAlumno where r.IdPregunta == id orderby r.FechaHoraRespuesta ascending select r).ToList();
             return respuestasPorId;
         }
 
@@ -184,6 +184,7 @@ namespace TpFinalWeb3.Models.Servicios
             ctx.SaveChanges();
         }
 
+<<<<<<< HEAD
         public void EnviarEmailRespuestaAlumno(Pregunta preg, string respuesta, int idAlumno)
         {
             MyContext ctx = new MyContext();
@@ -216,5 +217,23 @@ namespace TpFinalWeb3.Models.Servicios
             cliente.Send(mensaje);
         }
       
+=======
+        public Boolean VerificarRespuestas(int id)
+        {
+            MyContext ctx = new MyContext();
+            var respuestas = (from p in ctx.Pregunta
+                              join r in ctx.RespuestaAlumno on p.IdPregunta equals r.IdPregunta
+                              where p.IdPregunta == id
+                              select p).ToList();
+            if(respuestas.Count() == 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+>>>>>>> master
     }
 }

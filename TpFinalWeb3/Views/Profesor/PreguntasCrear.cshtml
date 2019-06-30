@@ -51,7 +51,7 @@
     Disponible desde: <input type="datetime" name="FechaDisponibleDesde" value="" /><br />
     Hasta: <input type="datetime" name="FechaDisponibleHasta" value="" /><br />
     @Html.ValidationMessageFor(Model => Model.Pregunta1)
-    Pregunta:<input type="text" name="Pregunta1" value="" required /><br />
+    Pregunta:<textarea name="Pregunta1" required"> </textarea><br />
     <input type="submit" name="Crear" value="Crear" /><br />
 </form>
 <a href="/Profesor/PreguntasCrear"><input type="submit" name="Cancelar" value="Cancelar" /></a>

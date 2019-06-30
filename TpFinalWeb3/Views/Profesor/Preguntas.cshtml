@@ -1,4 +1,4 @@
-﻿
+﻿@model TpFinalWeb3.Helpers.Paginador<Pregunta>
 @{
     ViewBag.Title = "Preguntas";
 }
@@ -30,11 +30,10 @@
 
 <h2>Preguntas</h2>
 <a href="/Profesor/PreguntasCrear">Crear Pregunta</a>
-<h2>
+<h3>
     @ViewBag.MensajeError
-</h2>
+</h3>
 <table>
-    @{int posicion = 1; }
     <tr>
         <td> Nro </td>
         <td> Clase </td>
@@ -45,10 +44,10 @@
         <td> Evaluar </td>
         <td> Eliminar </td>
     </tr>
-    @foreach (Pregunta item in ViewBag.Preguntas)
+    @foreach (Pregunta item in Model.Resultado)
     {
         <tr>
-            <td> @posicion </td>
+            <td> @item.Nro</td>
             <td> @item.Clase.Nombre </td>
             <td> @item.Tema.Nombre </td>
             <td> <a href="/Profesor/ModificarPregunta/@item.IdPregunta">@item.Pregunta1 </a></td>
@@ -57,7 +56,60 @@
             <td> <a href="/Profesor/EvaluarPregunta/@item.IdPregunta">¿?</a> </td>
             <td> <a href="/Profesor/EliminarPregunta/@item.IdPregunta">X</a> </td>
         </tr>
-        posicion += 1;
     }
 </table>
+
+@if (Model.Resultado.Count() > 0)
+{
+    <span>
+        <strong>@Model.TotalRegistros</strong> registros encontrados
+    </span>
+    <span>&nbsp;|&nbsp;</span>
+    <span>
+        Página <strong>@(Model.PaginaActual)</strong> de
+        <strong>@Model.TotalPaginas</strong>
+    </span>
+    <span>&nbsp;|&nbsp;</span>
+}
+else
+{
+    <span>No hay resultados para esta búsqueda</span>
+    <span>&nbsp;|&nbsp;</span>
+}
+
+@if (Model.PaginaActual > 1)
+{
+    @Html.ActionLink("<<", "Preguntas", new { pagina = 1 },
+                    new { @class = "btn btn-sm btn-default" })
+    <span></span>
+    @Html.ActionLink("Anterior", "Preguntas", new { pagina = Model.PaginaActual - 1 },
+                    new { @class = "btn btn-sm btn-default" })
+}
+else
+{
+    @Html.ActionLink("<<", "Preguntas", new { pagina = 1 },
+                    new { @class = "btn btn-sm btn-default disabled" })
+    <span></span>
+    @Html.ActionLink("Anterior", "Preguntas", new { pagina = 1 },
+                    new { @class = "btn btn-sm btn-default disabled" })
+}
+<span></span>
+@if (Model.PaginaActual < Model.TotalPaginas)
+{
+    @Html.ActionLink("Siguiente", "Preguntas", new { pagina = Model.PaginaActual + 1 },
+                    new { @class = "btn btn-sm btn-default" })
+    <span></span>
+    @Html.ActionLink(">>", "Preguntas", new { pagina = Model.TotalPaginas },
+                    new { @class = "btn btn-sm btn-default" })
+}
+else
+{
+    @Html.ActionLink("Siguiente", "Index", new { pagina = Model.TotalPaginas - 1 },
+                    new { @class = "btn btn-sm btn-default disabled" })
+    <span></span>
+    @Html.ActionLink(">>", "Index", new { pagina = Model.TotalPaginas },
+                    new { @class = "btn btn-sm btn-default disabled" })
+}
+
+
 @Html.Partial("pv_Footer")
