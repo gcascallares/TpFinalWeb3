@@ -51,18 +51,6 @@ namespace TpFinalWeb3.Controllers
                         string encryptedTicket = FormsAuthentication.Encrypt(authTicket);
                         var authCookie = new HttpCookie(FormsAuthentication.FormsCookieName, encryptedTicket);
                         HttpContext.Response.Cookies.Add(authCookie);
-
-                        /*LoginServicio userModel = new LoginServicio()
-                        {
-                            id = idP,
-                            rol = "profesor",
-                        };
-                        string userData = JsonConvert.SerializeObject(userModel);
-                        FormsAuthenticationTicket authTicket = new FormsAuthenticationTicket(1,"login", DateTime.Now, DateTime.Now.AddMinutes(15), false, userData);
-
-                        string enTicket = FormsAuthentication.Encrypt(authTicket);
-                        HttpCookie faCookie = new HttpCookie("Cookie1", enTicket);
-                        Response.Cookies.Add(faCookie);*/
                         return RedirectToAction("ProfesorIndex");
                     }
                 }
@@ -121,6 +109,8 @@ namespace TpFinalWeb3.Controllers
 
         public ActionResult CerrarSesion()
         {
+            Session["idLogueado"] = "";
+            Helpers.SesionHelper.IdUsuario = 0;
             //AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
             FormsAuthentication.SignOut();
             return RedirectToAction("Login");

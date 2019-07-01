@@ -273,3 +273,8 @@ C:\Users\Federico\Documents\GitHub\TpFinalWeb3\TpFinalWeb3\bin\Microsoft.Owin.dl
 C:\Users\Federico\Documents\GitHub\TpFinalWeb3\TpFinalWeb3\bin\Owin.dll
 C:\Users\Federico\Documents\GitHub\TpFinalWeb3\TpFinalWeb3\bin\Microsoft.AspNet.Identity.Core.xml
 C:\Users\Federico\Documents\GitHub\TpFinalWeb3\TpFinalWeb3\bin\Microsoft.Owin.xml
+C:\Users\Usuario\source\repos\TpFinalWeb3\TpFinalWeb3\bin\Microsoft.AspNet.Identity.Core.dll
+C:\Users\Usuario\source\repos\TpFinalWeb3\TpFinalWeb3\bin\Microsoft.Owin.dll
+C:\Users\Usuario\source\repos\TpFinalWeb3\TpFinalWeb3\bin\Owin.dll
+C:\Users\Usuario\source\repos\TpFinalWeb3\TpFinalWeb3\bin\Microsoft.AspNet.Identity.Core.xml
+C:\Users\Usuario\source\repos\TpFinalWeb3\TpFinalWeb3\bin\Microsoft.Owin.xml
