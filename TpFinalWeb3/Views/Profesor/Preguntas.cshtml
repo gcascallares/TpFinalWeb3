@@ -1,115 +1,105 @@
 ﻿@model TpFinalWeb3.Helpers.Paginador<Pregunta>
 @{
     ViewBag.Title = "Preguntas";
+    Layout = "/Views/Shared/_ProfesoresLayout.cshtml";
 }
 
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 
-<!-- jQuery library -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+<blockquote class="blockquote">
+    <h1>Preguntas</h1>
+</blockquote>
 
-<!-- Latest compiled JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<blockquote class="blockquote text-right">
+    <a href="/Profesor/PreguntasCrear"><button type="button" class="btn btn-success"> Crear Pregunta</button></a>
+</blockquote>
 
-
-<nav class="navbar navbar-default">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <a class="navbar-brand" href="#">TpFinal 3</a>
-        </div>
-        <ul class="nav navbar-nav">
-            <li><a href="/Login/ProfesorIndex">Inicio</a></li>
-            <li><a href="/Profesor/Preguntas">Preguntas</a></li>
-            <li><a href="/Profesor/PreguntasCrear">Crear Preguntas</a></li>
-            <li><a href="#">Respuestas</a></li>
-            <li><a href="#">Acerca de</a></li>
-            <li><a href="#">Salir</a></li>
-        </ul>
-    </div>
-</nav>
-
-<h2>Preguntas</h2>
-<a href="/Profesor/PreguntasCrear">Crear Pregunta</a>
 <h3>
     @ViewBag.MensajeError
 </h3>
-<table>
-    <tr>
-        <td> Nro </td>
-        <td> Clase </td>
-        <td> Tema </td>
-        <td> Pregunta </td>
-        <td> Fecha Desde </td>
-        <td> Fecha Hasta </td>
-        <td> Evaluar </td>
-        <td> Eliminar </td>
-    </tr>
-    @foreach (Pregunta item in Model.Resultado)
-    {
-        <tr>
-            <td> @item.Nro</td>
-            <td> @item.Clase.Nombre </td>
-            <td> @item.Tema.Nombre </td>
-            <td> <a href="/Profesor/ModificarPregunta/@item.IdPregunta">@item.Pregunta1 </a></td>
-            <td> @item.FechaDisponibleDesde </td>
-            <td> @item.FechaDisponibleHasta </td>
-            <td> <a href="/Profesor/EvaluarPregunta/@item.IdPregunta">¿?</a> </td>
-            <td> <a href="/Profesor/EliminarPregunta/@item.IdPregunta">X</a> </td>
+
+
+    <table class="table table-hover">
+        <tr class="table-active">
+            <td> Nro </td>
+            <td> Clase </td>
+            <td> Tema </td>
+            <td> Pregunta </td>
+            <td> Fecha Desde </td>
+            <td> Fecha Hasta </td>
+            <td> Evaluar </td>
+            <td> Eliminar </td>
         </tr>
-    }
-</table>
+        @foreach (Pregunta item in Model.Resultado)
+        {
+            <tr class="table-active">
+                <td> @item.Nro</td>
+                <td> @item.Clase.Nombre </td>
+                <td> @item.Tema.Nombre </td>
+                <td> <a href="/Profesor/ModificarPregunta/@item.IdPregunta">@item.Pregunta1 </a></td>
+                <td> @item.FechaDisponibleDesde </td>
+                <td> @item.FechaDisponibleHasta </td>
+                <td> <a href="/Profesor/EvaluarPregunta/@item.IdPregunta">
+                         <span class="badge badge-info">✓</span> </a> </td>
+                <td> <a href="/Profesor/EliminarPregunta/@item.IdPregunta"> 
+                    <span class="badge badge-danger">X</span></a> </td>
+            </tr>
+        }
+    </table>
 
-@if (Model.Resultado.Count() > 0)
-{
-    <span>
-        <strong>@Model.TotalRegistros</strong> registros encontrados
-    </span>
-    <span>&nbsp;|&nbsp;</span>
-    <span>
-        Página <strong>@(Model.PaginaActual)</strong> de
-        <strong>@Model.TotalPaginas</strong>
-    </span>
-    <span>&nbsp;|&nbsp;</span>
-}
-else
-{
-    <span>No hay resultados para esta búsqueda</span>
-    <span>&nbsp;|&nbsp;</span>
-}
+    <blockquote class="blockquote text-center">
 
-@if (Model.PaginaActual > 1)
-{
-    @Html.ActionLink("<<", "Preguntas", new { pagina = 1 },
-                    new { @class = "btn btn-sm btn-default" })
-    <span></span>
-    @Html.ActionLink("Anterior", "Preguntas", new { pagina = Model.PaginaActual - 1 },
-                    new { @class = "btn btn-sm btn-default" })
-}
-else
-{
-    @Html.ActionLink("<<", "Preguntas", new { pagina = 1 },
-                    new { @class = "btn btn-sm btn-default disabled" })
-    <span></span>
-    @Html.ActionLink("Anterior", "Preguntas", new { pagina = 1 },
-                    new { @class = "btn btn-sm btn-default disabled" })
-}
-<span></span>
-@if (Model.PaginaActual < Model.TotalPaginas)
-{
-    @Html.ActionLink("Siguiente", "Preguntas", new { pagina = Model.PaginaActual + 1 },
-                    new { @class = "btn btn-sm btn-default" })
-    <span></span>
-    @Html.ActionLink(">>", "Preguntas", new { pagina = Model.TotalPaginas },
-                    new { @class = "btn btn-sm btn-default" })
-}
-else
-{
-    @Html.ActionLink("Siguiente", "Index", new { pagina = Model.TotalPaginas - 1 },
-                    new { @class = "btn btn-sm btn-default disabled" })
-    <span></span>
-    @Html.ActionLink(">>", "Index", new { pagina = Model.TotalPaginas },
-                    new { @class = "btn btn-sm btn-default disabled" })
-}
+        @if (Model.Resultado.Count() > 0)
+        {
+            <span>
+                <strong>@Model.TotalRegistros</strong> registros encontrados
+            </span>
+            <span>&nbsp;|&nbsp;</span>
+            <span>
+                Página <strong>@(Model.PaginaActual)</strong> de
+                <strong>@Model.TotalPaginas</strong>
+            </span>
+            <span>&nbsp;|&nbsp;</span>
+        }
+        else
+        {
+            <span>No hay resultados para esta búsqueda</span>
+            <span>&nbsp;|&nbsp;</span>
+        }
 
+        @if (Model.PaginaActual > 1)
+        {
+            @Html.ActionLink("<<", "Preguntas", new { pagina = 1 },
+                            new { @class = "btn btn-sm btn-default" })
+            <span></span>
+            @Html.ActionLink("Anterior", "Preguntas", new { pagina = Model.PaginaActual - 1 },
+                            new { @class = "btn btn-sm btn-default" })
+        }
+        else
+        {
+            @Html.ActionLink("<<", "Preguntas", new { pagina = 1 },
+                            new { @class = "btn btn-sm btn-default disabled" })
+            <span></span>
+            @Html.ActionLink("Anterior", "Preguntas", new { pagina = 1 },
+                            new { @class = "btn btn-sm btn-default disabled" })
+        }
+        <span></span>
+        @if (Model.PaginaActual < Model.TotalPaginas)
+        {
+            @Html.ActionLink("Siguiente", "Preguntas", new { pagina = Model.PaginaActual + 1 },
+                            new { @class = "btn btn-sm btn-default" })
+            <span></span>
+            @Html.ActionLink(">>", "Preguntas", new { pagina = Model.TotalPaginas },
+                            new { @class = "btn btn-sm btn-default" })
+        }
+        else
+        {
+            @Html.ActionLink("Siguiente", "Index", new { pagina = Model.TotalPaginas - 1 },
+                            new { @class = "btn btn-sm btn-default disabled" })
+            <span></span>
+            @Html.ActionLink(">>", "Index", new { pagina = Model.TotalPaginas },
+                            new { @class = "btn btn-sm btn-default disabled" })
+        }
 
-@Html.Partial("pv_Footer")
+        </blockquote>
+
+        @Html.Partial("pv_Footer")
