@@ -75,9 +75,16 @@ namespace TpFinalWeb3.Models.Servicios
              where r.IdAlumno == id && r.IdResultadoEvaluacion == null select r).OrderByDescending(x => x.Pregunta.Nro).ToList();
             return respuestasSinCorregir;
         }
-        public void VerPreguntasTodas()
+        public List<Pregunta> VerPreguntasTodas(int id)
         {
-            //
+            MyContext ctx = new MyContext();
+            List<Pregunta> preguntasSinResponder = new List<Pregunta>();
+            var preguntasSR = (from p in ctx.Pregunta.Include("RespuestaAlumno")
+                               from r in ctx.RespuestaAlumno
+                               where r.IdAlumno != id
+                               select p).Distinct();
+            preguntasSinResponder = preguntasSR.ToList();
+            return preguntasSinResponder;
         }
 
         public List<Pregunta> PreguntasSinResponder(int id)
