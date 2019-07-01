@@ -11,6 +11,7 @@ namespace TpFinalWeb3.Controllers
     [Authorize(Roles ="profesor")]
     public class ProfesorController : Controller
     {
+        MyContext ctx = new MyContext();
         PreguntaServicio preguntaServicio = new PreguntaServicio();
         ProfesorServicio profesorServicio = new ProfesorServicio();
         AlumnoServicio alumnoServicio = new AlumnoServicio();
@@ -34,7 +35,6 @@ namespace TpFinalWeb3.Controllers
         public ActionResult PreguntasCrear()
         {
             Pregunta pregunta = new Pregunta();
-            MyContext ctx = new MyContext();
             ViewBag.NroPregunta = (ctx.Pregunta.Count()) + 1;
             ViewBag.ListaClases = ctx.Clase.ToList();
             ViewBag.ListaTemas = ctx.Tema.ToList();
@@ -43,14 +43,25 @@ namespace TpFinalWeb3.Controllers
         [HttpPost]
         public ActionResult PreguntasCrear(Pregunta p, int [] ListaClases, int [] ListaTemas)
         {
-            if (!ModelState.IsValid)
+            if(profesorServicio.VerificarNroPregunta(p.Nro) == false)
             {
-                return RedirectToAction("Login");
-
+                ViewBag.ErrorNro = "Ya existe una pregunta con este número de Pregunta";
+                ViewBag.NroPregunta = (ctx.Pregunta.Count()) + 1;
+                ViewBag.ListaClases = ctx.Clase.ToList();
+                ViewBag.ListaTemas = ctx.Tema.ToList();
+                return View("PreguntasCrear", p);
+            }
+            else if (p.FechaDisponibleHasta<p.FechaDisponibleDesde)
+            {
+                ViewBag.ErrorFechas = "La fecha disponible desde debe ser superior a la fecha hasta";
+                ViewBag.NroPregunta = (ctx.Pregunta.Count()) + 1;
+                ViewBag.ListaClases = ctx.Clase.ToList();
+                ViewBag.ListaTemas = ctx.Tema.ToList();
+                return View("PreguntasCrear",p);
             }
             else
             {
-                int id = (int)Session["idLogueado"];
+                int id = Helpers.SesionHelper.IdUsuario;
                 profesorServicio.CrearPregunta(p, ListaClases, ListaTemas, id);
                 return RedirectToAction("Preguntas");
             }
@@ -64,7 +75,6 @@ namespace TpFinalWeb3.Controllers
             }
             else
             {
-                MyContext ctx = new MyContext();
                 int pagina = 1;
                 ViewBag.MensajeError = "No puede elminar preguntas con respuestas";
                 Paginador<Pregunta> paginador = preguntaServicio.Preguntas(pagina);
@@ -74,7 +84,6 @@ namespace TpFinalWeb3.Controllers
 
         public ActionResult EvaluarPregunta(int id)
         {
-            MyContext ctx = new MyContext();
             Pregunta PreguntaPorId = profesorServicio.BuscarPreguntaPorId(id);
             ViewBag.respuestasPorId = profesorServicio.BuscarPreguntaEvaluar(id);
             ViewData["TodasCorregidas"] = profesorServicio.TotalCorregidas(id);
@@ -84,7 +93,6 @@ namespace TpFinalWeb3.Controllers
 
         public ActionResult EvaluarPreguntaFiltroCorrecta(int id)
         {
-            MyContext ctx = new MyContext();
             Pregunta PreguntaPorId = profesorServicio.BuscarPreguntaPorId(id);
             ViewBag.respuestasPorId = profesorServicio.BuscarPreguntaEvaluarCorrecta(id);
             ViewData["TodasCorregidas"] = profesorServicio.TotalCorregidas(id);
@@ -94,7 +102,6 @@ namespace TpFinalWeb3.Controllers
 
         public ActionResult EvaluarPreguntaFiltroSinCorreguir(int id)
         {
-            MyContext ctx = new MyContext();
             Pregunta PreguntaPorId = profesorServicio.BuscarPreguntaPorId(id);
             ViewBag.respuestasPorId = profesorServicio.BuscarPreguntaEvaluarSinCorreguir(id);
             ViewData["TodasCorregidas"] = profesorServicio.TotalCorregidas(id);
@@ -104,7 +111,6 @@ namespace TpFinalWeb3.Controllers
 
         public ActionResult EvaluarPreguntaFiltroRegular(int id)
         {
-            MyContext ctx = new MyContext();
             Pregunta PreguntaPorId = profesorServicio.BuscarPreguntaPorId(id);
             ViewBag.respuestasPorId = profesorServicio.BuscarPreguntaEvaluarRegular(id);
             ViewData["TodasCorregidas"] = profesorServicio.TotalCorregidas(id);
@@ -114,7 +120,6 @@ namespace TpFinalWeb3.Controllers
 
         public ActionResult EvaluarPreguntaFiltroMal(int id)
         {
-            MyContext ctx = new MyContext();
             Pregunta PreguntaPorId = profesorServicio.BuscarPreguntaPorId(id);
             ViewBag.respuestasPorId = profesorServicio.BuscarPreguntaEvaluarMal(id);
             ViewData["TodasCorregidas"] = profesorServicio.TotalCorregidas(id);
@@ -125,7 +130,6 @@ namespace TpFinalWeb3.Controllers
 
         public ActionResult MejorRespuesta(int id, int idDos)
         {
-            MyContext ctx = new MyContext();
             Pregunta PreguntaPorId = profesorServicio.BuscarPreguntaPorId(id);
             RespuestaAlumno respuestaPorId = profesorServicio.BuscarRespuestaPorId(idDos);
             profesorServicio.ActivarMejorRespuesta(respuestaPorId);
@@ -135,7 +139,6 @@ namespace TpFinalWeb3.Controllers
 
         public ActionResult ModificarPregunta(int id)
         {
-            MyContext ctx = new MyContext();
             Pregunta PreguntaPorId = profesorServicio.BuscarPreguntaPorId(id);
             ViewBag.ListaClases = ctx.Clase.ToList();
             ViewBag.ListaTemas = ctx.Tema.ToList();
@@ -149,22 +152,13 @@ namespace TpFinalWeb3.Controllers
         [HttpPost]
         public ActionResult ModificarPregunta(Pregunta preguntaModificada, int[] ListaClases, int[] ListaTemas)
         {
-            if (!ModelState.IsValid)
-            {
-                return RedirectToAction("Login");
-
-            }
-            else
-            {
-                int idProfesor = (int)Session["idLogueado"];
+                int idProfesor = Helpers.SesionHelper.IdUsuario;
                 profesorServicio.ModificarPregunta(preguntaModificada, ListaClases, ListaTemas, idProfesor);
                 return RedirectToAction("Preguntas");
-            }
         }
 
         public ActionResult EvaluarRespuestaCorrecta(int id, int idDos)
         {
-            MyContext ctx = new MyContext();
             int idProfesor = (int)Session["idLogueado"];
             Pregunta PreguntaPorId = profesorServicio.BuscarPreguntaPorId(id);
             RespuestaAlumno respuestaPorId = profesorServicio.BuscarRespuestaPorId(idDos);
@@ -175,7 +169,6 @@ namespace TpFinalWeb3.Controllers
 
         public ActionResult EvaluarRespuestaRegular(int id, int idDos)
         {
-            MyContext ctx = new MyContext();
             int idProfesor = (int)Session["idLogueado"];
             Pregunta PreguntaPorId = profesorServicio.BuscarPreguntaPorId(id);
             RespuestaAlumno respuestaPorId = profesorServicio.BuscarRespuestaPorId(idDos);
@@ -186,7 +179,6 @@ namespace TpFinalWeb3.Controllers
 
         public ActionResult EvaluarRespuestaMal(int id, int idDos)
         {
-            MyContext ctx = new MyContext();
             int idProfesor = (int)Session["idLogueado"];
             Pregunta PreguntaPorId = profesorServicio.BuscarPreguntaPorId(id);
             RespuestaAlumno respuestaPorId = profesorServicio.BuscarRespuestaPorId(idDos);

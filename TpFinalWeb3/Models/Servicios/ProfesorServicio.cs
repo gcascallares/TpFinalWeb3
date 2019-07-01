@@ -7,9 +7,9 @@ namespace TpFinalWeb3.Models.Servicios
 {
     public class ProfesorServicio
     {
+        MyContext ctx = new MyContext();
         public int VerificarProfesorLogin(LoginServicio buscado)
         {
-            MyContext ctx = new MyContext();
             Profesor profesorDb = ctx.Profesor.SingleOrDefault(x => x.Email == buscado.Email && x.Password == buscado.Password);
             if(profesorDb != null)
             {
@@ -23,27 +23,23 @@ namespace TpFinalWeb3.Models.Servicios
         }
         public Profesor buscarProfesorPorId(int id)
         {
-            MyContext ctx = new MyContext();
             Profesor profesor = ctx.Profesor.Find(id);
             return profesor;
         }
         public List<RespuestaAlumno> BuscarPreguntaEvaluar(int id)
         {
-            MyContext ctx = new MyContext();
             List<RespuestaAlumno> respuestasPorId = (from r in ctx.RespuestaAlumno where r.IdPregunta == id orderby r.FechaHoraRespuesta ascending select r).ToList();
             return respuestasPorId;
         }
 
         public List<RespuestaAlumno> BuscarPreguntaEvaluarCorrecta(int id)
         {
-            MyContext ctx = new MyContext();
             List<RespuestaAlumno> respuestasPorId = (from r in ctx.RespuestaAlumno where r.IdPregunta == id && r.IdResultadoEvaluacion == 1 select r).ToList();
             return respuestasPorId;
         }
 
         public List<RespuestaAlumno> BuscarPreguntaEvaluarSinCorreguir(int id)
         {
-            MyContext ctx = new MyContext();
             List<RespuestaAlumno> respuestasPorId = (from r in ctx.RespuestaAlumno where r.IdPregunta == id && r.IdResultadoEvaluacion == null select r).ToList();
             return respuestasPorId;
         }
@@ -51,21 +47,18 @@ namespace TpFinalWeb3.Models.Servicios
      
         public List<RespuestaAlumno> BuscarPreguntaEvaluarRegular(int id)
         {
-            MyContext ctx = new MyContext();
             List<RespuestaAlumno> respuestasPorId = (from r in ctx.RespuestaAlumno where r.IdPregunta == id && r.IdResultadoEvaluacion == 2 select r).ToList();
             return respuestasPorId;
         }
 
         public List<RespuestaAlumno> BuscarPreguntaEvaluarMal(int id)
         {
-            MyContext ctx = new MyContext();
             List<RespuestaAlumno> respuestasPorId = (from r in ctx.RespuestaAlumno where r.IdPregunta == id && r.IdResultadoEvaluacion == 3 select r).ToList();
             return respuestasPorId;
         }
 
         public void CrearPregunta(Pregunta p, int[] ListaClases, int[] ListaTemas, int id)
         {
-            MyContext ctx = new MyContext();
             foreach (int IdClase in ListaClases)
             {
                 Clase c = new Clase();
@@ -88,7 +81,6 @@ namespace TpFinalWeb3.Models.Servicios
 
         public Boolean EliminarPregunta(int id)
         {
-            MyContext ctx = new MyContext();
             Pregunta p = ctx.Pregunta.FirstOrDefault(x => x.IdPregunta == id);
             if (p.RespuestaAlumno.Count() == 0)
             {
@@ -105,7 +97,6 @@ namespace TpFinalWeb3.Models.Servicios
 
         public Boolean TotalCorregidas(int id)
         {
-            MyContext ctx = new MyContext();
             List<RespuestaAlumno> q = (from r in ctx.RespuestaAlumno where r.IdPregunta == id && r.IdResultadoEvaluacion == null select r).ToList();
 
             if (q.Count() == 0)
@@ -119,7 +110,6 @@ namespace TpFinalWeb3.Models.Servicios
 
         public Boolean MejorRespuesta(int id)
         {
-            MyContext ctx = new MyContext();
             List<RespuestaAlumno> q = (from r in ctx.RespuestaAlumno where r.IdPregunta == id && r.MejorRespuesta == true select r).ToList();
 
             if (q.Count() == 0)
@@ -134,13 +124,11 @@ namespace TpFinalWeb3.Models.Servicios
 
         public RespuestaAlumno BuscarRespuestaPorId(int idRespuestaAlumno)
         {
-            MyContext ctx = new MyContext();
             RespuestaAlumno respuestaPorId = ctx.RespuestaAlumno.Find(idRespuestaAlumno);
             return respuestaPorId;
         }
         public void ActivarMejorRespuesta(RespuestaAlumno respuestaPorId)
         {
-            MyContext ctx = new MyContext();
             int idrespuesta = respuestaPorId.IdRespuestaAlumno;
             RespuestaAlumno respuesta = ctx.RespuestaAlumno.Find(idrespuesta);
             respuesta.MejorRespuesta = true;
@@ -152,9 +140,21 @@ namespace TpFinalWeb3.Models.Servicios
 
         public Pregunta BuscarPreguntaPorId(int id)
         {
-            MyContext ctx = new MyContext();
             Pregunta preguntaPorId = ctx.Pregunta.Find(id);
             return preguntaPorId;
+        }
+
+        public Boolean VerificarNroPregunta(int Nro)
+        {
+            List<Pregunta> preguntasPorNro = ctx.Pregunta.Where(x => x.Nro == Nro).ToList();
+            if(preguntasPorNro.Count()==0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         public void ModificarPregunta(Pregunta preguntaModificada, int[] ListaClases, int[] ListaTemas, int idProfesor)
