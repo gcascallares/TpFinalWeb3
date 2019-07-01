@@ -1,5 +1,5 @@
 ﻿body {
-    padding-top: 50px;
+    /*padding-top: 50px; */
     padding-bottom: 20px;
 }
 
@@ -21,4 +21,19 @@ input,
 select,
 textarea {
     max-width: 280px;
+}
+
+
+.button-submit {
+    background: #34b8c0;
+    color: #fff;
+    border: 2px solid #34b8c0;
+    padding: 8px 20px !important;
+}
+
+.flex-container {
+    display: flex;
+    height: 75vh;
+    justify-content: center;
+    align-items: center;
 }

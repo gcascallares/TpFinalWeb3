@@ -1,58 +1,61 @@
 ﻿@model TpFinalWeb3.Pregunta
 @{
     ViewBag.Title = "PreguntasCrear";
+    Layout = "/Views/Shared/_ProfesoresLayout.cshtml";
 }
 
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 
-<!-- jQuery library -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-
-<!-- Latest compiled JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<blockquote class="blockquote">
+    <h1>Preguntas</h1>
+</blockquote>
 
 
-<nav class="navbar navbar-default">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <a class="navbar-brand" href="#">TpFinal 3</a>
-        </div>
-        <ul class="nav navbar-nav">
-            <li><a href="/Login/ProfesorIndex">Inicio</a></li>
-            <li><a href="/Profesor/Preguntas">Preguntas</a></li>
-            <li><a href="/Profesor/PreguntasCrear">Crear Preguntas</a></li>
-            <li><a href="#">Respuestas</a></li>
-            <li><a href="#">Acerca de</a></li>
-            <li><a href="#">Salir</a></li>
-        </ul>
-    </div>
-</nav>
-
-<h2>PreguntasCrear</h2>
 <form action="/Profesor/PreguntasCrear" method="post">
-    @Html.ValidationMessageFor(Model => Model.Nro)
+    <fieldset>
+
+        <div class="form-group">
+            <label>Número pregunta</label>
+            @Html.ValidationMessageFor(Model => Model.Nro)
+            <input type="text" name="Nro" value="@ViewBag.NroPregunta" required class="form-control" placeholder="Numero">
+        </div>
+        <div class="form-group">
+            <label>Clase</label>
+            @Html.ValidationMessageFor(Model => Model.Clase)
+            <select class="form-control" name="ListaClases" required>
+                    @foreach (Clase c in ViewBag.ListaClases)
+                    {
+                        <option value="@c.IdClase">@c.Nombre</option>
+                    }
+            </select>
+        </div>
+
+        <!-- @Html.ValidationMessageFor(Model => Model.Nro)
     Nro:<input type="text" name="Nro" value="@ViewBag.NroPregunta" required /><br />
-    @Html.ValidationMessageFor(Model => Model.Clase)
-    Clase:<select name="ListaClases" required>
-        @foreach (Clase c in ViewBag.ListaClases)
-        {
-            <option value="@c.IdClase">@c.Nombre</option>
-        }
-    </select>
-    <br />
-    @Html.ValidationMessageFor(Model => Model.Tema)
-    Tema:<select name="ListaTemas" required>
-        @foreach (Tema t in ViewBag.ListaTemas)
-        {
-            <option value="@t.IdTema">@t.Nombre</option>
-        }
-    </select>
-    <br />
-    Disponible desde: <input type="datetime" name="FechaDisponibleDesde" value="" /><br />
-    Hasta: <input type="datetime" name="FechaDisponibleHasta" value="" /><br />
-    @Html.ValidationMessageFor(Model => Model.Pregunta1)
-    Pregunta:<textarea name="Pregunta1" required"> </textarea><br />
-    <input type="submit" name="Crear" value="Crear" /><br />
+            @Html.ValidationMessageFor(Model => Model.Clase)
+        Clase:<select name="ListaClases" required>
+            @foreach (Clase c in ViewBag.ListaClases)
+            {
+                <option value="@c.IdClase">@c.Nombre</option>
+            }
+        </select>
+        <br /> 
+            -->
+       
+        @Html.ValidationMessageFor(Model => Model.Tema)
+        Tema:<select name="ListaTemas" required>
+            @foreach (Tema t in ViewBag.ListaTemas)
+            {
+                <option value="@t.IdTema">@t.Nombre</option>
+            }
+        </select>
+        <br />
+        Disponible desde: <input type="datetime" name="FechaDisponibleDesde" value="" /><br />
+        Hasta: <input type="datetime" name="FechaDisponibleHasta" value="" /><br />
+        @Html.ValidationMessageFor(Model => Model.Pregunta1)
+        Pregunta:<textarea name="Pregunta1" required"> </textarea><br />
+        <input type="submit" name="Crear" value="Crear" /><br />
+
+    </fieldset>
 </form>
 <a href="/Profesor/PreguntasCrear"><input type="submit" name="Cancelar" value="Cancelar" /></a>
 

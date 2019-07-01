@@ -1,18 +1,39 @@
 ﻿@model TpFinalWeb3.Models.Servicios.LoginServicio
 @{
     ViewBag.Title = "Login";
+    Layout = "/Views/Shared/_AnonimoLayout.cshtml";
 }
 
-<h2>Login</h2>
 
-<form action="~/Login/Login" method="post">
-    @Html.ValidationMessageFor(Model => Model.Email)
-    <input type="email" name="Email" /><br>
-    @Html.ValidationMessageFor(Model => Model.Password)
-    <input type="password" name="Password" /><br>
-    <input type="checkbox" name="CheckProfesor" value="1">Soy Profesor<br>
-    <input type="submit" value="Login" />
-</form>
+    <div class="container flex-container">
+        <div class="col-sm-12 col-md-3 text-center">
+
+
+            <h2>Iniciar Sesión</h2>
+
+         
+                    <form action="~/Login/Login" method="post">
+                        @Html.ValidationMessageFor(Model => Model.Email)
+                        <div class="form-group text-center">
+                            Email
+                            <input class="form-control text-center" type="email" name="Email" /><br>
+                        </div>
+                        <div class="form-group text-center">
+                            Contraseña
+                            @Html.ValidationMessageFor(Model => Model.Password)
+                            <input class="form-control text-center" type="password" name="Password" /><br>
+                        </div>
+                        <div class="form-group">
+                            <input type="checkbox" name="CheckProfesor" value="1">Soy Profesor<br>
+                        </div>
+                        <div class="form-group">
+                            <input class="btn btn-primary btn-info" type="submit" value="Ingresar" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+
 @ViewBag.MensajeError
 
-@Html.Partial("pv_Footer")
+
