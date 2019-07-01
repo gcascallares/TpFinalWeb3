@@ -2,83 +2,117 @@
 
 @{
     ViewBag.Title = "AlumnoIndex";
+    Layout = "/Views/Shared/_AlumnosLayout.cshtml";
 }
 
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 
-<!-- jQuery library -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+<div class="jumbotron">
+    <h2>Bienvenido @Model.Nombre!</h2>
+    <p class="lead">
+        Debajo vas a encontrar la tabla de posiciones que contabiliza el total de los puntos ganados en las distintas preguntas. <br />
+        En la pestaña "PREGUNTAS" podrás ver las preguntas publicadas,
+        las cuales deberás responder para sumar puntos; y las preguntas ya respondidas, de las cuales podrás ver
+        su corrección
+    </p>
+</div>
 
-<!-- Latest compiled JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<h3> >Tabla de Posiciones</h3>
+<table class="table table-hover">
 
-
-<nav class="navbar navbar-default">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <a class="navbar-brand" href="#">TpFinal 3</a>
-        </div>
-        <ul class="nav navbar-nav">
-            <li><a href="/Login/AlumnoIndex/@Model.IdAlumno">Inicio</a></li>
-            <li><a href="/Alumno/VerPreguntasAlumno/@Model.IdAlumno">Preguntas</a></li>
-            <li><a href="/Alumno/AcercaDe">Acerca De</a></li>
-            <li><a href="/Login/CerrarSesion">Salir</a></li>
-        </ul>
-    </div>
-</nav>
-
-<h2>AlumnoIndex</h2>
-<h2>Bienvenido @Model.Nombre</h2>
-<table>
     @{int posicion = 1; }
-    <tr>
-        <td> posicion </td>
+    <tr class="table-dark">
+        <td> Posición </td>
         <td> Alumno </td>
         <td> Puntos </td>
         <td> Respuestas Bien </td>
-        <td> Mejor Respuesta </td>
+        <td class="text-success"> Mejor Respuesta ★</td>
     </tr>
     @foreach (Alumno item in ViewBag.TablaDePosiciones)
     {
-        <tr>
-            <td> @posicion </td>
-            <td> @item.Nombre @item.Apellido </td>
-            <td> @item.PuntosTotales </td>
-            <td> @item.CantidadRespuestasCorrectas </td>
-            <td> @item.CantidadMejorRespuesta </td>
-        </tr>
+        if (item.IdAlumno == Model.IdAlumno)
+        {
+            <tr class="table-success">
+                <td> @posicion </td>
+                <td> @item.Nombre @item.Apellido</td>
+                <td> @item.PuntosTotales </td>
+                <td> @item.CantidadRespuestasCorrectas </td>
+                <td> @item.CantidadMejorRespuesta </td>
+            </tr>}
+        else
+        {
+            <tr>
+                <td> @posicion </td>
+                <td> @item.Nombre @item.Apellido </td>
+                <td> @item.PuntosTotales </td>
+                <td> @item.CantidadRespuestasCorrectas </td>
+                <td> @item.CantidadMejorRespuesta </td>
+            </tr>
+        }
         posicion += 1;
     }
 </table>
 <br />
-<h1>Ultimas dos preguntas</h1>
 
-@foreach (Pregunta p in ViewBag.DosPreguntas)
-{
-    int posicion2 = 0;
-    <h3>@p.Nro .@p.Pregunta1</h3>
-    foreach (RespuestaAlumno item in p.RespuestaAlumno)
+
+<h3> >Ultimas dos preguntas </h3>
+
+<div class="alert alert-dismissible alert-primary">
+    @foreach (Pregunta p in ViewBag.DosPreguntas)
     {
-        posicion2 += 1;
-<table>
-    <tr>
-        <td> @posicion2 .</td>
-        <td>&nbsp @item.Alumno.Nombre @item.Alumno.Apellido &nbsp</td>
-        <td>&nbsp + @item.Puntos &nbsp</td>
-        <td> &nbsp @if(item.MejorRespuesta is true){<h5>Mejor Respuesta </h5>}</td>
-    </tr>
-</table>
+        int posicion2 = 0;
+        <h4>@p.Nro . @p.Pregunta1</h4>
+
+        <table class="table table-hover">
+
+            @foreach (RespuestaAlumno item in p.RespuestaAlumno)
+            {
+                posicion2 += 1;
+
+                if (item.IdAlumno == Model.IdAlumno)
+                {
+                   <tr class="table-success">
+                        <td>@posicion2 .</td>
+                        <td>@item.Alumno.Nombre @item.Alumno.Apellido</td>
+                        <td>+@item.Puntos</td>
+                        <td>
+                            @if (item.MejorRespuesta is true)
+                            {<span class="badge badge-success"> Mejor respuesta</span>}
+                        </td>
+                    </tr>}
+                else
+                {
+                    <tr class="table-secondary">
+                        <td>@posicion2 .</td>
+                        <td>@item.Alumno.Nombre @item.Alumno.Apellido</td>
+                        <td>+@item.Puntos</td>
+                        <td>
+                            @if (item.MejorRespuesta is true)
+                            {<span class="badge badge-success"> Mejor respuesta</span>}
+                        </td>
+                    </tr>
+                }
+            }
+        </table>
     }
-}
+</div>
 
 
-<h1>Preguntas Sin responder</h1>
+<div class="alert alert-dismissible alert-light">
+    <h3>
+        Preguntas sin responder  
+        <a href="/Alumno/VerPreguntasAlumno/@Model.IdAlumno"> <button type="button" class="btn btn-success">  Ver preguntas </button>  </a>
+    </h3>
 
-@foreach (Pregunta item in ViewBag.PreguntasSinRespuesta)
-{
-    <a href="#">@item.Nro @item.Pregunta1</a>
-    <br />
-}
-<br />
+    <table class="table table-hover">
 
-@Html.Partial("pv_Footer")
+        @foreach (Pregunta item in ViewBag.PreguntasSinRespuesta)
+        {
+            <tr>
+                <td> @item.Nro .  @item.Pregunta1</td>
+            </tr>
+        }
+
+    </table>
+</div>
+
+    @Html.Partial("pv_Footer")

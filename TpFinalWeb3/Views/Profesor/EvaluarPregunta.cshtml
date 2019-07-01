@@ -39,58 +39,58 @@
     </div>
 </nav>
 
+<br />
+<table class="table table-hover">
+    <tr class="table-dark">
+            <td> Fecha y Hora </td>
+            <td> Alumno</td>
+            <td> Respuesta </td>
+            <td> Evaluar </td>
+            <td></td>
+        </tr>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <td> Fecha y Hora </td>
-                <td> Alumno </td>
-                <td> Respuesta </td>
-                <td> Evaluar </td>
+    @{ int contador = 1;}
+    @foreach (RespuestaAlumno item in ViewBag.respuestasPorId)
+    {
+        <tr class="table-active">
+            <td> @item.FechaHoraRespuesta </td>
+            <td> @item.Alumno.Nombre @item.Alumno.Apellido </td>
+            <td> @item.Respuesta </td>
+
+            @if (item.IdResultadoEvaluacion == null)
+            {
+                if (contador == 1)
+                {
+                    <td> <a href="/Profesor/EvaluarRespuestaMal/@Model.IdPregunta/@item.IdRespuestaAlumno"><span class="badge badge-danger">MAL</span></a>
+            <a href="/Profesor/EvaluarRespuestaRegular/@Model.IdPregunta/@item.IdRespuestaAlumno"><span class="badge badge-warning">REGULAR</span></a>
+            <a href="/Profesor/EvaluarRespuestaCorrecta/@Model.IdPregunta/@item.IdRespuestaAlumno"><span class="badge badge-success">CORRECTA</span></a> </td>
+                    contador++;
+                }
+
+            }
+            else
+            {
+                <td>@item.ResultadoEvaluacion.Resultado</td>
+            }
+
+            @if ((bool)ViewData["TodasCorregidas"] == true && (bool)ViewData["MejorRespuesta"] == true)
+            {
+                <td><a href="/Profesor/MejorRespuesta/@Model.IdPregunta/@item.IdRespuestaAlumno">Mejor Respuesta</a></td>
+            }
+            else
+            {
                 <td></td>
-            </tr>
-        </thead>
+            }
 
-        @{ int contador = 1;}
-        @foreach (RespuestaAlumno item in ViewBag.respuestasPorId)
-        {
-            <tr>
-                <td> @item.FechaHoraRespuesta </td>
-                <td> @item.Alumno.Nombre @item.Alumno.Apellido </td>
-                <td> @item.Respuesta </td>
+            @if (item.MejorRespuesta == true)
+            {
+                <td><span class="badge badge-success">MEJOR RESPUESTA!</span></td>
+            }
 
-                @if (item.IdResultadoEvaluacion == null)
-                {
-                    if (contador == 1)
-                    {
-                        <td> <a href="/Profesor/EvaluarRespuestaMal/@Model.IdPregunta/@item.IdRespuestaAlumno">Mal</a>-<a href="/Profesor/EvaluarRespuestaRegular/@Model.IdPregunta/@item.IdRespuestaAlumno">Regular</a>-<a href="/Profesor/EvaluarRespuestaCorrecta/@Model.IdPregunta/@item.IdRespuestaAlumno">Correcta</a> </td>
-                        contador++;
-                    }
+        </tr>
 
-                }
-                else
-                {
-                    <td>@item.ResultadoEvaluacion.Resultado</td>
-                }
-
-                @if ((bool)ViewData["TodasCorregidas"] == true && (bool)ViewData["MejorRespuesta"] == true)
-                {
-                    <td><a href="/Profesor/MejorRespuesta/@Model.IdPregunta/@item.IdRespuestaAlumno">Mejor Respuesta</a></td>
-                }
-                else
-                {
-                    <td>.</td>
-                }
-
-                @if (item.MejorRespuesta == true)
-                {
-                    <td>MEJOR RESPUESTA!</td>
-                }
-
-            </tr>
-
-        }
-    </table>
+    }
+</table>
 
     <br />
     @Html.Partial("pv_Footer")
