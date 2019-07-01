@@ -1,190 +1,125 @@
 ﻿@model TpFinalWeb3.Alumno
+
 @{
-    ViewBag.Title = "VerPreguntasFiltroTodas";
+    ViewBag.Title = "AlumnoIndex";
+    Layout = "/Views/Shared/_AlumnosLayout.cshtml";
 }
+<h2>Preguntas</h2>
 
-<h2>VerPreguntasFiltroTodas</h2>
-
-
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-
-<!-- jQuery library -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-
-<!-- Latest compiled JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-
-
-<nav class="navbar navbar-default">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <a class="navbar-brand" href="#">TpFinal 3</a>
-        </div>
-        <ul class="nav navbar-nav">
-            <li><a href="/Login/AlumnoIndex/@Model.IdAlumno">Inicio</a></li>
-            <li><a href="/Alumno/VerPreguntasAlumno/@Model.IdAlumno">Preguntas</a></li>
-            <li><a href="/Alumno/AcercaDe">Acerca De</a></li>
-            <li><a href="#">Salir</a></li>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="collapse navbar-collapse" id="navbarColor03">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="/Alumno/VerPreguntasFiltroTodas/@Model.IdAlumno">Todas</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/Alumno/VerPreguntaFiltroSinCorregir/@Model.IdAlumno">Sin Corregir</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/Alumno/VerPreguntaFiltroCorrecta/@Model.IdAlumno">Correctas</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/Alumno/VerPreguntaFiltroRegular/@Model.IdAlumno">Regular</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/Alumno/VerPreguntaFiltroMal/@Model.IdAlumno">Mal</a>
+            </li>
         </ul>
     </div>
-</nav>
-<a href="/Alumno/VerPreguntasFiltroTodas/@Model.IdAlumno">Todas</a>
-<a href="/Alumno/VerPreguntaFiltroCorrecta/@Model.IdAlumno">Correctas</a>
-<a href="/Alumno/VerPreguntaFiltroRegular/@Model.IdAlumno">Regulares</a>
-<a href="/Alumno/VerPreguntaFiltroMal/@Model.IdAlumno">Mal</a>
-<a href="/Alumno/VerPreguntaFiltroSinCorregir/@Model.IdAlumno">Sin corregir</a>
+</nav><br />
 
-<h2>Preguntas</h2>
-<h4>
-    Recordá que cuanto antes respondas correctamente, más chances tenes de sumar un mejor puntaje,
-    y si tu respuesta es la más completa, vas a recibir un puntaje extra!
-</h4>
+      
+          @foreach (Pregunta preg in ViewBag.FiltroPreguntasSinResponder)
+          {
+              <div class="alert alert-dismissible alert-info">
+              <p>@preg.Clase.Nombre @preg.Tema.Nombre</p>
+              <p>@preg.Pregunta1 <br /> </p>
 
-@foreach (Pregunta preg in ViewBag.FiltroPreguntasSinResponder)
-{
-    <p>@preg.Clase.Nombre @preg.Tema.Nombre</p>
-    <p>@preg.Pregunta1 <br /> </p>
-
-    if (preg.FechaDisponibleHasta < DateTime.Now) //HAY QUE CAMBIAR EL < POR >.
-    {
-        <p>
-            <a href="/Alumno/ResponderPregunta/@preg.IdPregunta">Responder</a> <br />
-            Hay tiempo de responder hasta el: @preg.FechaDisponibleHasta
-        </p>
-        <br />
-    }
-    else
-    {
-        <p>Ya se terminó el tiempo para responder! :(  </p> <br />
-    }
-}
-
-<br /><br />
-
-@foreach (RespuestaAlumno item in ViewBag.FiltroRespuestaC)
-{
-    <p>N° pregunta: @item.Pregunta.Nro, @item.Pregunta.Clase.Nombre, Tema: @item.Pregunta.Tema.Nombre </p>
-    <p>Pregunta: @item.Pregunta.Pregunta1 </p>
-    <p>Órden: @item.Orden</p>
-    <p>Puntos obtenidos: @item.Puntos</p>
-
-    if (item.IdResultadoEvaluacion != null)
-    {
-        <a href="/Alumno/VerRespuesta/@item.IdRespuestaAlumno"> Ver </a>
-        <p> Correción: @item.ResultadoEvaluacion.Resultado </p>
-
-    }
-    else
-    {
-        <a href="/Alumno/VerRespuesta/@item.IdRespuestaAlumno"> Ver </a>
-        <p> Correción pendiente </p>
-
-    }
-
-    if (item.MejorRespuesta == true)
-    {
-        <p>Mejor Respuesta!</p>
-    }
-    else
-    {
-        <p></p>
-    }
-    <br />
-}
-
-@foreach (RespuestaAlumno item2 in ViewBag.FiltroRespuestaM)
-{
-    <p>N° pregunta: @item2.Pregunta.Nro, @item2.Pregunta.Clase.Nombre, Tema: @item2.Pregunta.Tema.Nombre </p>
-    <p>Pregunta: @item2.Pregunta.Pregunta1 </p>
-    <p>Órden: @item2.Orden</p>
-    <p>Puntos obtenidos: @item2.Puntos</p>
-
-    if (item2.IdResultadoEvaluacion != null)
-    {
-        <a href="/Alumno/VerRespuesta/@item2.IdRespuestaAlumno"> Ver </a>
-        <p> Correción: @item2.ResultadoEvaluacion.Resultado </p>
-
-    }
-    else
-    {
-        <a href="/Alumno/VerRespuesta/@item2.IdRespuestaAlumno"> Ver </a>
-        <p> Correción pendiente </p>
-
-    }
-
-    if (item2.MejorRespuesta == true)
-    {
-        <p>Mejor Respuesta!</p>
-    }
-    else
-    {
-        <p></p>
-    }
-    <br />
-}
-
-@foreach (RespuestaAlumno item3 in ViewBag.FiltroRespuestaS)
-{
-    <p>N° pregunta: @item3.Pregunta.Nro, @item3.Pregunta.Clase.Nombre, Tema: @item3.Pregunta.Tema.Nombre </p>
-    <p>Pregunta: @item3.Pregunta.Pregunta1 </p>
-    <p>Órden: @item3.Orden</p>
-    <p>Puntos obtenidos: @item3.Puntos</p>
-
-    if (item3.IdResultadoEvaluacion != null)
-    {
-        <a href="/Alumno/VerRespuesta/@item3.IdRespuestaAlumno"> Ver </a>
-        <p> Correción: @item3.ResultadoEvaluacion.Resultado </p>
-
-    }
-    else
-    {
-        <a href="/Alumno/VerRespuesta/@item3.IdRespuestaAlumno"> Ver </a>
-        <p> Correción pendiente </p>
-
-    }
-
-    if (item3.MejorRespuesta == true)
-    {
-        <p>Mejor Respuesta!</p>
-    }
-    else
-    {
-        <p></p>
-    }
-    <br />
-}
-
-@foreach (RespuestaAlumno item4 in ViewBag.FiltroRespuestaC)
-{
-    <p>N° pregunta: @item4.Pregunta.Nro, @item4.Pregunta.Clase.Nombre, Tema: @item4.Pregunta.Tema.Nombre </p>
-    <p>Pregunta: @item4.Pregunta.Pregunta1 </p>
-    <p>Órden: @item4.Orden</p>
-    <p>Puntos obtenidos: @item4.Puntos</p>
-
-    if (item4.IdResultadoEvaluacion != null)
-    {
-        <a href="/Alumno/VerRespuesta/@item4.IdRespuestaAlumno"> Ver </a>
-        <p> Correción: @item4.ResultadoEvaluacion.Resultado </p>
-
-    }
-    else
-    {
-        <a href="/Alumno/VerRespuesta/@item4.IdRespuestaAlumno"> Ver </a>
-        <p> Correción pendiente </p>
-
-    }
-
-    if (item4.MejorRespuesta == true)
-    {
-        <p>Mejor Respuesta!</p>
-    }
-    else
-    {
-        <p></p>
-    }
-    <br />
-}
-<br /><br />
+              @if (preg.FechaDisponibleHasta < DateTime.Now) //HAY QUE CAMBIAR EL < POR >.
+              {
+                  <p>
+                      <a href="/Alumno/ResponderPregunta/@preg.IdPregunta">Responder</a>
+                      Hay tiempo de responder hasta el: @preg.FechaDisponibleHasta
+                  </p>
+              }
+              else
+              {
+                  <p>Ya se terminó el tiempo para responder! :(  </p>
+              }
+          </div>
+          }
 
 
-@Html.Partial("pv_Footer")
+
+           @foreach (RespuestaAlumno item3 in ViewBag.FiltroRespuestaS)
+           {
+            <div class="alert alert-dismissible alert-secondary">
+                <p>N° pregunta: @item3.Pregunta.Nro, @item3.Pregunta.Clase.Nombre, Tema: @item3.Pregunta.Tema.Nombre </p>
+                <p>Pregunta: @item3.Pregunta.Pregunta1 </p>
+
+                <a href="/Alumno/VerRespuesta/item3.IdRespuestaAlumno"> Ver </a>
+                <p> Correción pendiente </p>
+
+            </div>
+           }
+
+
+
+           @foreach (RespuestaAlumno item in ViewBag.FiltroRespuestaC)
+           {
+               <div class="alert alert-dismissible alert-success">
+
+               <p>N° pregunta: @item.Pregunta.Nro, @item.Pregunta.Clase.Nombre, Tema: @item.Pregunta.Tema.Nombre </p>
+               <p>Pregunta: @item.Pregunta.Pregunta1 </p>
+               <p>Órden: @item.Orden</p>
+               <p>Puntos obtenidos: @item.Puntos</p>
+
+                   <a href="/Alumno/VerRespuesta/@item.IdRespuestaAlumno"> Ver </a>
+                   <p> Correción: @item.ResultadoEvaluacion.Resultado </p>
+
+
+               @if (item.MejorRespuesta == true)
+               {
+                   <p>Mejor Respuesta!</p>
+               }
+
+            </div>
+           }
+
+            @foreach (RespuestaAlumno item4 in ViewBag.FiltroRespuestaR)
+               {
+                   <div class="alert alert-dismissible alert-warning">
+                   <p>N° pregunta: @item4.Pregunta.Nro, @item4.Pregunta.Clase.Nombre, Tema: @item4.Pregunta.Tema.Nombre </p>
+                   <p>Pregunta: @item4.Pregunta.Pregunta1 </p>
+                   <p>Órden: @item4.Orden</p>
+                   <p>Puntos obtenidos: @item4.Puntos</p>
+
+                       <a href="/Alumno/VerRespuesta/@item4.IdRespuestaAlumno"> Ver </a>
+                       <p> Correción: @item4.ResultadoEvaluacion.Resultado </p>
+
+                   @if (item4.MejorRespuesta == true)
+                   {
+                       <p>Mejor Respuesta!</p>
+                   }
+
+                       </div>
+               }
+
+           @foreach (RespuestaAlumno item2 in ViewBag.FiltroRespuestaM)
+           {
+               <div class="alert alert-dismissible alert-danger">
+               <p>N° pregunta: @item2.Pregunta.Nro, @item2.Pregunta.Clase.Nombre, Tema: @item2.Pregunta.Tema.Nombre </p>
+               <p>Pregunta: @item2.Pregunta.Pregunta1 </p>
+               <p>Órden: @item2.Orden</p>
+               <p>Puntos obtenidos: @item2.Puntos</p>
+
+                   <a href="/Alumno/VerRespuesta/@item2.IdRespuestaAlumno"> Ver </a>
+                   <p> Correción: @item2.ResultadoEvaluacion.Resultado </p>
+                   
+                   </div>
+           }
+
+                     
+                   
+
+           @Html.Partial("pv_Footer")

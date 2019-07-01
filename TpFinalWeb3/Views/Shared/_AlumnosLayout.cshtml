@@ -1,17 +1,50 @@
-﻿@{
-    Layout = null;
-}
-
-<!DOCTYPE html>
-
+﻿<!DOCTYPE html>
 <html>
 <head>
-    <meta name="viewport" content="width=device-width" />
-    <title></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Mi aplicación ASP.NET</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
 </head>
 <body>
-    <div>
-    
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <a class="navbar-brand text-success" href="#">MIEL</a>
+
+        <div class="collapse navbar-collapse" id="navbarColor01">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/Login/AlumnoIndex/@Model.IdAlumno">Inicio</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/Alumno/VerPreguntasAlumno/@Model.IdAlumno">Preguntas</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/Alumno/AcercaDe">Acerca de</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/Login/CerrarSesion">Salir</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <br />
+    <br />
+
+    <div class="container body-content">
+        @RenderBody()
     </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
 </body>
 </html>

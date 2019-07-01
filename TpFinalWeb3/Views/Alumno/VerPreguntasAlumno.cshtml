@@ -1,68 +1,63 @@
 ﻿@model TpFinalWeb3.Alumno
+
 @{
-    ViewBag.Title = "VerPreguntasAlumno";
+    ViewBag.Title = "AlumnoIndex";
+    Layout = "/Views/Shared/_AlumnosLayout.cshtml";
 }
+    <h2>Preguntas</h2>
 
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-
-<!-- jQuery library -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-
-<!-- Latest compiled JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-
-
-<nav class="navbar navbar-default">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <a class="navbar-brand" href="#">TpFinal 3</a>
-        </div>
-        <ul class="nav navbar-nav">
-            <li><a href="/Login/AlumnoIndex/@Model.IdAlumno">Inicio</a></li>
-            <li><a href="/Alumno/VerPreguntasAlumno/@Model.IdAlumno">Preguntas</a></li>
-            <li><a href="/Alumno/AcercaDe">Acerca De</a></li>
-            <li><a href="#">Salir</a></li>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="collapse navbar-collapse" id="navbarColor03">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="/Alumno/VerPreguntasFiltroTodas/@Model.IdAlumno">Todas</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/Alumno/VerPreguntaFiltroSinCorregir/@Model.IdAlumno">Sin Corregir</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/Alumno/VerPreguntaFiltroCorrecta/@Model.IdAlumno">Correctas</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/Alumno/VerPreguntaFiltroRegular/@Model.IdAlumno">Regular</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/Alumno/VerPreguntaFiltroMal/@Model.IdAlumno">Mal</a>
+            </li>
         </ul>
     </div>
-</nav>
+</nav><br />
 
-<a href="/Alumno/VerPreguntaFiltroCorrecta/@Model.IdAlumno">Correctas</a>
-<a href="/Alumno/VerPreguntaFiltroRegular/@Model.IdAlumno">Regulares</a>
-<a href="/Alumno/VerPreguntaFiltroMal/@Model.IdAlumno">Mal</a>
-<a href="/Alumno/VerPreguntaFiltroSinCorregir/@Model.IdAlumno">Sin corregir</a>
+    <div class="alert alert-dismissible alert-warning">
+        Recordá que cuanto antes respondas correctamente, más chances tenes de sumar un mejor puntaje,
+        y si tu respuesta es la más completa, vas a recibir un puntaje extra !
+    </div><br />
 
-
-<h2>Preguntas</h2>
-<h4>
-    Recordá que cuanto antes respondas correctamente, más chances tenes de sumar un mejor puntaje,
-    y si tu respuesta es la más completa, vas a recibir un puntaje extra!
-</h4>
+    <h3> >Preguntas sin responder</h3>
 
 
-<h1>Preguntas sin responder</h1>
+        <table class="table table-hover">
 
-@foreach (Pregunta item in ViewBag.PreguntasSinRespuesta)
-{
-    <p>@item.Clase.Nombre @item.Tema.Nombre</p>
-    <p>@item.Pregunta1 <br /> </p>
+            @foreach (Pregunta item in ViewBag.PreguntasSinRespuesta)
+            {
+                <tr class="table-active">
+                    <td>@item.Clase.Nombre @item.Tema.Nombre</td>
+                    <td> @item.Pregunta1 </td>
 
-    if (@item.FechaDisponibleHasta < DateTime.Now) //HAY QUE CAMBIAR EL < POR >.
-    {
-        <p>
-            <a href="/Alumno/ResponderPregunta/@item.IdPregunta">Responder</a> <br />
-            Hay tiempo de responder hasta el: @item.FechaDisponibleHasta
-        </p>
-        <br />
-    }
-    else
-    {
-        <p>Ya se terminó el tiempo para responder! :(  </p> <br />
-    }
-}
-<br />
+                    @if (@item.FechaDisponibleHasta < DateTime.Now) //HAY QUE CAMBIAR EL < POR >.
+                    {
+                     <td> Hay tiempo de responder hasta el: @item.FechaDisponibleHasta </td>
+                     <td> <a href="/Alumno/ResponderPregunta/@item.IdPregunta"><button type="button" class="btn btn-success">Responder</button></a></td>
+                    }
+                    else
+                    {
+                        <td>Ya se terminó el tiempo para responder! :( </td>
+                    }
+                </tr>
+            }
+        </table>
 
-
-@Html.Partial("pv_Footer")
+                    @Html.Partial("pv_Footer")
 
 
 
