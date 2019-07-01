@@ -6,58 +6,59 @@
 
 
 <blockquote class="blockquote">
-    <h1>Preguntas</h1>
+    <h2>Crear pregunta</h2>
 </blockquote>
 
+    <form action="/Profesor/PreguntasCrear" method="post">
+        <fieldset>
 
-<form action="/Profesor/PreguntasCrear" method="post">
-    <fieldset>
-
-        <div class="form-group">
-            <label>Número pregunta</label>
-            @Html.ValidationMessageFor(Model => Model.Nro)
-            <input type="text" name="Nro" value="@ViewBag.NroPregunta" required class="form-control" placeholder="Numero">
-        </div>
-        <div class="form-group">
-            <label>Clase</label>
-            @Html.ValidationMessageFor(Model => Model.Clase)
-            <select class="form-control" name="ListaClases" required>
+            <div class="form-group">
+                <label>Número pregunta</label>
+                @Html.ValidationMessageFor(Model => Model.Nro)
+                <input type="text" name="Nro" value="@ViewBag.NroPregunta" required class="form-control" placeholder="Numero">
+            </div>
+            <div class="form-group">
+                <label>Clase</label>
+                @Html.ValidationMessageFor(Model => Model.Clase)
+                <select class="form-control" name="ListaClases" required>
                     @foreach (Clase c in ViewBag.ListaClases)
                     {
                         <option value="@c.IdClase">@c.Nombre</option>
                     }
-            </select>
-        </div>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Tema</label>
+                @Html.ValidationMessageFor(Model => Model.Tema)
+                <select class="form-control" name="ListaTemas" required>
+                    @foreach (Tema t in ViewBag.ListaTemas)
+                    {
+                        <option value="@t.IdTema">@t.Nombre</option>
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Disponible desde</label>
+                <input type="datetime" name="FechaDisponibleDesde" value="" class="form-control">
+            </div>
+            <div class="form-group">
+                <label>Disponible hasta</label>
+                <input type="datetime" name="FechaDisponibleHasta" value="" class="form-control">
+            </div>
+            @Html.ValidationMessageFor(Model => Model.Pregunta1)
+            <div class="form-group">
+                <label>Pregunta </label>
+                <textarea class="form-control" name="Pregunta1" required" rows="3"></textarea>
+            </div>
 
-        <!-- @Html.ValidationMessageFor(Model => Model.Nro)
-    Nro:<input type="text" name="Nro" value="@ViewBag.NroPregunta" required /><br />
-            @Html.ValidationMessageFor(Model => Model.Clase)
-        Clase:<select name="ListaClases" required>
-            @foreach (Clase c in ViewBag.ListaClases)
-            {
-                <option value="@c.IdClase">@c.Nombre</option>
-            }
-        </select>
-        <br /> 
-            -->
-       
-        @Html.ValidationMessageFor(Model => Model.Tema)
-        Tema:<select name="ListaTemas" required>
-            @foreach (Tema t in ViewBag.ListaTemas)
-            {
-                <option value="@t.IdTema">@t.Nombre</option>
-            }
-        </select>
-        <br />
-        Disponible desde: <input type="datetime" name="FechaDisponibleDesde" value="" /><br />
-        Hasta: <input type="datetime" name="FechaDisponibleHasta" value="" /><br />
-        @Html.ValidationMessageFor(Model => Model.Pregunta1)
-        Pregunta:<textarea name="Pregunta1" required"> </textarea><br />
-        <input type="submit" name="Crear" value="Crear" /><br />
+            <button type="submit" class="btn btn-success">Crear pregunta</button>
 
-    </fieldset>
-</form>
-<a href="/Profesor/PreguntasCrear"><input type="submit" name="Cancelar" value="Cancelar" /></a>
+        </fieldset>
+    </form>
+<br />
+    <a href="/Profesor/Preguntas">
+        <button type="submit" class="btn btn-danger">Cancelar</button>
+    </a>
 
 
-@Html.Partial("pv_Footer")
+    @Html.Partial("pv_Footer")
