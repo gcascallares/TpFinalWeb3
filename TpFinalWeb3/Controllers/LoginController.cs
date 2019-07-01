@@ -1,8 +1,11 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
+using System.Web.UI.WebControls;
 using TpFinalWeb3.Helpers;
 using TpFinalWeb3.Models.Servicios;
 
@@ -39,7 +42,27 @@ namespace TpFinalWeb3.Controllers
                     else
                     {
                         int idP = profesorServicio.VerificarProfesorLogin(login);
+                        Session["id"] = idP;
                         Helpers.SesionHelper.IdUsuario = idP;
+                        login.Roles = "profesor";
+                        FormsAuthentication.SetAuthCookie(login.Email, false);
+
+                        var authTicket = new FormsAuthenticationTicket(1, login.Email, DateTime.Now, DateTime.Now.AddMinutes(20), false, login.Roles);
+                        string encryptedTicket = FormsAuthentication.Encrypt(authTicket);
+                        var authCookie = new HttpCookie(FormsAuthentication.FormsCookieName, encryptedTicket);
+                        HttpContext.Response.Cookies.Add(authCookie);
+
+                        /*LoginServicio userModel = new LoginServicio()
+                        {
+                            id = idP,
+                            rol = "profesor",
+                        };
+                        string userData = JsonConvert.SerializeObject(userModel);
+                        FormsAuthenticationTicket authTicket = new FormsAuthenticationTicket(1,"login", DateTime.Now, DateTime.Now.AddMinutes(15), false, userData);
+
+                        string enTicket = FormsAuthentication.Encrypt(authTicket);
+                        HttpCookie faCookie = new HttpCookie("Cookie1", enTicket);
+                        Response.Cookies.Add(faCookie);*/
                         return RedirectToAction("ProfesorIndex");
                     }
                 }
@@ -53,13 +76,21 @@ namespace TpFinalWeb3.Controllers
                     else
                     {
                         int idA = alumnoServicio.VerificarAlumnoLogin(login);
+                        Session["id"] = idA;
                         Helpers.SesionHelper.IdUsuario = idA;
+                        login.Roles = "alumno";
+                        FormsAuthentication.SetAuthCookie(login.Email, false);
+
+                        var authTicket = new FormsAuthenticationTicket(1, login.Email, DateTime.Now, DateTime.Now.AddMinutes(20), false, login.Roles);
+                        string encryptedTicket = FormsAuthentication.Encrypt(authTicket);
+                        var authCookie = new HttpCookie(FormsAuthentication.FormsCookieName, encryptedTicket);
+                        HttpContext.Response.Cookies.Add(authCookie);
                         return RedirectToAction("AlumnoIndex", new { id = idA });
                     }
                 }
             }
         }
-
+        [Authorize(Roles = "alumno")]
         public ActionResult AlumnoIndex(int id)
         {
             //int id = (int)Session["idLogueado"];
@@ -79,13 +110,20 @@ namespace TpFinalWeb3.Controllers
 
             return View(alumno);
         }
-
+        [Authorize(Roles = "profesor")]
         public ActionResult ProfesorIndex()
         {
             int id = Helpers.SesionHelper.IdUsuario;
             Profesor profesor = profesorServicio.buscarProfesorPorId(id);
             Session["idLogueado"] = profesor.IdProfesor;
             return View(profesor);
+        }
+
+        public ActionResult CerrarSesion()
+        {
+            //AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+            FormsAuthentication.SignOut();
+            return RedirectToAction("Login");
         }
 
     }

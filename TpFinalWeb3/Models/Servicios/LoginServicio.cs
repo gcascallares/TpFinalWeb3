@@ -20,5 +20,7 @@ namespace TpFinalWeb3.Models.Servicios
         public string Password { get; set; }
 
         public int CheckProfesor { get; set; }
+        public int id { get; set; }
+        public string Roles { get; set; }
     }
 }

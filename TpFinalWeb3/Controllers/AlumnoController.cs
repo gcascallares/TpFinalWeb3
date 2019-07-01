@@ -8,6 +8,7 @@ using TpFinalWeb3.Models.Servicios;
 
 namespace TpFinalWeb3.Controllers
 {
+    [Authorize(Roles = "alumno")]
     public class AlumnoController : Controller
     {
         AlumnoServicio alumnoServicio = new AlumnoServicio();
