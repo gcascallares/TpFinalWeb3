@@ -259,3 +259,12 @@ C:\Users\Federico\Documents\GitHub\TpFinalWeb3\TpFinalWeb3\obj\Debug\TpFinalWeb3
 C:\Users\Federico\Documents\GitHub\TpFinalWeb3\TpFinalWeb3\obj\Debug\TpFinalWeb3.csproj.CopyComplete
 C:\Users\Federico\Documents\GitHub\TpFinalWeb3\TpFinalWeb3\obj\Debug\TpFinalWeb3.dll
 C:\Users\Federico\Documents\GitHub\TpFinalWeb3\TpFinalWeb3\obj\Debug\TpFinalWeb3.pdb
+C:\Users\Alan\source\repos\TpFinalWeb3\TpFinalWeb3\bin\Microsoft.AspNet.Identity.Core.dll
+C:\Users\Alan\source\repos\TpFinalWeb3\TpFinalWeb3\bin\Microsoft.AspNet.Identity.EntityFramework.dll
+C:\Users\Alan\source\repos\TpFinalWeb3\TpFinalWeb3\bin\Microsoft.Owin.dll
+C:\Users\Alan\source\repos\TpFinalWeb3\TpFinalWeb3\bin\Microsoft.Owin.Security.dll
+C:\Users\Alan\source\repos\TpFinalWeb3\TpFinalWeb3\bin\Owin.dll
+C:\Users\Alan\source\repos\TpFinalWeb3\TpFinalWeb3\bin\Microsoft.AspNet.Identity.Core.xml
+C:\Users\Alan\source\repos\TpFinalWeb3\TpFinalWeb3\bin\Microsoft.AspNet.Identity.EntityFramework.xml
+C:\Users\Alan\source\repos\TpFinalWeb3\TpFinalWeb3\bin\Microsoft.Owin.xml
+C:\Users\Alan\source\repos\TpFinalWeb3\TpFinalWeb3\bin\Microsoft.Owin.Security.xml

@@ -27,9 +27,13 @@ namespace TpFinalWeb3.Controllers
         public ActionResult ResponderPregunta(int id)
         {
             Pregunta preg = profesorServicio.BuscarPreguntaPorId(id);
+            int idAlumno = (int)Session["idLogueado"];
+            Alumno alumno = alumnoServicio.buscarAlumnoPorId(idAlumno);
+            ViewData["Alumno"] = alumno;
             return View(preg);
         }
 
+        [ValidateInput(false)]
         [HttpPost]
         public ActionResult GuardarRespuesta(Pregunta pregunta, string RespuestaAlumno)
         {
@@ -40,7 +44,7 @@ namespace TpFinalWeb3.Controllers
             //int idAlumno = SesionHelper.IdUsuario;
             Pregunta preg = ctx.Pregunta.Find(id);
             preguntaServicio.GuardarRespuesta(preg, respuesta, idAlumno);
-
+            profesorServicio.EnviarEmailRespuestaAlumno(preg, respuesta, idAlumno);
             ctx.SaveChanges();
             return RedirectToAction("/VerPreguntasAlumno/"+idAlumno);
         }
@@ -55,8 +59,12 @@ namespace TpFinalWeb3.Controllers
         public ActionResult VerPreguntasFiltroTodas(int id)
         {
             Alumno alum = alumnoServicio.buscarAlumnoPorId(id);
-            //ViewBag.FiltroRespuesta = preguntaServicio.VerPreguntasTodas();
-            return View("VerPreguntaFiltro", alum);
+            ViewBag.FiltroRespuestaC = preguntaServicio.VerPreguntaEvaluarCorrecta(id);
+            ViewBag.FiltroRespuestaR = preguntaServicio.VerPreguntaEvaluarRegular(id);
+            ViewBag.FiltroRespuestaM = preguntaServicio.VerPreguntaEvaluarMal(id);
+            ViewBag.FiltroRespuestaS = preguntaServicio.VerPreguntaSinCorregir(id);
+            ViewBag.FiltroPreguntasSinResponder = preguntaServicio.PreguntasSinResponder(id);
+            return View(alum);
         }
 
         public ActionResult VerPreguntaFiltroRegular(int id)

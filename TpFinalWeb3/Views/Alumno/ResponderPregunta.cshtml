@@ -1,8 +1,10 @@
 ﻿@model TpFinalWeb3.Pregunta
+
 @{
     ViewBag.Title = "ResponderPregunta";
 
 }
+
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 
@@ -11,6 +13,11 @@
 
 <!-- Latest compiled JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+<script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+
+<script src="//cdn.ckeditor.com/4.12.1/standard/ckeditor.js"></script>
+
 
 
 <nav class="navbar navbar-default">
@@ -28,20 +35,30 @@
 </nav>
 
 
+
+
 <h2>ResponderPregunta</h2>
 
 
 <form action="/Alumno/GuardarRespuesta" method="post">
+
     Nro:@Model.Nro - @Model.Pregunta1 <br />
     Clase:@Model.Clase.Nombre
     Tema: @Model.Tema.Nombre<br />
     Disponible hasta: @Model.FechaDisponibleHasta<br />
     <input type="hidden" name="idPregunta" value="@Model.IdPregunta" />
-    <textarea name="RespuestaAlumno" required"> </textarea>
+
+    <textarea name="RespuestaAlumno" id="RespuestaAlumno" required></textarea>
     <br />
     <input type="submit" name="Enviar respuesta" value="Guardar" /><br />
 
 </form>
-<a href="/Alumno/VerPreguntasAlumno"><input type="submit" name="Cancelar" value="Cancelar" /></a>
 
+
+<script>
+    // Replace the <textarea id="editor1"> with a CKEditor
+    // instance, using default configuration.
+    CKEDITOR.replace('RespuestaAlumno');
+</script>
+<a href="/Alumno/VerPreguntasAlumno"><input type="submit" name="Cancelar" value="Cancelar" /></a>
 
