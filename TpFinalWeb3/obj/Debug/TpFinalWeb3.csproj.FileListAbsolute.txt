@@ -290,3 +290,11 @@ C:\Users\Federico\Documents\GitHub\TpFinalWeb3\TpFinalWeb3\bin\roslyn\System.Net
 C:\Users\Federico\Documents\GitHub\TpFinalWeb3\TpFinalWeb3\bin\roslyn\System.Net.Sockets.dll
 C:\Users\Federico\Documents\GitHub\TpFinalWeb3\TpFinalWeb3\bin\roslyn\System.Runtime.InteropServices.RuntimeInformation.dll
 C:\Users\Federico\Documents\GitHub\TpFinalWeb3\TpFinalWeb3\bin\roslyn\System.Threading.Tasks.Extensions.dll
+C:\Users\Usuario\source\repos\TpFinalWeb3\TpFinalWeb3\bin\roslyn\Microsoft.Win32.Primitives.dll
+C:\Users\Usuario\source\repos\TpFinalWeb3\TpFinalWeb3\bin\roslyn\System.Diagnostics.DiagnosticSource.dll
+C:\Users\Usuario\source\repos\TpFinalWeb3\TpFinalWeb3\bin\roslyn\System.Globalization.Calendars.dll
+C:\Users\Usuario\source\repos\TpFinalWeb3\TpFinalWeb3\bin\roslyn\System.IO.Compression.ZipFile.dll
+C:\Users\Usuario\source\repos\TpFinalWeb3\TpFinalWeb3\bin\roslyn\System.Net.Http.dll
+C:\Users\Usuario\source\repos\TpFinalWeb3\TpFinalWeb3\bin\roslyn\System.Net.Sockets.dll
+C:\Users\Usuario\source\repos\TpFinalWeb3\TpFinalWeb3\bin\roslyn\System.Runtime.InteropServices.RuntimeInformation.dll
+C:\Users\Usuario\source\repos\TpFinalWeb3\TpFinalWeb3\bin\roslyn\System.Threading.Tasks.Extensions.dll

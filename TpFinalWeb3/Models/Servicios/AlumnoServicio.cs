@@ -8,9 +8,9 @@ namespace TpFinalWeb3.Models.Servicios
 {
     public class AlumnoServicio
     {
+        MyContext ctx = new MyContext();
         public int VerificarAlumnoLogin(LoginServicio buscado)
         {
-            MyContext ctx = new MyContext();
             Alumno alumnoDb = ctx.Alumno.SingleOrDefault(x => x.Email == buscado.Email && x.Password == buscado.Password);
             if(alumnoDb != null)
             {
@@ -25,13 +25,11 @@ namespace TpFinalWeb3.Models.Servicios
 
         public Alumno buscarAlumnoPorId(int id)
         {
-            MyContext ctx = new MyContext();
             Alumno alumno = ctx.Alumno.Find(id);
             return alumno;
         }
         public List<Pregunta> ultimasDosPreguntas()
         {
-            MyContext ctx = new MyContext();
             var ultimasDosPreguntas = (from p in ctx.Pregunta.Include("RespuestaAlumno").Include("Alumno")
                                                  join r in ctx.RespuestaAlumno on p.IdPregunta equals r.IdPregunta
                                                  join a in ctx.Alumno on r.IdAlumno equals a.IdAlumno
@@ -43,7 +41,6 @@ namespace TpFinalWeb3.Models.Servicios
 
         public List<Alumno> TablaDePosiciones()
         {
-            MyContext ctx = new MyContext();
             List<Alumno> tablaDePosiciones = new List<Alumno>();
             tablaDePosiciones = ctx.Alumno.OrderByDescending(x => x.CantidadMejorRespuesta).OrderByDescending(x => x.CantidadRespuestasCorrectas).OrderByDescending(x => x.PuntosTotales).ToList();
             return tablaDePosiciones;
@@ -51,7 +48,6 @@ namespace TpFinalWeb3.Models.Servicios
 
         public List<Pregunta> PreguntasSinResponder(int id)
         {
-            MyContext ctx = new MyContext();
             List<Pregunta> preguntasSinResponder = new List<Pregunta>();
             var preguntasSR = (from p in ctx.Pregunta.Include("RespuestaAlumno")
                               from r in ctx.RespuestaAlumno
@@ -68,7 +64,6 @@ namespace TpFinalWeb3.Models.Servicios
 
         public void EnviarEmailMejorRespuesta(RespuestaAlumno respuestaPorId)
         {
-            MyContext ctx = new MyContext();
             Alumno alumno = ctx.Alumno.Find(respuestaPorId.IdAlumno);
             Pregunta pregunta = ctx.Pregunta.Find(respuestaPorId.IdPregunta);
             System.Net.Mail.MailMessage mensaje = new System.Net.Mail.MailMessage();
@@ -102,8 +97,6 @@ namespace TpFinalWeb3.Models.Servicios
         }
         public void EvaluarPreguntaCorrecta(int idProfesor, RespuestaAlumno respuestaPorId)
         {
-            MyContext ctx = new MyContext();
-
             int PuntajeMaximoPorRespuestaCorrecta = Convert.ToInt32(WebConfigurationManager.AppSettings["PuntajeMaximoPorRespuestaCorrecta"]);
             int CupoMaximoRespuestasCorrectas = Convert.ToInt32(WebConfigurationManager.AppSettings["CupoMaximoRespuestasCorrectas"]);
 
@@ -154,8 +147,6 @@ namespace TpFinalWeb3.Models.Servicios
 
         public void EvaluarPreguntaRegular(int idProfesor, RespuestaAlumno respuestaPorId)
         {
-            MyContext ctx = new MyContext();
-
             int PuntajeMaximoPorRespuestaCorrecta = Convert.ToInt32(WebConfigurationManager.AppSettings["PuntajeMaximoPorRespuestaCorrecta"]);
             int CupoMaximoRespuestasCorrectas = Convert.ToInt32(WebConfigurationManager.AppSettings["CupoMaximoRespuestasCorrectas"]);
 
@@ -198,7 +189,6 @@ namespace TpFinalWeb3.Models.Servicios
 
         public void EvaluarPreguntaMal(int idProfesor, RespuestaAlumno respuestaPorId)
         {
-            MyContext ctx = new MyContext();
 
             int idrespuesta = respuestaPorId.IdRespuestaAlumno;
             RespuestaAlumno respuesta = ctx.RespuestaAlumno.Find(idrespuesta);
@@ -215,8 +205,6 @@ namespace TpFinalWeb3.Models.Servicios
 
         public void EnviarEmailEvaluacion(int idProfesor, RespuestaAlumno respuestaPorId)
         {
-
-            MyContext ctx = new MyContext();
 
             Alumno alumno = ctx.Alumno.Find(respuestaPorId.IdAlumno);
             Pregunta pregunta = ctx.Pregunta.Find(respuestaPorId.IdPregunta);
