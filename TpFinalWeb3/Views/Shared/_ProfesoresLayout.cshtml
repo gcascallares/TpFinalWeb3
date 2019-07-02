@@ -46,8 +46,11 @@
         @RenderBody()
     </div>
 
-        @Scripts.Render("~/bundles/jquery")
-        @Scripts.Render("~/bundles/bootstrap")
-        @RenderSection("scripts", required: false)
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
 </body>
+<br /><br />
+@Html.Partial("/Views/Shared/pv_Footer.cshtml")
+
 </html>
