@@ -25,7 +25,7 @@ namespace TpFinalWeb3.Controllers
 
                 default:
                     ViewBag.Title2 = "Página no encontrada";
-                    ViewBag.Description = "Algo salio muy mal :( ..";
+                    ViewBag.Description = "Algo salio muy mal :(";
                     break;
             }
 

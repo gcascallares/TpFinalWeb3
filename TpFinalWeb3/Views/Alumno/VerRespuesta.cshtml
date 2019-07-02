@@ -1,70 +1,50 @@
-﻿@model TpFinalWeb3.RespuestaAlumno
+﻿@model TpFinalWeb3.Alumno
+
 @{
-    ViewBag.Title = "VerRespuesta";
+    ViewBag.Title = "Ver respuesta";
+    Layout = "/Views/Shared/_AlumnosLayout.cshtml";
+
 }
 
-<h2>VerRespuesta</h2>
-
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-
-<!-- jQuery library -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-
-<!-- Latest compiled JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
 
 <script src="//cdn.ckeditor.com/4.12.1/standard/ckeditor.js"></script>
 
-<nav class="navbar navbar-default">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <a class="navbar-brand" href="#">TpFinal 3</a>
+
+<h3>Ver respuesta</h3>
+
+<div class="alert alert-dismissible alert-primary">
+    <p>
+        Nro pregunta: @ViewBag.Respuesta.Pregunta.Nro - @ViewBag.Respuesta.Pregunta.Clase.Nombre - Tema: @ViewBag.Respuesta.Pregunta.Tema.Nombre
+    </p>
+    <h3> @ViewBag.Respuesta.Pregunta.Pregunta1 </h3>
+
+
+    @if (@ViewBag.Respuesta.IdResultadoEvaluacion == null)
+    {
+        <span class="badge badge-secondary">Corrección pendiente</span>
+    }
+    else
+    {
+        <div>
+            <p> Corrección: @ViewBag.Respuesta.ResultadoEvaluacion.Resultado <br />
+            Órden: @ViewBag.Respuesta.Orden ° - Puntos: @ViewBag.Respuesta.Puntos</p>
+            @if (@ViewBag.Respuesta.MejorRespuesta == true)
+            {
+                <span class="badge badge-success">Mejor respuesta!</span>
+            }
+            else { }
+
         </div>
-        <ul class="nav navbar-nav">
-            <li><a href="/Login/AlumnoIndex/@Model.IdAlumno">Inicio</a></li>
-            <li><a href="/Alumno/VerPreguntasAlumno/@Model.IdAlumno">Preguntas</a></li>
-            <li><a href="/Alumno/AcercaDe">Acerca De</a></li>
-            <li><a href="#">Salir</a></li>
-        </ul>
-    </div>
-</nav>
-
-<div>
-    <h5>@Model.Pregunta.Clase.Nombre: @Model.Pregunta.Tema.Nombre</h5>
-    <h2>@Model.Pregunta.Nro @Model.Pregunta.Pregunta1</h2>
+    }
 </div>
 
-<br />
-
-@if (Model.IdResultadoEvaluacion == null)
-{
-    <h2>Corrección Pendiente</h2>
-}
-else
-{
-    <div>
-        <h2>Resultado:@Model.ResultadoEvaluacion.Resultado / Orden: @Model.Orden / Puntos: @Model.Puntos</h2>
-        @if (Model.MejorRespuesta == true)
-        {
-            <h2>Mejor Respuesta!</h2>
-        }
-        else
-        {
-            <p></p>
-        }
-
-    </div>
-    <br /><br />
-}
-
 <div>
-    <textarea id="Respuesta" readonly>@Model.Respuesta</textarea>
+    <textarea id="Respuesta" readonly>@ViewBag.Respuesta.Respuesta</textarea>
 </div>
+
+<a href="/Alumno/VerPreguntasAlumno/@Model.IdAlumno"><button type="button" class="btn btn-danger">Volver</button> </a>
 
 <script>
     CKEDITOR.replace('Respuesta');
 </script>
-
-
-
-<a href="/Alumno/VerPreguntasAlumno/@Model.IdAlumno"><input type="submit" name="Volver" value="Volver" /></a>

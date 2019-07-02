@@ -27,10 +27,12 @@ namespace TpFinalWeb3.Controllers
         public ActionResult ResponderPregunta(int id)
         {
             Pregunta preg = profesorServicio.BuscarPreguntaPorId(id);
-            int idAlumno = (int)Session["idLogueado"];
+            //int idAlumno = (int)Session["idLogueado"];
+            int idAlumno = Helpers.SesionHelper.IdUsuario;
             Alumno alumno = alumnoServicio.buscarAlumnoPorId(idAlumno);
-            ViewData["Alumno"] = alumno;
-            return View(preg);
+            ViewData["Pregunta"] = preg;
+            ViewBag.Pregunta = preg;
+            return View(alumno);
         }
 
         [ValidateInput(false)]
@@ -92,7 +94,10 @@ namespace TpFinalWeb3.Controllers
         {
             MyContext ctx = new MyContext();
             RespuestaAlumno respuesta = ctx.RespuestaAlumno.Find(id);
-            return View(respuesta);
+            var idAlumno = respuesta.Alumno.IdAlumno;
+            Alumno alum = alumnoServicio.buscarAlumnoPorId(idAlumno);
+            ViewBag.Respuesta = respuesta;
+            return View(alum);
         }
 
 
