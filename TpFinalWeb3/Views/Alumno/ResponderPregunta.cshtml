@@ -1,64 +1,35 @@
-﻿@model TpFinalWeb3.Pregunta
+﻿@model TpFinalWeb3.Alumno
 
 @{
     ViewBag.Title = "ResponderPregunta";
+    Layout = "/Views/Shared/_AlumnosLayout.cshtml";
 
 }
-
-
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-
-<!-- jQuery library -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-
-<!-- Latest compiled JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 
 <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
 
 <script src="//cdn.ckeditor.com/4.12.1/standard/ckeditor.js"></script>
 
 
-
-<nav class="navbar navbar-default">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <a class="navbar-brand" href="#">TpFinal 3</a>
-        </div>
-        <ul class="nav navbar-nav">
-            <li><a href="/Login/AlumnoIndex">Inicio</a></li>
-            <li><a href="/Alumno/VerPreguntasAlumno">Preguntas</a></li>
-            <li><a href="/Alumno/AcercaDe">Acerca De</a></li>
-            <li><a href="#">Salir</a></li>
-        </ul>
-    </div>
-</nav>
-
-
-
-
 <h2>ResponderPregunta</h2>
 
+    <form action="/Alumno/GuardarRespuesta" method="post">
 
-<form action="/Alumno/GuardarRespuesta" method="post">
+        <div class="alert alert-dismissible alert-primary">
+            <p>Nro pregunta: @ViewBag.Pregunta.Nro - @ViewBag.Pregunta.Clase.Nombre - Tema: @ViewBag.Pregunta.Tema.Nombre</br>
+            Disponible hasta: @ViewBag.Pregunta.FechaDisponibleHasta</p>
+            <h3> @ViewBag.Pregunta.Pregunta1 </h3>
+            <input type="hidden" name="idPregunta" value="@ViewBag.Pregunta.IdPregunta" />
+        </div>
+        <textarea name="RespuestaAlumno" id="RespuestaAlumno" required></textarea>
+        <br />
+        <button type="submit" class="btn btn-success">Enviar respuesta</button> </a>
+                <a href="/Alumno/VerPreguntasAlumno/@Model.IdAlumno"><button type="button" class="btn btn-danger">Cancelar</button> </a>
 
-    Nro:@Model.Nro - @Model.Pregunta1 <br />
-    Clase:@Model.Clase.Nombre
-    Tema: @Model.Tema.Nombre<br />
-    Disponible hasta: @Model.FechaDisponibleHasta<br />
-    <input type="hidden" name="idPregunta" value="@Model.IdPregunta" />
+    </form>
 
-    <textarea name="RespuestaAlumno" id="RespuestaAlumno" required></textarea>
-    <br />
-    <input type="submit" name="Enviar respuesta" value="Guardar" /><br />
-
-</form>
-
-
-<script>
-    // Replace the <textarea id="editor1"> with a CKEditor
-    // instance, using default configuration.
-    CKEDITOR.replace('RespuestaAlumno');
-</script>
-<a href="/Alumno/VerPreguntasAlumno"><input type="submit" name="Cancelar" value="Cancelar" /></a>
-
+    <script>
+        // Replace the <textarea id="editor1"> with a CKEditor
+        // instance, using default configuration.
+        CKEDITOR.replace('RespuestaAlumno');
+    </script>
