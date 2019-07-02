@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-
+using System.Web.Configuration;
 
 namespace TpFinalWeb3.Models.Servicios
 {
@@ -104,6 +104,10 @@ namespace TpFinalWeb3.Models.Servicios
         {
             MyContext ctx = new MyContext();
 
+            int PuntajeMaximoPorRespuestaCorrecta = Convert.ToInt32(WebConfigurationManager.AppSettings["PuntajeMaximoPorRespuestaCorrecta"]);
+            int CupoMaximoRespuestasCorrectas = Convert.ToInt32(WebConfigurationManager.AppSettings["CupoMaximoRespuestasCorrectas"]);
+
+
             int idrespuesta = respuestaPorId.IdRespuestaAlumno;
             RespuestaAlumno respuesta = ctx.RespuestaAlumno.Find(idrespuesta);
 
@@ -120,7 +124,7 @@ namespace TpFinalWeb3.Models.Servicios
 
             int respCorr = (int)SumaRespuestasCorrectasHastaElMomento;
 
-            int puntajeRespuesta = 1000 - (1000 / 10 * (respCorr));
+            int puntajeRespuesta = PuntajeMaximoPorRespuestaCorrecta - (1000 / CupoMaximoRespuestasCorrectas * (respCorr));
 
  
                 if (puntajeRespuesta >= 0)
@@ -152,6 +156,10 @@ namespace TpFinalWeb3.Models.Servicios
         {
             MyContext ctx = new MyContext();
 
+            int PuntajeMaximoPorRespuestaCorrecta = Convert.ToInt32(WebConfigurationManager.AppSettings["PuntajeMaximoPorRespuestaCorrecta"]);
+            int CupoMaximoRespuestasCorrectas = Convert.ToInt32(WebConfigurationManager.AppSettings["CupoMaximoRespuestasCorrectas"]);
+
+
             int idrespuesta = respuestaPorId.IdRespuestaAlumno;
             RespuestaAlumno respuesta = ctx.RespuestaAlumno.Find(idrespuesta);
 
@@ -166,7 +174,7 @@ namespace TpFinalWeb3.Models.Servicios
 
             int respCorr = (int)SumaRespuestasCorrectasHastaElMomento;
 
-            int puntajeRespuesta = (1000 - (1000 / 10 * (respCorr)))/2;
+            int puntajeRespuesta = (PuntajeMaximoPorRespuestaCorrecta - (1000 / CupoMaximoRespuestasCorrectas * (respCorr)))/2;
 
             if (puntajeRespuesta >= 0)
             {
