@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-
+using System.Web.Configuration;
 namespace TpFinalWeb3.Models.Servicios
 {
     public class ProfesorServicio
@@ -130,9 +130,12 @@ namespace TpFinalWeb3.Models.Servicios
         {
             int idrespuesta = respuestaPorId.IdRespuestaAlumno;
             RespuestaAlumno respuesta = ctx.RespuestaAlumno.Find(idrespuesta);
+            Alumno alumno = ctx.Alumno.Find(respuesta.IdAlumno);
             respuesta.MejorRespuesta = true;
             int PuntosTotales = (int)respuesta.Puntos + 500;
             respuesta.Puntos = PuntosTotales;
+            int PuntajeMaximoPorRespuestaCorrecta = Convert.ToInt32(WebConfigurationManager.AppSettings["PuntajeMaximoPorRespuestaCorrecta"]);
+            alumno.PuntosTotales += (PuntajeMaximoPorRespuestaCorrecta / 2) ;
             ctx.SaveChanges();
         }
 
