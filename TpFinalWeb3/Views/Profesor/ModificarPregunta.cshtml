@@ -48,12 +48,12 @@
 
         <div class="form-group">
             <label>Disponible desde</label>
-            <input type="datetime" name="FechaDisponibleDesde" value="@Model.FechaDisponibleDesde" class="form-control">
+            <input type="datetime-local" name="FechaDisponibleDesde" value="@Model.FechaDisponibleDesde" class="form-control">
         </div>
 
         <div class="form-group">
             <label>Disponible hasta</label>
-            <input type="datetime" name="FechaDisponibleHasta" value="@Model.FechaDisponibleHasta" class="form-control">
+            <input type="datetime-local" name="FechaDisponibleHasta" value="@Model.FechaDisponibleHasta" class="form-control">
         </div>
 
         @Html.ValidationMessageFor(Model => Model.Pregunta1)
