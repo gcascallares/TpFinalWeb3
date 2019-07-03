@@ -18,8 +18,10 @@ namespace TpFinalWeb3.Controllers
         ProfesorServicio profesorServicio = new ProfesorServicio();
 
         // GET: Login
+        //[AllowAnonymous]
         public ActionResult Login()
         {
+           // ViewBag.returnUrl = returnUrl;
             return View();
         }
         [HttpPost]
@@ -41,6 +43,7 @@ namespace TpFinalWeb3.Controllers
                     }
                     else
                     {
+                       
                         int idP = profesorServicio.VerificarProfesorLogin(login);
                         Session["id"] = idP;
                         Helpers.SesionHelper.IdUsuario = idP;
