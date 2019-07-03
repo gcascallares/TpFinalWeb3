@@ -44,7 +44,7 @@
                     <td>@item.Clase.Nombre @item.Tema.Nombre</td>
                     <td> @item.Pregunta1 </td>
 
-                    @if (@item.FechaDisponibleHasta < DateTime.Now) //HAY QUE CAMBIAR EL < POR >.
+                    @if (@item.FechaDisponibleHasta > DateTime.Now)
                     {
                      <td> Hay tiempo de responder hasta el: @item.FechaDisponibleHasta </td>
                      <td> <a href="/Alumno/ResponderPregunta/@item.IdPregunta"><button type="button" class="btn btn-success">Responder</button></a></td>

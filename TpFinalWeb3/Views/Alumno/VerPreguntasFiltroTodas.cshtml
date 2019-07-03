@@ -44,7 +44,7 @@
                       <td>@preg.Tema.Nombre</td>
                       <td>@preg.Pregunta1</td>
 
-                      @if (preg.FechaDisponibleHasta < DateTime.Now) //HAY QUE CAMBIAR EL < POR >.
+                      @if (preg.FechaDisponibleHasta > DateTime.Now) //HAY QUE CAMBIAR EL < POR >.
                       {
                           <td>@preg.FechaDisponibleHasta</td>
                           <td><a href="/Alumno/ResponderPregunta/@preg.IdPregunta"><button type="button" class="btn btn-primary">Responder</button></a></td>

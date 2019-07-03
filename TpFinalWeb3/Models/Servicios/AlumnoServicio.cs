@@ -33,7 +33,7 @@ namespace TpFinalWeb3.Models.Servicios
             var ultimasDosPreguntas = (from p in ctx.Pregunta.Include("RespuestaAlumno").Include("Alumno")
                                                  join r in ctx.RespuestaAlumno on p.IdPregunta equals r.IdPregunta
                                                  join a in ctx.Alumno on r.IdAlumno equals a.IdAlumno
-                                       where p.FechaDisponibleHasta < DateTime.Now
+                                       where p.FechaDisponibleHasta < DateTime.Now && r.MejorRespuesta == true
                                        orderby p.FechaDisponibleHasta descending
                                        select p).Take(2).ToList();
             return ultimasDosPreguntas;

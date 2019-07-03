@@ -12,28 +12,29 @@
             <h2>Iniciar Sesión</h2>
 
          
-                    <form action="~/Login/Login" method="post">
-                        @Html.ValidationMessageFor(Model => Model.Email)
-                        <div class="form-group text-center">
-                            Email
-                            <input class="form-control text-center" type="email" name="Email" /><br>
-                        </div>
-                        <div class="form-group text-center">
-                            Contraseña
-                            @Html.ValidationMessageFor(Model => Model.Password)
-                            <input class="form-control text-center" type="password" name="Password" /><br>
-                        </div>
-                        <div class="form-group">
-                            <input type="checkbox" name="CheckProfesor" value="1">Soy Profesor<br>
-                        </div>
-                        <div class="form-group">
-                            <input class="btn btn-primary btn-info" type="submit" value="Ingresar" />
-                        </div>
-                    </form>
+            <form action="~/Login/Login" method="post">
+                @Html.ValidationMessageFor(Model => Model.Email)
+                <div class="form-group text-center">
+                    Email
+                    <input class="form-control text-center" type="email" name="Email" /><br>
+                </div>
+                <div class="form-group text-center">
+                    Contraseña
+                    @Html.ValidationMessageFor(Model => Model.Password)
+                    <input class="form-control text-center" type="password" name="Password" /><br>
+                </div>
+                <div class="form-group">
+                    <input type="checkbox" name="CheckProfesor" value="1">Soy Profesor<br>
+                </div>
+                @ViewBag.MensajeError
+                <div class="form-group">
+                    <input class="btn btn-primary btn-info" type="submit" value="Ingresar" />
+                </div>
+            </form>
                 </div>
             </div>
 
 
-@ViewBag.MensajeError
+
 
 
