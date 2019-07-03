@@ -101,5 +101,15 @@ namespace TpFinalWeb3.Controllers
         }
 
 
+        [ActionName("AcercaDe")]
+        public ActionResult AcercaDe(int id)
+        {
+                Alumno alum = alumnoServicio.buscarAlumnoPorId(id);
+                ViewBag.Layout = "/Views/Shared/_AlumnosLayout.cshtml";
+                ViewBag.Objeto = "@model TpFinalWeb3.Alumno";
+                return View(alum);
+
+        }
+
     }
 }

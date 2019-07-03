@@ -186,5 +186,18 @@ namespace TpFinalWeb3.Controllers
             alumnoServicio.EnviarEmailEvaluacion(idProfesor, respuestaPorId);
             return RedirectToAction("EvaluarPregunta", new { id = PreguntaPorId.IdPregunta });
         }
+
+        [ActionName("AcercaDe")]
+        public ActionResult AcercaDe()
+        {
+            int id = Helpers.SesionHelper.IdUsuario;
+            Profesor prof = profesorServicio.buscarProfesorPorId(id);
+            ViewBag.Layout = "/Views/Shared/_ProfesoresLayout.cshtml";
+            ViewBag.Objeto = "@model TpFinalWeb3.Profesor";
+            ViewBag.IdProfesor = id;
+            return View("/Views/Alumno/AcercaDe.cshtml",prof);
+
+        }
+
     }
 }

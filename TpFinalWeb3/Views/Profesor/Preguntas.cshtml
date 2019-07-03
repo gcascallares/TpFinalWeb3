@@ -67,7 +67,7 @@
         }
 
         @if (Model.PaginaActual > 1)
-        {
+        {<br />
             @Html.ActionLink("<<", "Preguntas", new { pagina = 1 },
                             new { @class = "btn btn-sm btn-default" })
             <span></span>
@@ -75,7 +75,7 @@
                             new { @class = "btn btn-sm btn-default" })
         }
         else
-        {
+        { <br />
             @Html.ActionLink("<<", "Preguntas", new { pagina = 1 },
                             new { @class = "btn btn-sm btn-default disabled" })
             <span></span>

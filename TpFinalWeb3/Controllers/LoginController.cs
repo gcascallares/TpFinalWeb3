@@ -44,6 +44,7 @@ namespace TpFinalWeb3.Controllers
                         int idP = profesorServicio.VerificarProfesorLogin(login);
                         Session["id"] = idP;
                         Helpers.SesionHelper.IdUsuario = idP;
+                        Helpers.SesionHelper.RolUsuario = "profesor";
                         login.Roles = "profesor";
                         FormsAuthentication.SetAuthCookie(login.Email, false);
 
@@ -66,6 +67,7 @@ namespace TpFinalWeb3.Controllers
                         int idA = alumnoServicio.VerificarAlumnoLogin(login);
                         Session["id"] = idA;
                         Helpers.SesionHelper.IdUsuario = idA;
+                        Helpers.SesionHelper.RolUsuario = "alumno";
                         login.Roles = "alumno";
                         FormsAuthentication.SetAuthCookie(login.Email, false);
 

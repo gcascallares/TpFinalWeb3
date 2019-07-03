@@ -19,7 +19,6 @@ namespace TpFinalWeb3.Models.Servicios
             {
                 return 0;
             }
-
         }
         public Profesor buscarProfesorPorId(int id)
         {
