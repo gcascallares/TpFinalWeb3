@@ -31,7 +31,6 @@ namespace TpFinalWeb3.Controllers
 
 
 
-        //[ActionName("Preguntas/Crear")]
         public ActionResult PreguntasCrear()
         {
             Pregunta pregunta = new Pregunta();
@@ -152,9 +151,29 @@ namespace TpFinalWeb3.Controllers
         [HttpPost]
         public ActionResult ModificarPregunta(Pregunta preguntaModificada, int[] ListaClases, int[] ListaTemas)
         {
+            Pregunta PreguntaPorId = profesorServicio.BuscarPreguntaPorId(preguntaModificada.IdPregunta);
+            if (preguntaModificada.Nro != PreguntaPorId.Nro || profesorServicio.VerificarNroPregunta(preguntaModificada.Nro))
+            {
+                    ViewBag.ErrorNro = "Ya existe una pregunta con este número de Pregunta";
+                    ViewBag.NroPregunta = (ctx.Pregunta.Count()) + 1;
+                    ViewBag.ListaClases = ctx.Clase.ToList();
+                    ViewBag.ListaTemas = ctx.Tema.ToList();
+                    return View("ModificarPregunta", PreguntaPorId);
+            }
+            else if (preguntaModificada.FechaDisponibleHasta < preguntaModificada.FechaDisponibleDesde)
+            {
+                ViewBag.ErrorFechas = "La fecha disponible desde debe ser superior a la fecha hasta";
+                ViewBag.NroPregunta = (ctx.Pregunta.Count()) + 1;
+                ViewBag.ListaClases = ctx.Clase.ToList();
+                ViewBag.ListaTemas = ctx.Tema.ToList();
+                return View("ModificarPregunta", PreguntaPorId);
+            }
+            else
+            {
                 int idProfesor = Helpers.SesionHelper.IdUsuario;
                 profesorServicio.ModificarPregunta(preguntaModificada, ListaClases, ListaTemas, idProfesor);
                 return RedirectToAction("Preguntas");
+            }
         }
 
         public ActionResult EvaluarRespuestaCorrecta(int id, int idDos)

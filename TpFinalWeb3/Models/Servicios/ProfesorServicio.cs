@@ -191,13 +191,19 @@ namespace TpFinalWeb3.Models.Servicios
 
             RespuestaAlumno respuestaAlumno = ctx.RespuestaAlumno.SingleOrDefault(x => x.IdPregunta == pregunta.IdPregunta && x.IdAlumno == alumno.IdAlumno);
             Profesor profe = ctx.Profesor.Find(pregunta.IdProfesorCreacion);
-            
-            string email = profe.Email;
+
+
+            //string email = profe.Email;
+            //List<string> listaEmailsProfesores = (from p in ctx.Profesor select p.Email).ToList();  
 
             System.Net.Mail.MailMessage mensaje = new System.Net.Mail.MailMessage();
      
-                mensaje.To.Add(email);
-                string asunto = "Asunto: Respuesta a Pregunta" + pregunta.Nro + " Orden:" + respuestaAlumno.Orden + " Apellido" + alumno.Apellido;
+            mensaje.To.Add("pnsanchez@unlam.edu.ar");
+            mensaje.Bcc.Add("matiaspaz@test.com");
+            mensaje.Bcc.Add("marianojuiz@test.com");
+          
+
+            string asunto = "Respuesta a Pregunta " + pregunta.Nro + " Orden: " + respuestaAlumno.Orden + " Apellido " + alumno.Apellido;
                 mensaje.Subject = asunto;
                 mensaje.SubjectEncoding = System.Text.Encoding.UTF8;
 
@@ -218,7 +224,6 @@ namespace TpFinalWeb3.Models.Servicios
 
                 cliente.Send(mensaje);
 
-            //foreach (Profesor profe in listaProfesores)
         }
 
 
